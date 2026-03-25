@@ -1,0 +1,215 @@
+---
+import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base title="Roadmap" description="Quarterly roadmap for the Private Reads team.">
+  <section class="section">
+    <div class="container">
+      <h1>Roadmap</h1>
+      <p class="lead">
+        Quarterly plans for the Private Reads team. Our work spans
+        <a href={`${base}/workstreams/pir`}>oblivious reads</a>,
+        <a href={`${base}/workstreams/torjs`}>anonymized routing</a>,
+        <a href={`${base}/workstreams/ubt`}>verifiable state</a>,
+        and ecosystem activation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Goals -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container prose">
+      <h2>Goals</h2>
+      <ul>
+        <li>Unlocking <strong>privacy of reads</strong> for all Ethereum blockchain data in different contexts of consumption (wallets, frontends, dApps) by building and productionizing scalable <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">obliviousness primitives</a>, particularly PIR</li>
+        <li>Unlocking <strong>network-level privacy</strong> for all Ethereum RPC calls from wallets by adapting <a href="https://github.com/voltrevo/arti">Arti</a> in embedded browser contexts; and exploring <a href={`${base}/workstreams/torjs`}>Ethereum-traffic-sandboxed mixnets</a></li>
+        <li>Driving <strong>integrations and adoption</strong> of PIR systems and anonymized routing at the edges and the infrastructure</li>
+        <li>Incubating, coordinating, and supporting builders of Ethereum-native, local-first, privacy-defaulted, and bot-resistant applications</li>
+        <li><strong>Communicating privacy</strong> to the public: making it easier to understand R&D and use the solutions we and others build through visual and written content</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Q1 2026 -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="quarter quarter--active">
+        <div class="quarter-header">
+          <h2>Q1 2026</h2>
+          <span class="quarter-status quarter-status--active">In progress</span>
+        </div>
+
+        <div class="quarter-body prose">
+          <div class="track">
+            <h3>Build</h3>
+            <ul>
+              <li>2–4 <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">PIR schemes</a> tailored for Ethereum state and history, optimized for different usage profiles and contexts (wallets, frontends, tax software, dApps)</li>
+              <li><a href="https://eips.ethereum.org/EIPS/eip-7864">EIP-7864</a>-enabled (<a href="https://pse.dev/projects/verifiable-ubt">UBT</a>) provably L1-equivalent EL node</li>
+              <li><a href="https://github.com/voltrevo/arti">Arti</a> Tor client embedded in-browser</li>
+            </ul>
+          </div>
+
+          <div class="track">
+            <h3>Coordinate</h3>
+            <ul>
+              <li>More integrations of anonymized routing of RPC calls in wallets and SDKs</li>
+            </ul>
+          </div>
+
+          <div class="track">
+            <h3>Communicate</h3>
+            <ul>
+              <li>Implement privacy adoption dashboard showcasing affordances and adoption of anonymized routing in wallet SDKs and RPC providers</li>
+              <li>Kick-start a privacy spotlight series</li>
+            </ul>
+          </div>
+
+          <div class="track">
+            <h3>Accelerate</h3>
+            <ul>
+              <li><a href="https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2">Micro-grants (PAPs)</a>: lean, incremental tasks</li>
+              <li>External collaborations: providing problem definitions and technical advice</li>
+            </ul>
+          </div>
+
+          <h3>Deliverables</h3>
+          <ul class="deliverables">
+            <li>2–4 implementations of PIR schemes for L1 data</li>
+            <li>Fully synced provably MPT-equivalent UBT EL node</li>
+            <li>Arti Tor client embedded in browser</li>
+            <li>Dashboard for privacy adoption</li>
+            <li>Spotlight series (1x)</li>
+          </ul>
+
+          <h3>Stretch</h3>
+          <ul class="deliverables stretch">
+            <li>Arti integrated in Kohaku and a wallet SDK</li>
+            <li>A PIR integration in Kohaku and/or Helios</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Q2 2026 -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="quarter">
+        <div class="quarter-header">
+          <h2>Q2 2026</h2>
+          <span class="quarter-status">Tentative</span>
+        </div>
+
+        <div class="quarter-body prose">
+          <ul>
+            <li><strong>PIR productionization</strong>: hardening implementations, hardware acceleration, optimizations</li>
+            <li><strong>PIR integrations</strong>: drive adoption at the edges and infrastructure</li>
+            <li><strong>Tor Arti integrations</strong>: drive adoption in wallet SDKs for network-level-private RPC calls; support other developers and maintainers</li>
+            <li><strong>Mixnet</strong> for Ethereum, pending coordination with Protocol — internally or via <a href="https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2">grant</a></li>
+            <li>Support local-first, privacy-preserving, self-propelling Ethereum-native apps that integrate our primitives (PIR, Arti)</li>
+            <li>Continue and improve privacy <strong>communication</strong> based on Q1 results</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Q3/Q4 -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="quarter quarter--future">
+        <div class="quarter-header">
+          <h2>Q3 2026</h2>
+          <span class="quarter-status">Planned</span>
+        </div>
+        <p class="quarter-note">To be finalized June 2026.</p>
+      </div>
+      <div class="quarter quarter--future" style="margin-top: 1rem;">
+        <div class="quarter-header">
+          <h2>Q4 2026</h2>
+          <span class="quarter-status">Planned</span>
+        </div>
+        <p class="quarter-note">To be finalized September 2026.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lead {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 640px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  /* Reduce gap between hero and Goals */
+  section.section:first-of-type {
+    padding-bottom: 0.5rem;
+  }
+
+  .quarter {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-card);
+  }
+  .quarter--active {
+    border-color: var(--purple);
+  }
+  .quarter--future {
+    opacity: 0.7;
+  }
+
+  .quarter-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .quarter-header h2 {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  .quarter-status {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .quarter-status--active {
+    color: var(--purple);
+  }
+
+  .quarter-body {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .quarter-note {
+    padding: 1rem 1.5rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .track {
+    margin-bottom: 1rem;
+  }
+  .track h3 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .deliverables li {
+    color: var(--text);
+  }
+  .stretch li {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+</style>

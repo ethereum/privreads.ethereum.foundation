@@ -1,0 +1,133 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base title="PIR for Ethereum State" description="Private Information Retrieval for Ethereum — scalable obliviousness primitives ensuring servers cannot learn what clients read.">
+  <section class="section hero">
+    <div class="container">
+      <h1>Private Information Retrieval for Ethereum State</h1>
+      <p class="hero-subtitle">
+        Cryptographic protocols that let clients query Ethereum data without revealing
+        what they are reading.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container prose">
+      <h2>The Problem</h2>
+      <p>
+        Every time a wallet checks a balance, verifies a transaction receipt, or reads
+        contract storage from a remote server, the server learns exactly which records
+        were accessed. This <strong>metadata leakage</strong> from read patterns enables
+        <a href="https://ethereum.org/en/developers/docs/mev/">MEV extraction</a>,
+        frontrunning, identity correlation, and surveillance. Even with encrypted
+        connections, the <em>pattern</em> of accesses reveals user intent.
+      </p>
+
+      <h2>The Solution: Sharded PIR</h2>
+      <p>
+        Our <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">sharded PIR design</a>
+        segments Ethereum state into data slices — accounts, storage slots, contract code,
+        transaction receipts — and serves each slice through a cryptographic PIR engine
+        tuned for its size and access profile. The server processes encrypted queries and
+        returns encrypted responses, never learning which record was requested.
+      </p>
+
+      <h2>Key Components</h2>
+      <div class="grid grid--3" style="margin-bottom: 2rem;">
+        <div class="card">
+          <h3>Sidecar Architecture</h3>
+          <p>
+            A lightweight process that runs alongside any Ethereum execution client
+            (Geth, Reth, etc.), indexing state into PIR-optimized databases and
+            exposing a privacy-preserving query interface.
+          </p>
+        </div>
+        <div class="card">
+          <h3>GraphQL Interface</h3>
+          <p>
+            A familiar, developer-friendly API surface that mirrors
+            <a href="https://ethereum.org/en/developers/docs/apis/json-rpc/">Ethereum's JSON-RPC</a>
+            semantics while routing queries through PIR engines under the hood.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Scheme-Agnostic Design</h3>
+          <p>
+            The architecture abstracts over the underlying PIR scheme, allowing
+            different engines to be swapped in as the field advances — no lock-in
+            to a single cryptographic approach.
+          </p>
+        </div>
+      </div>
+
+      <h2>PIR Schemes Under Evaluation</h2>
+      <p>
+        We are benchmarking and integrating multiple PIR schemes, each with different
+        tradeoffs between communication cost, server computation, and preprocessing:
+      </p>
+      <ul>
+        <li>
+          <a href="https://0xalizk.github.io/plinko-arch/">Plinko</a> —
+          A lattice-based scheme optimized for large databases with low communication
+          overhead. Designed for Ethereum's account and storage tries.
+        </li>
+        <li>
+          <a href="https://github.com/keewoolee/rms24">RMS24</a> —
+          A scheme based on the Regev cryptosystem with matrix structure, offering
+          a strong balance of server throughput and query compactness.
+        </li>
+        <li>
+          <a href="https://igor53627.github.io/inspire-rs/protocol-visualization.html">insPIRe</a> —
+          An interactive protocol visualization and implementation exploring
+          puncturable pseudorandom functions for PIR.
+        </li>
+      </ul>
+
+      <h2>Resources</h2>
+      <ul>
+        <li>
+          <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">
+            Sharded PIR design note
+          </a>
+        </li>
+        <li>
+          <a href="https://0xalizk.github.io/PIR-Eng-Notes/">
+            PIR Engineering Notes
+          </a>
+        </li>
+        <li>
+          <a href="https://hackmd.io/@keewoolee/SJyGoXCzZe">
+            Practical PIR Guide
+          </a>
+        </li>
+        <li>
+          <a href="https://0xalizk.github.io/plinko-arch/">
+            Plinko Architecture
+          </a>
+        </li>
+      </ul>
+
+      <p>
+        <a href={`${base}/workstreams`}>&larr; Back to Workstreams</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-bottom: 2rem;
+  }
+  .hero h1 {
+    margin-bottom: 1rem;
+  }
+  .hero-subtitle {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    max-width: 640px;
+  }
+</style>

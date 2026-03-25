@@ -1,0 +1,251 @@
+---
+import Base from '../layouts/Base.astro';
+import PrivacyBarrier from '../components/PrivacyBarrier.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const recentPosts = (await getCollection('feed'))
+  .filter((e) => !e.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+---
+
+<Base title="Home">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero__title">Private Reads</h1>
+      <p class="hero__label">Ethereum Foundation</p>
+      <p class="hero__subtitle">
+        We work on solutions that protect Ethereum users from leaking
+        <em><strong>who</strong></em> they are and <em><strong>what</strong></em> they are
+        reading from the Ethereum blockchain.
+      </p>
+      <PrivacyBarrier />
+      <script>
+        document.fonts.ready.then(() => {
+          document.querySelector('.hero__subtitle')?.classList.add('loaded');
+        });
+      </script>
+    </div>
+  </section>
+
+  <!-- Areas of Focus -->
+  <section class="section" style="padding-top: 0; padding-bottom: 0;">
+    <div class="container">
+      <div class="focus-grid">
+        <div class="focus-item">
+          <div class="focus-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div>
+            <h3>Oblivious Reads</h3>
+            <p><a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">PIR primitives</a> that let servers process queries without learning what was read. Our <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">sharded design</a> tailors different schemes to different slices of Ethereum state.</p>
+          </div>
+        </div>
+        <div class="focus-item">
+          <div class="focus-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h3>Anonymized Routing</h3>
+            <p><a href="https://pse.dev/projects/tor-js">TorJS</a> brings Tor to the browser for network-level unlinkability. We are also exploring <a href={`${base}/workstreams/torjs`}>Ethereum-sandboxed mixnets</a> for RPC traffic.</p>
+          </div>
+        </div>
+        <div class="focus-item">
+          <div class="focus-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div>
+            <h3>Acceleration</h3>
+            <p>Targeted grants via <a href="https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2">Privacy Acceleration Proposals (PAPs)</a> to boost our work or unlock new solutions from the community.</p>
+          </div>
+        </div>
+        <div class="focus-item">
+          <div class="focus-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div>
+            <h3>Collaboration</h3>
+            <p>Working with projects inside and outside the <a href="https://ethereum.foundation">Ethereum ecosystem</a> — wallet teams, RPC providers, cryptography researchers — to co-develop privacy solutions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <h2 class="section__title">Latest</h2>
+      <div class="latest-list">
+        {recentPosts.map((post) => (
+          <a href={`${base}/feed/${post.id}`} class="latest-item">
+            <div class="latest-meta">
+              <span class="latest-type">{post.data.type}</span>
+              <time datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+              </time>
+            </div>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+          </a>
+        ))}
+      </div>
+      <a href={`${base}/feed`} class="latest-all">View all posts &rarr;</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* Hero */
+  .hero {
+    padding: 5rem 0 1.5rem;
+    text-align: center;
+  }
+  .hero__label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+  .hero__title {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero__subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .hero__subtitle.loaded {
+    opacity: 1;
+  }
+  .hero__subtitle em {
+    color: var(--coral);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.45em;
+  }
+  /* Focus grid (Option D style) */
+  .focus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .focus-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.35rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  .focus-item:nth-child(2n) { border-right: none; }
+  .focus-item:nth-last-child(-n+2) { border-bottom: none; }
+  .focus-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--purple-light);
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .focus-item h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  .focus-item p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .focus-item p a {
+    color: var(--link);
+  }
+  .focus-item p a:hover { color: var(--link-hover); }
+  @media (max-width: 640px) {
+    .focus-grid { grid-template-columns: 1fr; }
+    .focus-item { border-right: none !important; }
+    .focus-item:last-child { border-bottom: none; }
+  }
+
+  /* Section alt bg */
+  .section--alt { background: var(--bg-alt); }
+
+  /* Section */
+  .section__title { margin-bottom: 1rem; }
+
+  /* Latest posts */
+  .latest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .latest-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+  .latest-item:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 2px 8px var(--shadow-card);
+    color: inherit;
+  }
+  .latest-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  .latest-type {
+    font-weight: 500;
+    color: var(--purple);
+  }
+  .latest-item h3 {
+    font-size: 1.1rem;
+    margin: 0;
+    transition: color 0.2s var(--ease);
+  }
+  .latest-item:hover h3 { color: var(--link); }
+  .latest-item p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .latest-all {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--link);
+  }
+  @media (max-width: 640px) {
+    .hero { padding: 3.5rem 0 2rem; }
+    .hero__title { font-size: 2.2rem; }
+    .hero__subtitle { font-size: 1rem; }
+  }
+</style>

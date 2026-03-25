@@ -1,0 +1,40 @@
+---
+// PrivacyBarrier.astro — Hero animation video
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<div class="barrier-container">
+  <video
+    autoplay
+    loop
+    muted
+    playsinline
+    disablepictureinpicture
+    aria-hidden="true"
+    src={`${base}/hero-animation.mp4`}
+  />
+</div>
+
+<style>
+  .barrier-container {
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    transition: filter 0.3s ease;
+  }
+
+  /* Invert the video in dark mode so the white bg becomes dark */
+  :global([data-theme="dark"]) video {
+    filter: invert(1) hue-rotate(180deg);
+  }
+</style>

@@ -1,0 +1,577 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const sections = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'quick-start', label: 'Quick Start' },
+  { id: 'architecture', label: 'Architecture' },
+  { id: 'layers', label: 'The Layers', children: [
+    { id: 'arti-wasm', label: 'Arti → WASM' },
+    { id: 'wasm-runtime', label: 'WasmRuntime' },
+    { id: 'socket-provider', label: 'ArtiSocketProvider' },
+    { id: 'storage', label: 'Storage' },
+    { id: 'fast-bootstrap', label: 'Fast Bootstrap' },
+  ]},
+  { id: 'fetch-flow', label: 'The fetch() Flow', children: [
+    { id: 'step-bootstrap', label: 'Bootstrap' },
+    { id: 'step-circuits', label: 'Circuit Construction' },
+    { id: 'step-tls', label: 'TLS & HTTP' },
+  ]},
+  { id: 'gateway', label: 'The Gateway' },
+  { id: 'bundle-size', label: 'Bundle Size' },
+  { id: 'try-it', label: 'Try It' },
+];
+---
+
+<Base title="Onion Routing with TorJS" description="How tor-js works — architecture, WASM internals, and integration guide for dApps.">
+  <div class="doc-layout">
+    <!-- Sidebar -->
+    <aside class="doc-sidebar" id="doc-sidebar">
+      <div class="sidebar-header">
+        <a href={`${base}/docs`} class="sidebar-back">&larr; Docs</a>
+        <h2>TorJS</h2>
+      </div>
+      <nav class="sidebar-nav" id="sidebar-nav">
+        {sections.map((s) => (
+          <div class="sidebar-group">
+            <a href={`#${s.id}`} class="sidebar-link" data-section={s.id}>{s.label}</a>
+            {s.children && (
+              <div class="sidebar-children">
+                {s.children.map((c) => (
+                  <a href={`#${c.id}`} class="sidebar-link sidebar-link--child" data-section={c.id}>{c.label}</a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </nav>
+    </aside>
+
+    <!-- Mobile sidebar toggle -->
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      <span>Menu</span>
+    </button>
+
+    <!-- Content -->
+    <main class="doc-content prose">
+
+      <section id="overview">
+        <h1>Onion Routing with TorJS</h1>
+        <p>
+          <a href="https://github.com/voltrevo/arti">tor-js</a> lets you make HTTP requests through
+          the Tor network from JavaScript. Not through a proxy. Not through a server you control.
+          A real Tor client — circuit construction, relay encryption, directory consensus — running
+          entirely in your browser or Node.js process.
+        </p>
+        <p>
+          The core is <a href="https://gitlab.torproject.org/tpo/core/arti">Arti</a>, the Tor
+          Project's official Rust implementation, compiled to WebAssembly. The TypeScript wrapper
+          provides a clean <code>fetch()</code>-like API on top.
+        </p>
+      </section>
+
+      <section id="quick-start">
+        <h2>Quick Start</h2>
+<pre><code set:html={`import { TorClient } from 'tor-js';
+
+const client = new TorClient({
+  gateway: 'https://tor-js-gateway.example.com',
+});
+
+const response = await client.fetch('https://check.torproject.org/api/ip');
+console.log(await response.json()); // { IsTor: true, IP: "..." }`} /></pre>
+      </section>
+
+      <section id="architecture">
+        <h2>Architecture</h2>
+        <p>Here's how the pieces fit together when running in a browser:</p>
+
+        <div class="arch-stack">
+          <div class="arch-layer">
+            <span class="arch-label">Your Application</span>
+            <code>client.fetch("https://example.com")</code>
+          </div>
+          <div class="arch-arrow">&darr;</div>
+          <div class="arch-layer">
+            <span class="arch-label">TypeScript Wrapper</span>
+            TorClient &bull; ArtiSocketProvider &bull; Log &bull; Storage
+          </div>
+          <div class="arch-arrow">&darr;</div>
+          <div class="arch-layer">
+            <span class="arch-label">WASM (Arti)</span>
+            Tor circuits &bull; directory &bull; TLS &bull; crypto
+          </div>
+          <div class="arch-arrow">&darr;</div>
+          <div class="arch-layer">
+            <span class="arch-label">ArtiSocketProvider</span>
+            <strong>Browser:</strong> WebRTC &rarr; Gateway &rarr; Guard &nbsp;&nbsp;
+            <strong>Node.js:</strong> TCP &rarr; Guard
+          </div>
+          <div class="arch-arrow">&darr;</div>
+          <div class="arch-layer arch-layer--highlight">
+            <span class="arch-label">Tor Circuit</span>
+            Guard &rarr; Middle &rarr; Exit &rarr; example.com
+            <br><small>3 layers of onion encryption — each relay peels one</small>
+          </div>
+        </div>
+      </section>
+
+      <section id="layers">
+        <h2>The Layers</h2>
+
+        <div class="callout" id="arti-wasm">
+          <h3>1. Arti &rarr; WebAssembly</h3>
+          <p>
+            Arti is ~200k lines of Rust across dozens of crates. Compiling it to WASM required
+            replacing every platform assumption: <code>std::time::Instant</code> (no monotonic clock
+            in browsers), <code>async_trait</code> with <code>Send</code> bounds (WASM is single-threaded),
+            SQLite (no filesystem), native TLS (no OpenSSL). Two new crates handle the cross-platform
+            abstractions: <code>tor-time</code> for time and <code>tor-async-compat</code> for
+            conditional <code>Send</code> bounds.
+          </p>
+        </div>
+
+        <div class="callout" id="wasm-runtime">
+          <h3>2. WasmRuntime</h3>
+          <p>
+            Arti is runtime-agnostic — it works with Tokio, async-std, or anything implementing its
+            <code>Runtime</code> trait. <code>WasmRuntime</code> implements this trait for browsers:
+            <code>setTimeout</code> for sleep, <code>wasm-bindgen-futures</code> for task spawning,
+            and a JS callback for opening socket connections. TLS uses
+            <code>rustls</code> with <code>rustls-rustcrypto</code> (pure Rust, no C dependencies) —
+            the same TLS library, just with a WASM-compatible crypto backend.
+          </p>
+        </div>
+
+        <div class="callout" id="socket-provider">
+          <h3>3. ArtiSocketProvider</h3>
+          <p>
+            Arti needs TCP connections to Tor relays. Browsers can't open raw TCP sockets.
+            <code>ArtiSocketProvider</code> bridges this gap with a strategy pattern:
+          </p>
+          <table>
+            <thead>
+              <tr><th>Strategy</th><th>Transport</th><th>Environment</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>direct</code></td><td>Native TCP (<code>node:net</code> / <code>Deno.connect</code>)</td><td>Node.js, Deno</td></tr>
+              <tr><td><code>webrtc</code></td><td>Multiplexed data channels via gateway</td><td>Browsers with WebRTC</td></tr>
+              <tr><td><code>websocket</code></td><td>One WebSocket per relay via gateway</td><td>Any browser</td></tr>
+            </tbody>
+          </table>
+          <p>
+            In Node.js and Deno, no gateway is needed — connections go directly to Tor relays. In
+            browsers, a gateway server proxies the bytes between WebSocket/WebRTC and the real
+            TCP relay. The gateway is a byte pipe; all Tor protocol — encryption, circuit management,
+            cell formatting — happens in the browser.
+          </p>
+        </div>
+
+        <div class="callout" id="storage">
+          <h3>4. Storage</h3>
+          <p>
+            Tor clients need to persist directory state (consensus documents, microdescriptors, guard
+            lists) to avoid re-downloading everything on each page load. The <code>KeyValueStore</code>
+            trait provides a single interface that splits into state and directory storage internally.
+            In browsers it's backed by IndexedDB, in Node.js by the filesystem. A preloading cache
+            (<code>CachedJsStorage</code>) loads everything into a HashMap at startup so Arti's
+            synchronous storage reads don't block the main thread.
+          </p>
+        </div>
+
+        <div class="callout" id="fast-bootstrap">
+          <h3>5. Fast Bootstrap</h3>
+          <p>
+            A cold Tor bootstrap normally downloads consensus + microdescriptors + authority certs
+            from relays through Tor circuits — slow when you don't have circuits yet. Fast bootstrap
+            short-circuits this: the gateway server pre-packages these documents into a single
+            <code>bootstrap.zip.br</code> file. The client fetches it over plain HTTPS (not through Tor),
+            seeds storage, and then Arti validates the cached data normally.
+          </p>
+          <p>
+            The speed comes from brotli compression, handled transparently by the browser's
+            <code>Content-Encoding</code> support. The full bundle compresses from ~40 MB down to ~3 MB,
+            cutting first-connect time from minutes to seconds.
+          </p>
+          <p>
+            <strong>Trust model:</strong> The fast bootstrap bundle is fetched from the gateway, but
+            this doesn't require trusting the gateway. Arti verifies every document using cryptographic
+            signatures from Tor's directory authorities. A malicious gateway can't inject fake relays
+            or forge directory data.
+          </p>
+        </div>
+      </section>
+
+      <section id="fetch-flow">
+        <h2>What Happens When You Call <code>fetch()</code></h2>
+
+        <div class="callout" id="step-bootstrap">
+          <h3>Step 1: Bootstrap</h3>
+          <p>
+            On <code>new TorClient()</code>, Arti downloads (or loads from cache) a network consensus —
+            the list of all ~10,000 Tor relays and their capabilities, signed by the directory
+            authorities. It selects guard relays, builds circuits, and signals readiness.
+          </p>
+        </div>
+
+        <div class="callout" id="step-circuits">
+          <h3>Step 2: Circuit Construction</h3>
+          <p>
+            Arti builds a 3-hop circuit: Guard &rarr; Middle &rarr; Exit. Each hop involves an
+            <strong>ntor handshake</strong> — a one-round-trip authenticated key exchange based on
+            Curve25519. The client combines its ephemeral key with the relay's long-term identity key
+            to derive shared secret material, proving the relay's identity and establishing
+            forward-secret session keys.
+          </p>
+          <p>
+            The result is layered encryption — the onion in "onion routing." The client encrypts
+            data three times: first with the exit relay's key, then the middle's, then the guard's.
+            Each relay peels off one layer and forwards to the next. No single relay ever knows both
+            who you are and what you're accessing.
+          </p>
+        </div>
+
+        <div class="callout" id="step-tls">
+          <h3>Step 3: TLS &amp; HTTP</h3>
+          <p>
+            tor-js builds a raw HTTP request, wraps it in a TLS connection to the destination (through
+            the exit relay), and streams it through the circuit. The response flows back through the
+            same circuit, and the client returns a standard <code>Response</code> object.
+          </p>
+          <p>
+            <strong>Note on TLS:</strong> There are two TLS layers. The <em>inner</em> TLS protects
+            your HTTP request end-to-end (browser &harr; destination, using WebPKI certificates). The
+            <em>outer</em> TLS protects the Tor protocol between relays (using Tor's own certificate
+            scheme). Both use <code>rustls</code>.
+          </p>
+        </div>
+      </section>
+
+      <section id="gateway">
+        <h2>The Gateway</h2>
+        <p>
+          The gateway server is built with <a href="https://gitlab.torproject.org/tpo/core/arti">Arti</a>
+          (native, not WASM) and serves two roles:
+        </p>
+        <ol>
+          <li>
+            <strong>Relay proxying:</strong> Accept a WebSocket or WebRTC connection, open a TCP connection
+            to the target Tor relay, and pipe bytes bidirectionally. The gateway tracks the Tor consensus
+            and <strong>only allows connections to addresses listed as Tor relays</strong> — preventing
+            abuse as a general-purpose proxy.
+          </li>
+          <li>
+            <strong>Fast bootstrap:</strong> Serve a pre-built <code>bootstrap.zip.br</code> with brotli
+            <code>Content-Encoding</code>, so browsers decompress it natively.
+          </li>
+        </ol>
+        <p>
+          The gateway <strong>never sees your traffic</strong>. All data is encrypted under Tor's layered
+          encryption before it reaches the gateway. And the bootstrap data is verified by Arti using
+          directory authority signatures.
+        </p>
+        <p>
+          <strong>In Node.js, no gateway is needed at all.</strong> <code>ArtiSocketProvider</code> uses
+          the <code>direct</code> strategy and connects to Tor relays without any intermediary.
+        </p>
+      </section>
+
+      <section id="bundle-size">
+        <h2>Bundle Size</h2>
+        <table>
+          <thead>
+            <tr><th>Component</th><th>Size (gzip)</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>WASM binary</td><td>~1.7 MB</td><td>All of Arti + rustls + crypto</td></tr>
+            <tr><td>JS wrapper</td><td>~15 kB</td><td>TypeScript compiled to ESM</td></tr>
+            <tr><td>CDN entry point</td><td>~15 kB</td><td>Fetches WASM on first use</td></tr>
+            <tr><td>Base64 entry point</td><td>~2.3 MB</td><td>WASM embedded in JS (single file)</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The CDN entry point (<code>import from 'tor-js'</code>) is recommended for production.
+          The WASM binary's SHA-256 hash is baked into the wrapper at build time — the CDN cannot
+          serve a tampered binary.
+        </p>
+      </section>
+
+      <section id="try-it">
+        <h2>Try It</h2>
+<pre><code set:html={`# From Node.js:
+npm install tor-js
+
+# tor-fetch.js
+import { TorClient } from 'tor-js';
+
+const client = new TorClient();
+const res = await client.fetch('https://check.torproject.org/api/ip');
+console.log(await res.json());
+client.close();`} /></pre>
+        <p>
+          <strong>Source:</strong> <a href="https://github.com/voltrevo/arti">github.com/voltrevo/arti</a>
+          &bull;
+          <strong>Gateway:</strong> <a href="https://github.com/voltrevo/tor-fast-bootstrap">github.com/voltrevo/tor-fast-bootstrap</a>
+        </p>
+      </section>
+
+    </main>
+  </div>
+</Base>
+
+<script>
+  // Sidebar toggle (mobile)
+  const toggle = document.getElementById('sidebar-toggle');
+  const sidebar = document.getElementById('doc-sidebar');
+  if (toggle && sidebar) {
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+    // Close sidebar when clicking a link (mobile)
+    sidebar.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => sidebar.classList.remove('open'));
+    });
+  }
+
+  // Active section tracking
+  const nav = document.getElementById('sidebar-nav');
+  if (nav) {
+    const links = nav.querySelectorAll<HTMLAnchorElement>('.sidebar-link');
+    const sectionEls = document.querySelectorAll<HTMLElement>('section[id], .callout[id]');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            links.forEach((l) => l.classList.remove('active'));
+            const match = nav.querySelector(`[data-section="${entry.target.id}"]`);
+            if (match) match.classList.add('active');
+          }
+        }
+      },
+      { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
+    );
+
+    sectionEls.forEach((el) => observer.observe(el));
+  }
+</script>
+
+<style>
+  /* Doc layout */
+  .doc-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    max-width: calc(var(--max-width) + 240px);
+    margin: 0 auto;
+    min-height: calc(100vh - var(--nav-height));
+  }
+
+  /* Sidebar */
+  .doc-sidebar {
+    position: sticky;
+    top: var(--nav-height);
+    height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+    padding: 1.5rem 1rem 2rem 1.5rem;
+    border-right: 1px solid var(--border);
+  }
+  .sidebar-header {
+    margin-bottom: 1.25rem;
+  }
+  .sidebar-back {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .sidebar-back:hover { color: var(--link); }
+  .sidebar-header h2 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .sidebar-group {
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-link {
+    display: block;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-radius: 4px;
+    transition: color 0.15s var(--ease), background 0.15s var(--ease);
+  }
+  .sidebar-link:hover {
+    color: var(--text);
+    background: var(--hover-overlay);
+  }
+  .sidebar-link.active {
+    color: var(--purple);
+    background: var(--purple-light);
+  }
+  .sidebar-link--child {
+    font-size: 0.8rem;
+    padding-left: 1.2rem;
+  }
+  .sidebar-children {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+  }
+
+  /* Mobile sidebar toggle */
+  .sidebar-toggle {
+    display: none;
+    position: fixed;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    z-index: 90;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 2px 12px var(--shadow-card);
+    cursor: pointer;
+  }
+
+  /* Content */
+  .doc-content {
+    padding: 2rem 2.5rem 4rem;
+    max-width: 780px;
+  }
+  .doc-content section {
+    margin-bottom: 2.5rem;
+  }
+  .doc-content h1 {
+    margin-bottom: 1rem;
+  }
+  .doc-content h2 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    padding-top: 1.5rem;
+  }
+
+  /* Architecture stack */
+  .arch-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 1.5rem 0;
+  }
+  .arch-layer {
+    width: 100%;
+    max-width: 520px;
+    padding: 0.85rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .arch-layer--highlight {
+    border-color: var(--purple);
+    background: var(--purple-light);
+  }
+  .arch-label {
+    display: block;
+    font-weight: 500;
+    color: var(--link);
+    font-size: 0.82rem;
+    margin-bottom: 0.15rem;
+  }
+  .arch-layer code { font-size: 0.8rem; }
+  .arch-layer small { color: var(--text-dim); font-style: italic; }
+  .arch-arrow {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1;
+    padding: 0.2rem 0;
+  }
+
+  /* Callout cards */
+  .callout {
+    border-left: 3px solid var(--purple);
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    background: var(--bg-card);
+    border-radius: 0 8px 8px 0;
+    scroll-margin-top: calc(var(--nav-height) + 1rem);
+  }
+  .callout h3 {
+    font-size: 1rem;
+    color: var(--link);
+    margin-bottom: 0.5rem;
+  }
+  .callout p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin: 1rem 0;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.55rem 0.7rem;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+  td code { font-size: 0.8rem; }
+
+  /* Sections scroll margin */
+  section[id] {
+    scroll-margin-top: calc(var(--nav-height) + 0.5rem);
+  }
+
+  /* Mobile */
+  @media (max-width: 860px) {
+    .doc-layout {
+      grid-template-columns: 1fr;
+    }
+    .doc-sidebar {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      width: 280px;
+      height: calc(100vh - var(--nav-height));
+      z-index: 80;
+      background: var(--bg);
+      border-right: 1px solid var(--border);
+      box-shadow: 4px 0 16px var(--shadow-card);
+    }
+    .doc-sidebar.open {
+      display: block;
+    }
+    .sidebar-toggle {
+      display: flex;
+    }
+    .doc-content {
+      padding: 1.5rem;
+    }
+  }
+</style>

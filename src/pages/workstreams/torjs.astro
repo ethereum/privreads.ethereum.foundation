@@ -1,0 +1,139 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base title="TorJS — Tor in the Browser" description="TorJS wraps the Arti Tor implementation into WASM, bringing network-level anonymization to wallets and dApps.">
+  <section class="section hero">
+    <div class="container">
+      <h1>TorJS — Tor in the Browser</h1>
+      <p class="hero-subtitle">
+        An npm module that wraps the Arti Tor implementation into WebAssembly, providing
+        a <code>fetch()</code>-compatible API for network-level anonymization in any
+        JavaScript environment.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container prose">
+      <h2>What is TorJS?</h2>
+      <p>
+        TorJS is an npm module that compiles
+        <a href="https://gitlab.torproject.org/tpo/core/arti">Arti</a> — the
+        <a href="https://www.torproject.org/">Tor Project's</a> next-generation Rust
+        implementation of Tor — into WebAssembly. It exposes a standard
+        <code>fetch()</code>-compatible API, making it trivial for wallet SDKs, frontends,
+        and dApps to route requests through the Tor network with a simple toggle.
+      </p>
+
+      <h2>Why TorJS?</h2>
+      <p>
+        Even if you use <a href={`${base}/workstreams/pir`}>PIR</a> to hide <em>what</em>
+        you are reading, the server still sees your IP address — and can correlate that
+        with your identity. TorJS closes this gap by ensuring servers cannot learn
+        <em>who</em> is making the request. Together, PIR + TorJS provide both dimensions
+        of read privacy.
+      </p>
+      <p>
+        For the broader Ethereum ecosystem, TorJS means:
+      </p>
+      <ul>
+        <li>
+          <strong>Wallet SDKs</strong> can offer a "private mode" toggle that routes
+          RPC calls through Tor — no external proxy needed.
+        </li>
+        <li>
+          <strong>Frontends and dApps</strong> can protect users in censorship-heavy
+          environments, accessing
+          <a href="https://ethereum.org/en/developers/docs/apis/json-rpc/">Ethereum RPC endpoints</a>
+          without revealing their location.
+        </li>
+        <li>
+          <strong>Light clients</strong> can fetch state proofs anonymously, preventing
+          servers from profiling which accounts a user tracks.
+        </li>
+      </ul>
+
+      <h2>Features</h2>
+      <div class="grid grid--3" style="margin-bottom: 2rem;">
+        <div class="card">
+          <h3>Snowflake Bridge Support</h3>
+          <p>
+            Built-in support for
+            <a href="https://snowflake.torproject.org/">Snowflake</a> pluggable
+            transports, allowing users in censored regions to bootstrap Tor connections
+            through WebRTC-based bridges.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Censorship Resistance</h3>
+          <p>
+            Designed to work in environments where direct Tor connections are blocked.
+            Multiple transport strategies ensure connectivity even under heavy network
+            filtering.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Storage Abstraction</h3>
+          <p>
+            Pluggable storage backends let TorJS persist circuit state across sessions
+            using IndexedDB, localStorage, or custom adapters — reducing bootstrap
+            latency on repeat visits.
+          </p>
+        </div>
+      </div>
+
+      <h2>Current Status</h2>
+      <p>
+        TorJS is under <strong>active development</strong> and currently in an
+        <strong>experimental</strong> phase. The team is working on WASM binary size
+        optimization, connection reliability, and integration testing with popular
+        wallet frameworks.
+      </p>
+
+      <h2>Resources</h2>
+      <ul>
+        <li>
+          <a href="https://pse.dev/projects/tor-js">
+            TorJS on PSE
+          </a>
+        </li>
+        <li>
+          <a href="https://igor53627.github.io/tor-ethereum-ecosystem/">
+            Tor in the Ethereum Ecosystem
+          </a>
+        </li>
+        <li>
+          <a href="https://gitlab.torproject.org/tpo/core/arti">
+            Arti — Tor in Rust
+          </a>
+        </li>
+        <li>
+          <a href="https://www.torproject.org/">
+            The Tor Project
+          </a>
+        </li>
+      </ul>
+
+      <p>
+        <a href={`${base}/workstreams`}>&larr; Back to Workstreams</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-bottom: 2rem;
+  }
+  .hero h1 {
+    margin-bottom: 1rem;
+  }
+  .hero-subtitle {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    max-width: 640px;
+  }
+</style>

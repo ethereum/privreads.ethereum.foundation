@@ -1,0 +1,132 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base title="Verifiable Unified Binary Trie" description="A binary trie with zk proofs of equivalence to Ethereum's MPT, enabling provable state for light clients and PIR servers.">
+  <section class="section hero">
+    <div class="container">
+      <h1>Verifiable Unified Binary Trie</h1>
+      <p class="hero-subtitle">
+        A binary trie running alongside Ethereum's Merkle Patricia Trie, linked by
+        zkVM recursive proof chains that guarantee state equivalence.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container prose">
+      <h2>The Problem</h2>
+      <p>
+        Ethereum's <a href="https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/">Merkle Patricia Trie</a>
+        (MPT) is the backbone of state storage, but it was designed for hexary branching
+        and RLP encoding — structures that are <strong>bloated</strong> and
+        <strong>zk-unfriendly</strong>. Generating proofs over the MPT is expensive,
+        which limits what light clients and
+        <a href={`${base}/workstreams/pir`}>PIR servers</a> can do with provable state.
+      </p>
+      <p>
+        <a href="https://eips.ethereum.org/EIPS/eip-7864">EIP-7864</a> proposes moving
+        Ethereum to a binary trie structure, but the transition is complex and far off.
+        We need a solution that works <em>today</em>.
+      </p>
+
+      <h2>The Solution: Verifiable UBT</h2>
+      <p>
+        The Verifiable Unified Binary Trie (UBT) runs as a sidecar alongside Ethereum
+        execution clients, maintaining a binary trie that mirrors the MPT's state. A
+        recursive proof pipeline — powered by a
+        <a href="https://book.openvm.dev/">zkVM backend (OpenVM)</a> — generates
+        succinct proofs that the UBT and MPT contain identical state at every block.
+      </p>
+      <p>
+        This gives light clients and PIR servers a zk-friendly state representation
+        without requiring any changes to the Ethereum protocol.
+      </p>
+
+      <h2>Key Components</h2>
+      <div class="grid grid--3" style="margin-bottom: 2rem;">
+        <div class="card">
+          <h3>UBT Sidecar</h3>
+          <p>
+            A lightweight process that subscribes to new blocks from the execution
+            client, applies state diffs to the binary trie, and serves Merkle proofs
+            over the binary structure.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Recursive Proof Pipeline</h3>
+          <p>
+            Each block produces a proof that the UBT transition was correct, and these
+            proofs compose recursively — allowing anyone to verify the entire UBT
+            history from a single succinct proof.
+          </p>
+        </div>
+        <div class="card">
+          <h3>OpenVM Backend</h3>
+          <p>
+            The proof generation uses
+            <a href="https://book.openvm.dev/">OpenVM</a>, a general-purpose zkVM
+            that can execute arbitrary Rust programs inside a proof circuit, making
+            the trie logic easy to audit and extend.
+          </p>
+        </div>
+      </div>
+
+      <h2>Why It Matters</h2>
+      <ul>
+        <li>
+          <strong>Light clients</strong> get compact, zk-verifiable state proofs over
+          a binary structure — faster to verify and smaller to transmit than MPT proofs.
+        </li>
+        <li>
+          <strong>PIR servers</strong> can serve provable state, letting clients verify
+          that the data returned by a PIR query is authentic without trusting the server.
+        </li>
+        <li>
+          <strong>Future-proofing</strong> — when Ethereum eventually adopts a binary
+          trie (per <a href="https://eips.ethereum.org/EIPS/eip-7864">EIP-7864</a>),
+          the UBT sidecar becomes a direct migration path.
+        </li>
+      </ul>
+
+      <h2>Resources</h2>
+      <ul>
+        <li>
+          <a href="https://pse.dev/projects/verifiable-ubt">
+            Verifiable UBT on PSE
+          </a>
+        </li>
+        <li>
+          <a href="https://hackmd.io/LeWK8OtuRMeqItYPj31pLA">
+            UBT Design Document
+          </a>
+        </li>
+        <li>
+          <a href="https://eips.ethereum.org/EIPS/eip-7864">
+            EIP-7864: Verkle/Binary Trie Migration
+          </a>
+        </li>
+      </ul>
+
+      <p>
+        <a href={`${base}/workstreams`}>&larr; Back to Workstreams</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-bottom: 2rem;
+  }
+  .hero h1 {
+    margin-bottom: 1rem;
+  }
+  .hero-subtitle {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    max-width: 640px;
+  }
+</style>
