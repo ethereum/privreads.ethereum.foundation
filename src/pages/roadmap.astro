@@ -103,14 +103,40 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </div>
 
         <div class="quarter-body prose">
-          <ul>
-            <li><strong>PIR productionization</strong>: hardening implementations, hardware acceleration, optimizations</li>
-            <li><strong>PIR integrations</strong>: drive adoption at the edges and infrastructure</li>
-            <li><strong>Tor Arti integrations</strong>: drive adoption in wallet SDKs for network-level-private RPC calls; support other developers and maintainers</li>
-            <li><strong>Mixnet</strong> for Ethereum, pending coordination with Protocol — internally or via <a href="https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2">grant</a></li>
-            <li>Support local-first, privacy-preserving, self-propelling Ethereum-native apps that integrate our primitives (PIR, Arti)</li>
-            <li>Continue and improve privacy <strong>communication</strong> based on Q1 results</li>
-          </ul>
+          <div class="track">
+            <h3>Build</h3>
+            <ul>
+              <li><strong>PIR productionization</strong>: sharded design with initial engines — LeanPIR, <a href="https://github.com/turanzv/via-spec">VIA</a>, and RMS/Harmony with preprocessing</li>
+              <li><strong>GPU acceleration</strong>: focused collaboration on LeanPIR, with a paper as a deliverable</li>
+              <li><strong>Ethereum-sandboxed anonymous network</strong>: WebRTC transport in Arti as first major milestone</li>
+              <li><strong>UBT shadow chain</strong>: running provably MPT-equivalent shadow chain via <a href="https://github.com/lambdaclass/ethrex">Ethrex</a> collaboration</li>
+            </ul>
+          </div>
+
+          <div class="track">
+            <h3>Coordinate</h3>
+            <ul>
+              <li><strong>PIR integrations</strong>: drive adoption at the edges and infrastructure</li>
+              <li><strong>Arti integrations</strong>: wallet SDKs for network-level-private RPC calls; support messenger app integrations</li>
+              <li><strong>Collaborations</strong>: University of Illinois Ren group (algorithmic PIR), SKU researchers (hardware acceleration)</li>
+            </ul>
+          </div>
+
+          <div class="track">
+            <h3>Communicate</h3>
+            <ul>
+              <li>Continue privacy spotlight series and monthly updates</li>
+              <li>Privacy adoption dashboard rollout</li>
+            </ul>
+          </div>
+
+          <div class="track">
+            <h3>Accelerate</h3>
+            <ul>
+              <li><strong>Mixnet</strong> for Ethereum, pending coordination with Protocol — internally or via <a href="https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2">grant</a></li>
+              <li>Support local-first, privacy-preserving Ethereum-native apps integrating our primitives</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
