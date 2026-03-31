@@ -5,6 +5,6 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://0xalizk.github.io',
-  base: '/privreads.ethereum.org',
+  base: '/privreads.ethereum.foundation',
   integrations: [mdx(), sitemap()],
 });
