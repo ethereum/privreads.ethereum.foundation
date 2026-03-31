@@ -22,6 +22,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <span class="doc-tile-link">Read docs &rarr;</span>
         </a>
       </div>
+
+      <div class="presentations-section">
+        <h2>Presentations</h2>
+        <ul class="presentations-list">
+          <li>
+            <a href={`${base}/presentations/pir/`}>Sharded PIR Design for Ethereum State</a>
+          </li>
+          <li>
+            <a href={`${base}/presentations/torjs/`}>Embedding Tor in the Browser via WebAssembly</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 </Base>
@@ -72,6 +84,35 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     margin-top: 0.5rem;
   }
   .doc-tile:hover .doc-tile-link { color: var(--link-hover); }
+
+  .presentations-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .presentations-section h2 {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin: 0 0 0.75rem 0;
+  }
+  .presentations-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .presentations-list li {
+    padding: 0.4rem 0;
+  }
+  .presentations-list a {
+    font-size: 0.95rem;
+    color: var(--link);
+    text-decoration: none;
+  }
+  .presentations-list a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+  }
 
   @media (max-width: 640px) {
     .docs-grid { grid-template-columns: 1fr; }
