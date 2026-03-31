@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://0xalizk.github.io',
+  site: 'https://ethereum.github.io',
   base: '/privreads.ethereum.foundation',
   integrations: [mdx(), sitemap()],
 });
