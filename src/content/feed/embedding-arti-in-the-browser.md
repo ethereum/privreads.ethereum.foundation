@@ -134,13 +134,13 @@ This is a functional prototype, not a hardened production release. Key caveats:
 - **Fast-bootstrap trust model.** As noted above, the bootstrap server sees the user's IP and could serve a malicious view of the network if compromised. Consensus signatures are verified, but this is a trade-off users should understand.
 - **WASM fingerprinting.** A WASM-based Tor client has execution characteristics that differ from standard Tor Browser, potentially making users distinguishable.
 
-A comprehensive security review has been conducted internally, and we plan to pursue an external audit before recommending production use.
+A comprehensive [internal code review](https://github.com/voltrevo/arti/tree/main/wasm-notes) has been conducted — 34 review items identified and resolved across the WASM integration, covering security, correctness, and code quality. We plan to pursue an external audit before recommending production use.
 
 ## What's Next
 
-The `wasm-arti-client` branch is functional. Remaining work:
+The `wasm-arti-client` branch is functional (~6,100 lines of new Rust + TypeScript wrapper, with changes across 10+ upstream Arti crates). Remaining work:
 
-- **Upstream merge**: We have been collaborating with the Tor Project through weekly syncs since January, and they have been actively involved in debugging and code review. The `tor-time` crate is under review with specific requirements from their team; the main WASM integration will follow.
+- **Upstream merge**: We have been collaborating with the Tor Project through weekly syncs since January, and they have been actively involved in debugging and code review. The `tor-time` and `tor-async-compat` crates are under review; once merged, the main WASM integration follows.
 - **Security audit**: An external audit of the WASM-specific integration layers is planned.
 - **WebRTC as default transport**: Replacing WebSocket with WebRTC would remove the centralizing effect of WebSocket-based bridges, which is a priority for both us and the Tor Project.
 - **npm publish**: The `tor-js` package will be published once the merge path is clear.
