@@ -15,7 +15,7 @@ tags: ["pir", "torjs", "ubt"]
 
 - **Arti bootstrapping breakthrough.** A Brotli-compressed ~3 MB bundle now replaces fetching thousands of micro-descriptors — a fundamentally different and much faster approach than the standard Tor bootstrap method. Working demo at [tor-js-gateway.voltrevo.com](https://tor-js-gateway.voltrevo.com/), docs at [voltrevo.github.io/arti](https://voltrevo.github.io/arti/).
 
-- **Ethrex collaboration for UBT.** Kicked off a collaboration with [Ethrex](https://github.com/lambdaclass/ethrex) for client diversity on the [UBT](https://pse.dev/projects/verifiable-ubt) front, complementing ongoing work with Geth's Stateless team.
+- **Ethrex collaboration for UBT.** Kicked off a collaboration with [Ethrex](https://github.com/lambdaclass/ethrex) for client diversity on the UBT front, complementing ongoing work with Geth's Stateless team.
 
 - **Presenting at Stateless Summit** on PIR and TorJS.
 
