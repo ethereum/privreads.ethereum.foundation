@@ -7,22 +7,19 @@ type: "Announcement"
 tags: ["pir", "privacy"]
 ---
 
-We are **Private Reads**, a team within the [Ethereum Foundation](https://ethereum.foundation) focused on making privacy-preserving reads of Ethereum data practical and accessible.
+We are a team within the [Ethereum Foundation](https://ethereum.foundation) focused on making privacy-preserving reads of Ethereum data practical and accessible.
 
 ## The Problem
 
 When you query Ethereum data from a remote server — checking your balance, looking up a transaction, reading contract state — your access patterns leak information. Servers learn which accounts you monitor, which tokens you hold, and how your on-chain and off-chain identities correlate.
 
-This metadata leakage enables [frontrunning](https://ethereum.org/en/developers/docs/mev/), MEV extraction, and identity correlation.
+**This leakage undermines other privacy measures** (like shielding) and exposes users to [frontrunning](https://ethereum.org/en/developers/docs/mev/), MEV extraction, and identity correlation.
 
-## Our Approach
+## Focus
 
 We tackle privacy along two axes:
 
-1. **Privacy of "what"** — Using [Private Information Retrieval](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view) (PIR), we ensure servers cannot learn *what data* clients are reading. Our [sharded PIR design](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view) segments Ethereum data into optimized slices, each served by a tailored cryptographic engine.
+1. **Privacy of "what"** — Using [Private Information Retrieval](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view) (PIR), we ensure servers cannot learn *what data* clients are reading. We are currently pursuing a [sharded design](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view) aiming to blanket the entire Ethereum data — hot state and cold archival state.
 
 2. **Privacy of "who"** — Through [TorJS](https://pse.dev/projects/tor-js) and network-level anonymization, we ensure servers cannot learn *who* is making the request.
 
-## What's Next
-
-Follow our progress through this site. We publish [engineering notes](https://0xalizk.github.io/PIR-Eng-Notes/), benchmark results, and updates on our [workstreams](./workstreams/pir).

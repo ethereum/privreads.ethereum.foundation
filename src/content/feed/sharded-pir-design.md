@@ -44,27 +44,12 @@ The architecture abstracts over the underlying PIR scheme. We are actively build
 
 This scheme-agnostic interface means the system improves as the field advances — new PIR constructions can be swapped in without changing the client or the API surface.
 
-## What's in the Design Note
-
-The [full design note](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view) covers:
-
-- A classification of PIR schemes by client/server statefulness
-- The multi-dataset, multi-engine architecture and its privacy composition guarantees
-- Sidecar architecture for absorbing state updates without disrupting query latency
-- Strategies for handling Merkle proofs across trie levels
-- The role of [Verifiable Binary Tries](https://pse.dev/projects/verifiable-ubt) (UBT) in reducing proof overhead — shrinking per-leaf proofs from ~4,800 bytes (MPT) to ~1,280 bytes
-- Integration path: a [GraphQL interface](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view) that mirrors Ethereum's JSON-RPC semantics while routing queries through PIR under the hood
-- Open questions on delegated hint generation via FHE/MPC and sublinear server computation (DEPIR)
-
-For [benchmarks and initial results](https://0xalizk.github.io/PIR-Eng-Notes/) across the schemes we are evaluating, see our engineering notes.
-
 ## What's Next
 
 We are now moving from design to implementation. In the near term:
 
-- Finalizing executable specs for our first scheme selections, following the [methodology](https://hackmd.io/@keewoolee/SJyGoXCzZe) we use for scheme evaluation
-- Building a reference sidecar that runs alongside any Ethereum execution client
-- Collaborating with wallet teams and RPC providers on integration
-- Funding parallel research tracks through [Privacy Acceleration Proposals (PAPs)](https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2)
+- Flesh out the sharded design architecture — the software engineering side of things
+- Finish our in-house scheme and decide on which 2+ schemes to choose for the first iteration of the sharded design
+- Hopefully we can make it in Q2: end-to-end testing of the sharded design with at least one integration (most likely an Ethereum SDK such as [ethers.js](https://docs.ethers.org/) or [viem](https://viem.sh/), and one select wallet like [Kohaku](https://github.com/ethereum/kohaku) that integrates with it — if it proves easier we may also go with a light client as the first integration)
 
-Read the [full design note here](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view). We welcome feedback — reach out via [GitHub](https://github.com/0xalizk) or find us at the [Ethereum Foundation](https://ethereum.foundation).
+Read the [full design note here](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view).
