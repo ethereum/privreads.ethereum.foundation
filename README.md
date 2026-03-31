@@ -1,4 +1,4 @@
-# privreads.ethereum.org
+# privreads.ethereum.foundation
 
 Website for the Private Reads team at the Ethereum Foundation.
 
