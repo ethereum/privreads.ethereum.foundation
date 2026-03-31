@@ -17,56 +17,43 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <section class="section" style="padding-top: 0;">
     <div class="container prose">
 
+      <h2>LeanPIR: Novel Double-Stateless GPU-Optimized Scheme</h2>
+      <p>
+        We are actively working on a stateless scheme (both client and server) that is tailored to GPU
+        optimization. We expect to publish this with a reference implementation in Q2 2026.
+      </p>
+
       <h2>PIR for Merkle Trees</h2>
       <p>
-        Client-side verifiability requires retrieving not just leaf values but sibling hashes
-        along paths to state roots. Two baseline approaches exist:
-      </p>
-      <p>
-        <strong>Per-level PIR instances</strong> — maintain separate PIR databases for each tree level.
-        Since trie paths are determined by keys, all per-level queries can process in parallel.
-        In tries with branching factor <em>b</em> and <em>N</em> leaves, total cost across
-        <em>D</em> levels is <em>b &middot; D</em> times the cost of querying a single level.
-        For <a href={`${base}/workstreams/ubt`}>UBT</a> (<em>b</em> = 2, realistic upper bound <em>D</em> &approx; 40):
-        total overhead is approximately 9&times;. For MPT (<em>b</em> = 16, realistic upper bound <em>D</em> &approx; 10):
-        total overhead is approximately 48&times;.
-      </p>
-      <p>
-        <strong>Pre-attach proofs to leaves</strong> — concatenate each leaf's full Merkle proof
-        into its PIR database entry. This eliminates separate queries but causes significant storage blowup:
-        UBT proofs are ~1,280 bytes per leaf (40&times; blowup), MPT proofs are ~4,800 bytes per leaf (150&times; blowup).
-      </p>
-      <p>
-        Intermediate strategies exist — pre-attaching partial proofs for top <em>k</em> levels while
-        querying remaining bottom levels separately reduces both database count and per-entry blowup.
+        Clients need not just leaf values but Merkle proofs to verify state against roots.
+        Retrieving these proofs privately adds overhead — either by running separate PIR queries
+        per tree level, or by pre-attaching proof paths to database entries (increasing storage).
+        <a href={`${base}/workstreams/ubt`}>UBT</a>'s binary structure is significantly cheaper
+        here than MPT's hexary branching. We are exploring hybrid strategies that balance
+        query count against storage blowup. See
+        <a href="https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552#h-8-ongoing-research-optimizations-18">section 8 of the design post</a>
+        for the analysis.
       </p>
 
       <h2>Verifiable UBT over MPT</h2>
       <p>
         The <a href={`${base}/workstreams/ubt`}>binary state trie</a> can be adopted today by proving
         equivalence to the canonical MPT. This reduces PIR database size for hosting Merkle roots and
-        simplifies optimizations like SNARKification. The public input to the UBT state-transition prover
-        is a canonical zkVM proof of the next L1 block plus the block body — block application and
-        verification run within the zkVM proof of the UBT state transition function.
+        simplifies optimizations like SNARKification. We are working on getting EL client(s)
+        <a href="https://eips.ethereum.org/EIPS/eip-7864">EIP-7864</a>-ready as a first step, then
+        having it shadow mainnet with real-time equivalence proving between the application of every
+        block to both chains, using a zkVM.
       </p>
 
       <h2>SNARKifying Archival State to Reduce DB Size</h2>
       <p>
-        Assuming Ethereum state uses UBT (no extension nodes, single unified trie), instead of fetching
-        Merkle roots and hashing to verify historical balances, users verify a SNARK attesting validity.
-        Every Ethereum block receives a zkVM proof <em>P<sub>s</sub></em>. An archival node update proof
-        <em>P<sub>h</sub></em> for that block:
-      </p>
-      <ol>
-        <li>Verifies <em>P<sub>s</sub></em> with witness <em>W<sub>s</sub></em>, proving the link to the entire chain</li>
-        <li>Applies <em>W<sub>s</sub></em> to generate the history snapshot</li>
-        <li>For each touched account-header stem node, generates a Merkle path proof</li>
-        <li>Updates a key-value table tracking (leaf, last_edited)</li>
-        <li>Verifies the previous <em>P<sub>h&minus;1</sub></em>, creating a recursive chain of trust</li>
-      </ol>
-      <p>
-        SNARK-proving the validity of account header changes eliminates Merkle root requirements for
-        balance, nonce, and codehash lookups.
+        PIR databases for archival Ethereum state can grow to terabytes. If we can replace Merkle
+        proofs with succinct SNARK proofs of state validity, the database shrinks significantly —
+        clients verify a proof instead of fetching and hashing Merkle paths. The idea is to chain
+        recursive zkVM proofs per block, so any historical balance, nonce, or codehash lookup can
+        be verified against a single succinct proof rather than full Merkle paths. See
+        <a href="https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552#h-8-ongoing-research-optimizations-18">section 8 of the design post</a>
+        for details.
       </p>
 
       <h2>Delegating Hint Generation in Interactive-Hint Schemes</h2>
@@ -85,13 +72,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         orders of magnitude behind practical PIR schemes on real databases. Achieving concrete efficiency
         would dramatically simplify the PIR landscape: a single client-stateless scheme with sublinear
         per-query cost could serve all data slices.
-      </p>
-
-      <h2>Novel Double-Stateless GPU-Optimized Schemes</h2>
-      <p>
-        We are actively working on a stateless scheme (both client and server) that is tailored to GPU
-        optimization. We expect to publish this with a reference implementation in Q2 2026 — potentially
-        with some collaborators.
       </p>
 
       <h2>Resources</h2>
