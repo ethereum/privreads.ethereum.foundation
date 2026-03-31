@@ -59,38 +59,40 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <h2>Features</h2>
       <div class="grid grid--3" style="margin-bottom: 2rem;">
         <div class="card">
-          <h3>Snowflake Bridge Support</h3>
+          <h3>Fast Bootstrap</h3>
           <p>
-            Built-in support for
-            <a href="https://snowflake.torproject.org/">Snowflake</a> pluggable
-            transports, allowing users in censored regions to bootstrap Tor connections
-            through WebRTC-based bridges.
+            A Brotli-compressed ~3 MB bundle replaces fetching thousands of micro-descriptors,
+            fundamentally improving cold-start times compared to the standard Tor bootstrap
+            method.
           </p>
         </div>
         <div class="card">
           <h3>Censorship Resistance</h3>
           <p>
-            Designed to work in environments where direct Tor connections are blocked.
-            Multiple transport strategies ensure connectivity even under heavy network
-            filtering.
+            Built-in <a href="https://snowflake.torproject.org/">Snowflake</a> pluggable
+            transport support. WebRTC-based bridges allow connectivity even under heavy
+            network filtering. Native WebRTC transport is a Q2 priority.
           </p>
         </div>
         <div class="card">
-          <h3>Storage Abstraction</h3>
+          <h3>Multi-Runtime</h3>
           <p>
-            Pluggable storage backends let TorJS persist circuit state across sessions
-            using IndexedDB, localStorage, or custom adapters — reducing bootstrap
-            latency on repeat visits.
+            Works in browsers (WASM) and Node.js (with native socket access matching
+            raw Rust performance). Pluggable storage backends (IndexedDB, localStorage)
+            reduce bootstrap latency on repeat visits.
           </p>
         </div>
       </div>
 
       <h2>Current Status</h2>
       <p>
-        TorJS is under <strong>active development</strong> and currently in an
-        <strong>experimental</strong> phase. The team is working on WASM binary size
-        optimization, connection reliability, and integration testing with popular
-        wallet frameworks.
+        TorJS has achieved <strong>end-to-end WASM functionality</strong> — a working
+        prototype is live at
+        <a href="https://tor-js-gateway.voltrevo.com/">tor-js-gateway.voltrevo.com</a>
+        with documentation at
+        <a href="https://voltrevo.github.io/arti/">voltrevo.github.io/arti</a>.
+        The team is working with the <a href="https://www.torproject.org/">Tor Project</a>
+        on reviewing and merging the WASM compatibility changes into upstream Arti.
       </p>
 
       <h2>Resources</h2>

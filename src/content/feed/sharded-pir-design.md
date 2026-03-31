@@ -1,11 +1,13 @@
 ---
 title: "A Sharded PIR Design for the Ethereum State"
-description: "We are sharing our design for bringing Private Information Retrieval to Ethereum — a sharded, multi-engine architecture that hides what users read from remote servers."
+description: "Our design for bringing Private Information Retrieval to Ethereum — a sharded, multi-engine architecture that hides what users read from remote servers."
 date: 2026-03-05
 author: "Ali Atiia"
 type: "Research"
 tags: ["pir", "privacy", "ethereum", "fhe"]
 ---
+
+_Update Mar 31: published on [ethresear.ch](https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552)._
 
 Today we are publishing our [sharded PIR design](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view) — a step toward making every read from Ethereum's state private by default.
 
@@ -33,11 +35,12 @@ Clients query all engines simultaneously. The key insight: _Q_ simultaneous quer
 
 ## Scheme-Agnostic by Design
 
-The architecture abstracts over the underlying PIR scheme. We are actively evaluating multiple constructions, each with different tradeoffs:
+The architecture abstracts over the underlying PIR scheme. We are actively building, evaluating, and integrating multiple constructions — each paired with a data slice based on its tradeoffs:
 
-- [**Plinko**](https://0xalizk.github.io/plinko-arch/) — a lattice-based scheme using [invertible PRFs](https://github.com/keewoolee/rms24) for efficient hint generation, well-suited to large databases
-- [**RMS24**](https://github.com/keewoolee/rms24) — amortized sublinear PIR with strong server throughput and compact queries
-- [**insPIRe**](https://igor53627.github.io/inspire-rs/protocol-visualization.html) — a preprocessing-free variant based on puncturable pseudorandom functions
+- **LeanPIR** (in-house, unpublished) — a doubly-stateless, GPU-optimized scheme with <100 KB communication for multi-GB databases and sub-second preprocessing. Our primary candidate for hot mutable state where both client and server must remain stateless to avoid session linkability.
+- [**VIA**](https://github.com/turanzv/via-spec) — a lattice-based scheme with reusable primitives, being specified and implemented across three variants (VIA, VIA-B, VIA-CB) via a [PAP microgrant](https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2).
+- [**OnionPIRv2**](https://eprint.iacr.org/2023/1510) — an FHE-native single-server scheme with strong performance characteristics for medium-sized databases.
+- [**Harmony**](https://eprint.iacr.org/2023/1733) / [**RMS24**](https://github.com/keewoolee/rms24) — preprocessing-based schemes well-suited to immutable or slowly-changing data slices where one-time hint generation cost is amortized over many queries.
 
 This scheme-agnostic interface means the system improves as the field advances — new PIR constructions can be swapped in without changing the client or the API surface.
 

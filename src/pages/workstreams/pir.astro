@@ -36,54 +36,74 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         returns encrypted responses, never learning which record was requested.
       </p>
 
+      <h2>Data Slices</h2>
+      <p>
+        No single PIR scheme handles all of Ethereum's data well. Our design segments the state
+        into slices, each paired with a PIR engine tuned for its size and access profile:
+      </p>
+      <ul>
+        <li><strong>Hot mutable state</strong> (~2 GB) — balances, nonces, contract storage. Latency-critical, updates every block. Requires doubly-stateless schemes (no persistent client or server state) to avoid session linkability.</li>
+        <li><strong>State with Merkle proofs</strong> (~100–300 GB) — full state for light clients. Larger databases where preprocessing tradeoffs matter.</li>
+        <li><strong>Immutable logs and receipts</strong> (hundreds of GB) — append-only data that can leverage schemes with expensive one-time hint generation.</li>
+        <li><strong>Archival / warehouse data</strong> (4–20 TB) — historical queries, high latency tolerance. Multi-GPU parallelism essential at this scale.</li>
+      </ul>
+
       <h2>Key Components</h2>
       <div class="grid grid--3" style="margin-bottom: 2rem;">
         <div class="card">
           <h3>Sidecar Architecture</h3>
           <p>
-            A lightweight process that runs alongside any Ethereum execution client
-            (Geth, Reth, etc.), indexing state into PIR-optimized databases and
-            exposing a privacy-preserving query interface.
+            A lightweight process alongside any execution client that absorbs real-time state
+            updates into a small, fast PIR engine while the main engine serves stable snapshots —
+            decoupling query latency from Ethereum's 12-second block time.
           </p>
         </div>
         <div class="card">
-          <h3>GraphQL Interface</h3>
+          <h3>Universal PIR Interface</h3>
           <p>
-            A familiar, developer-friendly API surface that mirrors
-            <a href="https://ethereum.org/en/developers/docs/apis/json-rpc/">Ethereum's JSON-RPC</a>
-            semantics while routing queries through PIR engines under the hood.
+            A scheme-agnostic API that mirrors
+            <a href="https://ethereum.org/en/developers/docs/apis/json-rpc/">Ethereum JSON-RPC</a>
+            semantics, routing queries through PIR engines under the hood. Backends can be
+            swapped as the field advances — no client-side changes needed.
           </p>
         </div>
         <div class="card">
-          <h3>Scheme-Agnostic Design</h3>
+          <h3>GPU Acceleration</h3>
           <p>
-            The architecture abstracts over the underlying PIR scheme, allowing
-            different engines to be swapped in as the field advances — no lock-in
-            to a single cryptographic approach.
+            Custom CUDA kernels for lattice-based PIR operations, achieving sub-second
+            preprocessing and millisecond-scale query times on single GPUs, with multi-GPU
+            scaling for larger databases.
           </p>
         </div>
       </div>
 
-      <h2>PIR Schemes Under Evaluation</h2>
+      <h2>PIR Schemes</h2>
       <p>
-        We are benchmarking and integrating multiple PIR schemes, each with different
-        tradeoffs between communication cost, server computation, and preprocessing:
+        We are building, benchmarking, and integrating multiple PIR schemes. The current
+        frontrunners for the sharded architecture:
       </p>
       <ul>
         <li>
-          <a href="https://0xalizk.github.io/plinko-arch/">Plinko</a> —
-          A lattice-based scheme optimized for large databases with low communication
-          overhead. Designed for Ethereum's account and storage tries.
+          <strong>LeanPIR</strong> (in-house) —
+          A new GPU-friendly scheme designed by Keewoo with &lt;100 KB communication for
+          multi-GB databases, sub-second preprocessing, and ~30 ms server runtime for 32 GB.
+          The primary engine candidate for hot mutable state.
         </li>
         <li>
+          <a href="https://github.com/turanzv/via-spec">VIA</a> —
+          A lattice-based scheme being <a href="https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2">specified and implemented</a>
+          with reusable primitives across VIA, VIA-B, and VIA-CB variants.
+        </li>
+        <li>
+          <a href="https://eprint.iacr.org/2023/1510">OnionPIRv2</a> —
+          An FHE-native single-server scheme with strong performance characteristics
+          for medium-sized databases.
+        </li>
+        <li>
+          <a href="https://eprint.iacr.org/2023/1733">Harmony</a> /
           <a href="https://github.com/keewoolee/rms24">RMS24</a> —
-          A scheme based on the Regev cryptosystem with matrix structure, offering
-          a strong balance of server throughput and query compactness.
-        </li>
-        <li>
-          <a href="https://igor53627.github.io/inspire-rs/protocol-visualization.html">insPIRe</a> —
-          An interactive protocol visualization and implementation exploring
-          puncturable pseudorandom functions for PIR.
+          Preprocessing-based schemes suitable for immutable or slowly-changing data slices
+          where one-time hint generation cost is amortized over many queries.
         </li>
       </ul>
 
@@ -102,11 +122,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <li>
           <a href="https://hackmd.io/@keewoolee/SJyGoXCzZe">
             Practical PIR Guide
-          </a>
-        </li>
-        <li>
-          <a href="https://0xalizk.github.io/plinko-arch/">
-            Plinko Architecture
           </a>
         </li>
       </ul>

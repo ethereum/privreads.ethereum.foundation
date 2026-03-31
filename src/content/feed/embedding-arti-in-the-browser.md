@@ -7,7 +7,9 @@ type: "Engineering"
 tags: ["torjs", "arti", "wasm", "tor", "privacy"]
 ---
 
-Over the past three months Jan - Mar 2026 we have been working on embedding [Arti](https://gitlab.torproject.org/tpo/core/arti) — the Tor Project's official Rust implementation — into the browser via WebAssembly. The goal: give every wallet and dApp a `fetch()` call that routes through Tor, with no external software required. This post covers what we did, what broke, and how we fixed it.
+Over the past three months Jan - Mar 2026 we have been working on embedding [Arti](https://gitlab.torproject.org/tpo/core/arti) — the Tor Project's official Rust implementation — into the browser via WebAssembly. The goal: give every wallet and dApp a `fetch()` call that routes through Tor, with no external software required.
+
+This post covers what we did, what broke, and how we fixed it.
 
 **TL;DR:**
 
@@ -18,9 +20,14 @@ Over the past three months Jan - Mar 2026 we have been working on embedding [Art
 - A TypeScript wrapper provides a `fetch()`-compatible API with IndexedDB persistence and cross-tab locking
 - The code is functional; upstream merge with the Tor Project is in progress in hands-on collab with TP team
 
+
 ## Why Arti
 
-We previously shipped [tor-js](https://pse.dev/projects/tor-js), an npm module built on [Echalot](https://github.com/nicehash/echalot), a JavaScript Tor implementation. It validated the concept — we integrated it into wallet SDKs ([ethers.js](https://docs.ethers.org/), [viem](https://viem.sh/)) for network privacy — but had limitations: behavioral divergence from the canonical Tor client, and security gaps identified by the [Tor Project](https://www.torproject.org/) that would have required essentially reimplementing Tor to close. The foundational [webtor-rs](https://github.com/voltrevo/arti/tree/webtor) work by Igor Barinov ported the concept to Rust, bringing it closer to Arti but still maintaining a separate implementation. Arti is the [Tor Project's designated successor](https://blog.torproject.org/arti_100_released/) to the C tor client — written in Rust, actively maintained, and designed to be embeddable. If we could get `arti-client` to compile to WASM, we'd inherit its security properties and completeness without maintaining a divergent fork. The problem: Arti was never designed for the browser. It assumes threads, native sockets, filesystem access, SQLite, system time, and C/assembly-linked cryptography (`ring`). None of these exist in WASM.
+We previously shipped [tor-js](https://pse.dev/projects/tor-js), an npm module built on [Echalot](https://github.com/nicehash/echalot), a JavaScript Tor implementation. It validated the concept — we integrated it into wallet SDKs ([ethers.js](https://docs.ethers.org/), [viem](https://viem.sh/)) for network privacy — but had limitations: behavioral divergence from the canonical Tor client, and security gaps identified by the [Tor Project](https://www.torproject.org/) that would have required essentially reimplementing Tor to close. The foundational [webtor-rs](https://github.com/voltrevo/arti/tree/webtor) work by Igor Barinov ported the concept to Rust, bringing it closer to Arti but still maintaining a separate implementation.
+
+Arti is the [Tor Project's designated successor](https://blog.torproject.org/arti_100_released/) to the C tor client — written in Rust, actively maintained, and designed to be embeddable. If we could get `arti-client` to compile to WASM, we'd inherit its security properties and completeness without maintaining a divergent fork.
+
+The problem: Arti was never designed for the browser. It assumes threads, native sockets, filesystem access, SQLite, system time, and C/assembly-linked cryptography (`ring`). None of these exist in WASM.
 
 ## Diagnosing the Blockers
 
@@ -33,7 +40,7 @@ We cataloged everything preventing Arti from compiling to `wasm32-unknown-unknow
 5. **`ring` (crypto backend for rustls)** — requires C and assembly compilation. Need a pure-Rust crypto backend.
 6. **`getrandom`** — does not work out of the box on WASM, though it supports a `wasm_js` feature flag that uses `crypto.getRandomValues()`. Required feature-flag configuration across multiple crate versions.
 
-We evaluated two paths: (a) continuing to refine [webtor-rs](https://github.com/voltrevo/arti/tree/webtor), or (b) making the real `arti-client` compile to WASM. The Tor Project team had mixed views — one engineer warned it would be "painful," another saw it as the right long-term path. We initially pursued both, but rapid prototyping progress on option (b) in early February made the decision clear: a working `arti-client` prototype materialized within days, and we pivoted fully.
+We evaluated two paths: (a) continuing to refine [webtor-rs](https://github.com/voltrevo/arti/tree/webtor), or (b) making the real `arti-client` compile to WASM. The Tor Project team had mixed views — one warned it would be "painful," another saw it as the right long-term path. We initially pursued both, but rapid prototyping progress on option (b) in early February made the decision clear: a working `arti-client` prototype materialized within days, and we pivoted fully.
 
 ## Making Arti Compile to WASM
 
@@ -61,24 +68,38 @@ By the end of February 2, `arti-client` compiled to WASM. It did not yet bootstr
 
 ## Snowflake Transport
 
-Browsers can't open raw TCP connections. To reach the Tor network, we use [Snowflake](https://snowflake.torproject.org/) — a [pluggable transport](https://tb-manual.torproject.org/circumvention/) (a swappable networking layer that disguises Tor traffic to bypass censorship). The transport stack from outer to inner:
+Browsers can't open raw TCP connections. To reach the Tor network, we use [Snowflake](https://snowflake.torproject.org/) — a [pluggable transport](https://tb-manual.torproject.org/circumvention/) (a swappable networking layer that disguises Tor traffic to bypass censorship).
+
+The transport stack from outer to inner:
 
 ```
-WebSocket or WebRTC → KCP (reliable delivery over unreliable channels) → SMUX (session multiplexing — multiple streams over one connection) → TLS (rustls — added for the WASM integration) → Tor protocol (arti-client)
+WebSocket or WebRTC
+  → KCP (reliable delivery over unreliable channels)
+    → SMUX (session multiplexing — multiple streams over one connection)
+      → TLS (rustls — added for the WASM integration)
+        → Tor protocol (arti-client)
 ```
 
-We implemented a [`SnowflakeChannelFactory`](https://github.com/voltrevo/arti/commit/6a5c09d7) (+741 lines) that plugs into arti-client's channel manager as a proper pluggable transport. Both WebSocket and [WebRTC](https://github.com/voltrevo/arti/commit/4c9abf51) modes are supported. A critical bug surfaced immediately: [directory downloads stalled](https://github.com/voltrevo/arti/commit/116494f3) because the SMUX (Session MUltipleXer) window update logic was overwriting pending updates before they were sent. We fixed this and tuned KCP window sizes to 65535 (matching upstream Snowflake), plus reduced download parallelism for the constrained transport.
+We implemented a [`SnowflakeChannelFactory`](https://github.com/voltrevo/arti/commit/6a5c09d7) (+741 lines) that plugs into arti-client's channel manager as a proper pluggable transport. Both WebSocket and [WebRTC](https://github.com/voltrevo/arti/commit/4c9abf51) modes are supported.
+
+A critical bug surfaced immediately: [directory downloads stalled](https://github.com/voltrevo/arti/commit/116494f3) because the SMUX (Session MUltipleXer) window update logic was overwriting pending updates before they were sent. We fixed this and tuned KCP window sizes to 65535 (matching upstream Snowflake), plus reduced download parallelism for the constrained transport.
 
 ## The TLS Pivot
 
-Our initial approach used `subtle-tls` — a custom pure-Rust TLS 1.3 implementation from the webtor-rs project. It worked, but had [certificate verification issues](https://github.com/voltrevo/arti/commit/2994692d) and was a major blocker for merging into upstream Arti. We [replaced it entirely](https://github.com/voltrevo/arti/commit/d4cf18c2) (-8,434 / +307 lines) with `futures-rustls` backed by [`rustls-rustcrypto`](https://github.com/RustCrypto/rustls-rustcrypto/) — a pure-Rust crypto backend that compiles to WASM without needing `ring` or any C code. The TLS protocol logic in [rustls](https://github.com/rustls/rustls) is [professionally audited](https://github.com/rustls/rustls#audit) and battle-tested. A caveat: `rustls-rustcrypto` itself is still experimental (alpha status), and the RustCrypto primitives it uses have not undergone the same level of audit as `ring`. This is a known trade-off; we are tracking the maturity of this dependency and exploring options for a dedicated audit.
+Our initial approach used `subtle-tls` — a custom pure-Rust TLS 1.3 implementation from the webtor-rs project. It worked, but had [certificate verification issues](https://github.com/voltrevo/arti/commit/2994692d) and was a major blocker for merging into upstream Arti.
+
+We [replaced it entirely](https://github.com/voltrevo/arti/commit/d4cf18c2) (-8,434 / +307 lines) with `futures-rustls` backed by [`rustls-rustcrypto`](https://github.com/RustCrypto/rustls-rustcrypto/) — a pure-Rust crypto backend that compiles to WASM without needing `ring` or any C code. The TLS protocol logic in [rustls](https://github.com/rustls/rustls) is [professionally audited](https://github.com/rustls/rustls#audit) and battle-tested. A caveat: `rustls-rustcrypto` itself is still experimental (alpha status), and the RustCrypto primitives it uses have not undergone the same level of audit as `ring`. This is a known trade-off; we are tracking the maturity of this dependency and exploring options for a dedicated audit.
 
 ## Fast Bootstrap
 
-The first working prototype bootstrapped in **~3 minutes** in WASM versus ~15 seconds native. Parsing ~10,000 microdescriptors (compact summaries of Tor relay capabilities) in single-threaded WASM is expensive, and the Snowflake transport adds latency. Debugging this was harder than expected — we encountered stalls at higher concurrency settings, and `performance.now()` precision limitations (reduced post-Spectre/Meltdown) may affect Tor's timing-sensitive congestion control. We addressed this on three fronts:
+The first working prototype bootstrapped in **~3 minutes** in WASM versus ~15 seconds native. Parsing ~10,000 microdescriptors (compact summaries of Tor relay capabilities) in single-threaded WASM is expensive, and the Snowflake transport adds latency. Debugging this was harder than expected — we encountered stalls at higher concurrency settings, and `performance.now()` precision limitations (reduced post-Spectre/Meltdown) may affect Tor's timing-sensitive congestion control.
+
+We addressed this on three fronts:
 
 1. **[Fast bootstrap from archive](https://github.com/voltrevo/arti/commit/115c234c)**: A `bootstrap.zip` containing pre-built consensus, authority certs, and microdescriptors is fetched over HTTPS and pre-populated into the directory cache. For microdescriptors, we use lightweight text splitting + browser-native SHA-256 (via `crypto.subtle.digest()`) instead of full parsing — avoiding ~3 seconds of overhead for 10k entries.
+
 2. **Deflate support**: Adding zlib/deflate decompression for consensus documents [massively improved](https://github.com/voltrevo/arti/tree/wasm-arti-client) bootstrap time when downloading from the Tor network directly — this was the single biggest breakthrough.
+
 3. **[UI thread yields](https://github.com/voltrevo/arti/commit/c3223691)**: `sleep(0)` yields during document loading to prevent the browser from freezing while processing thousands of descriptors.
 
 **A note on trust:** The fast-bootstrap archive is fetched over a plain HTTPS connection before Tor is operational, meaning the user's IP is visible to the bootstrap server. The consensus and authority cert signatures are verified using Arti's own parsers, but this is a weaker trust model than standard Tor bootstrapping (which fetches from multiple directory authorities over Tor itself). We view fast-bootstrap as an optional optimization — users who need stronger guarantees can bootstrap directly from the Tor network at the cost of longer startup time.
@@ -92,11 +113,11 @@ import { TorClient } from 'tor-js';
 
 const tor = new TorClient();
 await tor.ready();
+
 const response = await tor.fetch('https://api.example.com/data');
 ```
 
 The package includes:
-
 - Multiple WASM loading strategies (CDN with content-hash verification, local file, inline base64)
 - [IndexedDB storage](https://github.com/voltrevo/arti/commit/0a00857f) for persistent directory caching across browser sessions
 - Filesystem storage for Node.js (enabling native wallet use cases)
