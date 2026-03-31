@@ -4,7 +4,6 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://ethereum.github.io',
-  base: '/privreads.ethereum.foundation',
+  site: 'https://privreads.ethereum.foundation',
   integrations: [mdx(), sitemap()],
 });
