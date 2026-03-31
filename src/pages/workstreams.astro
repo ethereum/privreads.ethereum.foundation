@@ -19,13 +19,13 @@ const workstreams = [
   {
     icon: '\u{1F352}',
     title: 'Verifiable UBT',
-    description: 'Universal Binary Trie is the future, but we can begin to enjoy its many benefits today, with a proof of its equivalence to mainnet MPT thanks to zkVMs. We use it for PIR, but invite others to begin adopting UBT-enabled nodes we are working on.',
+    description: '<a href="https://eips.ethereum.org/EIPS/eip-7864">Universal Binary Trie</a> is the future, but we can begin to enjoy its many benefits today, with a proof of its equivalence to mainnet MPT thanks to zkVMs. We use it for PIR, but invite others to begin adopting UBT-enabled nodes we are working on.',
     href: `${base}/workstreams/ubt`,
   },
   {
     icon: '\u{1F34B}',
     title: 'Research',
-    description: 'Open problems driving the next generation of privacy-preserving reads: PIR for Merkle trees, DEPIR, delegated hints via FHE/MPC, GPU-optimized stateless schemes, and more.',
+    description: 'Various open problems and investigations particularly in the PIR effort and in optimizing embedded Arti (Rust Tor) further — generally and for the Ethereum context specifically.',
     href: `${base}/workstreams/research`,
   },
 ];
@@ -46,7 +46,7 @@ const workstreams = [
         {workstreams.map((ws) => (
           <a href={ws.href} class="card ws-card">
             <h3><span class="ws-icon">{ws.icon}</span> {ws.title}</h3>
-            <p>{ws.description}</p>
+            <p set:html={ws.description} />
 
           </a>
         ))}
