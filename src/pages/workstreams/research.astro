@@ -9,8 +9,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="container">
       <h1>Research</h1>
       <p class="hero-subtitle">
-        Open problems and active research directions that shape the next generation of
-        privacy-preserving read protocols for Ethereum.
+        Problems we're looking into but haven't been fleshed out fully.
       </p>
     </div>
   </section>
@@ -49,15 +48,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         simplifies optimizations like SNARKification. The public input to the UBT state-transition prover
         is a canonical zkVM proof of the next L1 block plus the block body — block application and
         verification run within the zkVM proof of the UBT state transition function.
-      </p>
-
-      <h2>Isolating Mutability</h2>
-      <p>
-        Some Ethereum datasets update in an append-only fashion: blocks, blobs, and historical state
-        snapshots. The approach: snapshot at fixed points (e.g., January 1st yearly), perform preprocessing
-        once, and never update that dataset. Newer data maintains a dedicated, update-optimal dataset until
-        it grows large enough to be immobilized with a different scheme. RPC routing based on the
-        <code>blockNumber</code> parameter directs queries to the appropriate dataset.
       </p>
 
       <h2>SNARKifying Archival State to Reduce DB Size</h2>

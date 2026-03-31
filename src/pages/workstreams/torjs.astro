@@ -95,11 +95,23 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         on reviewing and merging the WASM compatibility changes into upstream Arti.
       </p>
 
+      <h2>What's Next: WebRTC Transport</h2>
+      <p>
+        TorJS currently relies on <a href="https://snowflake.torproject.org/">Snowflake</a>
+        WebSocket bridges to reach the Tor network from the browser. This works, but
+        WebSocket bridges are centralized infrastructure — a small number of bridge
+        operators carry all the traffic, creating a bottleneck and a single point of
+        failure. Replacing WebSocket with <strong>WebRTC as the default transport</strong>
+        would allow peer-to-peer connections between browsers, removing this centralizing
+        effect. Domain fronting for peer discovery still applies, and the anti-censorship
+        properties carry over. This is a Q2 priority for both the team and the Tor Project.
+      </p>
+
       <h2>Resources</h2>
       <ul>
         <li>
-          <a href="https://pse.dev/projects/tor-js">
-            TorJS on PSE
+          <a href="https://github.com/voltrevo/arti">
+            Arti fork (wasm-arti-client branch)
           </a>
         </li>
         <li>
