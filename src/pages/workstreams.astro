@@ -5,21 +5,25 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const workstreams = [
   {
+    icon: '\u{1F353}',
     title: 'PIR for Ethereum State',
     description: 'Scalable obliviousness primitives ensuring servers cannot learn what clients read. Sharded across data types, each served by a tailored cryptographic engine.',
     href: `${base}/workstreams/pir`,
   },
   {
+    icon: '\u{1F351}',
     title: 'TorJS / Embedded Arti',
     description: 'Network-level anonymization via Tor in the browser. Arti compiled to WASM with a fetch()-compatible API for wallets and frontends.',
     href: `${base}/workstreams/torjs`,
   },
   {
+    icon: '\u{1F352}',
     title: 'Verifiable UBT',
     description: 'Binary trie running alongside Ethereum\'s MPT with zkVM recursive proofs of equivalence. Enables provable state for light clients and PIR servers.',
     href: `${base}/workstreams/ubt`,
   },
   {
+    icon: '\u{1F34B}',
     title: 'Research',
     description: 'Open problems driving the next generation of privacy-preserving reads: PIR for Merkle trees, DEPIR, delegated hints via FHE/MPC, GPU-optimized stateless schemes, and more.',
     href: `${base}/workstreams/research`,
@@ -41,7 +45,7 @@ const workstreams = [
       <div class="grid grid--2">
         {workstreams.map((ws) => (
           <a href={ws.href} class="card ws-card">
-            <h3>{ws.title}</h3>
+            <h3><span class="ws-icon">{ws.icon}</span> {ws.title}</h3>
             <p>{ws.description}</p>
 
           </a>
@@ -73,6 +77,7 @@ const workstreams = [
     background: var(--bg-card-hover);
   }
   .ws-card h3 { font-size: 1.15rem; }
+  .ws-icon { margin-right: 0.3rem; }
   .ws-card p {
     color: var(--text-muted);
     font-size: 0.9rem;

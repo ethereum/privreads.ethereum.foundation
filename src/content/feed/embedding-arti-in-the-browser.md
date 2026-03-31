@@ -2,7 +2,7 @@
 title: "Embedding Tor in Browser Wallets, Frontends, and dApps"
 description: "A technical account of our effort to compile Arti — the Tor Project's Rust implementation — to WebAssembly, enabling wallets and dApps to route traffic through Tor directly from the browser."
 date: 2026-03-20
-author: "Andrew Morris"
+author: "Andrew Morris, Ali Atiia"
 type: "Engineering"
 tags: ["torjs", "arti", "wasm", "tor", "privacy"]
 ---

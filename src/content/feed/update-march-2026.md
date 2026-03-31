@@ -28,7 +28,7 @@ tags: ["pir", "torjs", "ubt"]
 - VIA spec v1 nearing completion via [PAP-2.1](https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2) grant
 - PIR demo built: sidecar pattern with GPU-accelerated insPIRe for real-time ETH balance queries (cold start data from Google BigQuery, 100–300 account updates simulated per block)
 - [Design post](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view) receiving feedback, targeting publication before April 1
-- Confirmed with [Ling Ren](https://ece.illinois.edu/) (UIUC): doubly-stateless PIR is the right priority; pre-processed schemes (Plinko, RMS) best reserved for immutable archival data
+- Confirmed with [Ling Ren](https://ece.illinois.edu/about/directory/faculty/renling) (UIUC): doubly-stateless PIR is the right priority; pre-processed schemes (Plinko, RMS) best reserved for immutable archival data
 
 ### [TorJS / Embedded Arti](/workstreams/torjs)
 
@@ -50,4 +50,4 @@ Q2 plan is being finalized (March 31). Key themes:
 1. **PIR productionization** — sharded design with LeanPIR, VIA, and RMS/Harmony as initial engines; GPU acceleration collaboration
 2. **Arti integrations** — Ethereum-sandboxed anonymous network, WebRTC transport, wallet SDK adoption
 3. **UBT shadow chain** — running provably MPT-equivalent shadow chain
-4. **New collaborations** — [University of Illinois Ren group](https://ece.illinois.edu/) on algorithmic PIR with lattice crypto expertise
+4. **Initial sync with [Ling Ren's group](https://ece.illinois.edu/about/directory/faculty/renling)**: Ling provided valuable feedback on the sharded design and the Ethereum use case, and we discussed potential collaboration

@@ -36,40 +36,20 @@ const recentPosts = (await getCollection('feed'))
     <div class="container">
       <div class="focus-grid">
         <div class="focus-item">
-          <div class="focus-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
-          <div>
-            <h3>Oblivious Reads</h3>
-            <p><a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">PIR primitives</a> that let servers process queries without learning what was read. Our <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">sharded design</a> tailors different schemes to different slices of Ethereum state.</p>
-          </div>
+          <h3><span class="focus-icon">&#127822;</span> Oblivious Reads</h3>
+          <p><a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">PIR primitives</a> that let servers process queries without learning what was read. Our <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">sharded design</a> tailors different schemes to different slices of Ethereum state.</p>
         </div>
         <div class="focus-item">
-          <div class="focus-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <div>
-            <h3>Anonymized Routing</h3>
-            <p><a href={`${base}/workstreams/torjs`}>TorJS</a> brings Tor to the browser for network-level unlinkability. We are also exploring Ethereum-sandboxed <a href="https://efdn.notion.site/PAP-3-Ethereum-sandboxed-Mixnet-for-RPC-traffic-e2dd989555418270bb35813ce004a645">mixnets</a> for RPC traffic.</p>
-          </div>
+          <h3><span class="focus-icon">&#127819;</span> Anonymized Routing</h3>
+          <p><a href={`${base}/workstreams/torjs`}>TorJS</a> brings Tor to the browser for network-level unlinkability. We are also exploring Ethereum-sandboxed <a href="https://efdn.notion.site/PAP-3-Ethereum-sandboxed-Mixnet-for-RPC-traffic-e2dd989555418270bb35813ce004a645">mixnets</a> for RPC traffic.</p>
         </div>
         <div class="focus-item">
-          <div class="focus-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <div>
-            <h3>Acceleration</h3>
-            <p>Targeted grants via <a href="https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2">Privacy Acceleration Proposals (PAPs)</a> to boost our work or unlock new solutions from the community.</p>
-          </div>
+          <h3><span class="focus-icon">&#127815;</span> Acceleration</h3>
+          <p>Targeted grants via <a href="https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2">Privacy Acceleration Proposals (PAPs)</a> to boost our work or unlock new solutions from the community.</p>
         </div>
         <div class="focus-item">
-          <div class="focus-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          </div>
-          <div>
-            <h3>Collaboration</h3>
-            <p>Working with projects inside and outside the Ethereum ecosystem — wallet teams, RPC providers, cryptography researchers — to co-develop privacy solutions.</p>
-          </div>
+          <h3><span class="focus-icon">&#127820;</span> Collaboration</h3>
+          <p>Working with projects inside and outside the Ethereum ecosystem — wallet teams, RPC providers, cryptography researchers — to co-develop privacy solutions.</p>
         </div>
       </div>
     </div>
@@ -146,8 +126,6 @@ const recentPosts = (await getCollection('feed'))
     grid-template-columns: 1fr 1fr;
   }
   .focus-item {
-    display: flex;
-    gap: 1rem;
     padding: 1.35rem 1.5rem;
     border-bottom: 1px solid var(--border);
     border-right: 1px solid var(--border);
@@ -155,15 +133,7 @@ const recentPosts = (await getCollection('feed'))
   .focus-item:nth-child(2n) { border-right: none; }
   .focus-item:nth-last-child(-n+2) { border-bottom: none; }
   .focus-icon {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: var(--purple-light);
-    color: var(--purple);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-right: 0.4rem;
   }
   .focus-item h3 {
     font-size: 1rem;
