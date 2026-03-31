@@ -20,15 +20,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <h2>The Problem</h2>
       <p>
         Ethereum's <a href="https://ethereum.org/en/developers/docs/data-structures-and-encoding/patricia-merkle-trie/">Merkle Patricia Trie</a>
-        (MPT) is the backbone of state storage, but it was designed for hexary branching
-        and RLP encoding — structures that are <strong>bloated</strong> and
-        <strong>zk-unfriendly</strong>. Generating proofs over the MPT is expensive,
-        which limits what light clients and
-        <a href={`${base}/workstreams/pir`}>PIR servers</a> can do with provable state.
+        (MPT) was designed for a pre-ZK world. Its hexary branching (16 children per node)
+        means every state proof carries 15 sibling hashes per level — about
+        <strong>4,800 bytes per leaf</strong> across ~10 levels. Its nested "trie-of-tries"
+        architecture forces double proof paths for storage access. And its RLP encoding and
+        Keccak hashing are notoriously expensive inside zk circuits.
+      </p>
+      <p>
+        For <a href={`${base}/workstreams/pir`}>PIR servers</a>, this is especially painful:
+        attaching Merkle proofs to database entries creates a <strong>~150x storage blowup</strong>
+        under MPT. A binary trie cuts this to ~40x (1,280 bytes per leaf) — and reduces
+        per-level PIR query overhead from ~48x to ~9x. Light clients benefit similarly from
+        the smaller, zk-friendlier proofs.
       </p>
       <p>
         <a href="https://eips.ethereum.org/EIPS/eip-7864">EIP-7864</a> proposes moving
-        Ethereum to a binary trie structure, but the transition is complex and far off.
+        Ethereum to a binary trie, but the transition is complex and years away.
         We need a solution that works <em>today</em>.
       </p>
 
@@ -36,8 +43,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <p>
         The Verifiable Unified Binary Trie (UBT) runs as a sidecar alongside Ethereum
         execution clients, maintaining a binary trie that mirrors the MPT's state. A
-        recursive proof pipeline — powered by a
-        <a href="https://book.openvm.dev/">zkVM backend (OpenVM)</a> — generates
+        recursive proof pipeline generates
         succinct proofs that the UBT and MPT contain identical state at every block.
       </p>
       <p>
@@ -95,7 +101,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <h2>Resources</h2>
       <ul>
         <li>
-          <a href="https://hackmd.io/LeWK8OtuRMeqItYPj31pLA">
+          <a href="https://hackmd.io/YVszdXG4QzGvihYXf_KDcw?view=">
             UBT Design Document
           </a>
         </li>
