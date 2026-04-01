@@ -29,7 +29,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
       <h2>The Solution: Sharded PIR</h2>
       <p>
-        Our <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">sharded PIR design</a>
+        The <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">sharded PIR design</a>
         segments Ethereum state into data slices — accounts, storage slots, contract code,
         transaction receipts — and serves each slice through a cryptographic PIR engine
         tuned for its size and access profile. The server processes encrypted queries and
@@ -38,7 +38,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
       <h2>Data Slices</h2>
       <p>
-        No single PIR scheme handles all of Ethereum's data well. Our design segments the state
+        No single PIR scheme handles all of Ethereum's data well. The design segments the state
         into slices, each paired with a PIR engine tuned for its size and access profile:
       </p>
       <ul>
