@@ -313,7 +313,7 @@
             flex: 1;
             padding: clamp(1.2rem, 2.5vw, 2rem);
             border-radius: 14px;
-            border: 2px solid var(--border);
+            border: none;
             background: var(--bg);
             display: flex;
             flex-direction: column;
@@ -558,10 +558,19 @@
         <p class="s0-subtitle reveal reveal-d2">
             Unlocking onion routing for any wallet, dApp, or frontend with one-line integration &mdash; no extension, user configuration, or system installations.
         </p>
-        <div class="s0-meta reveal reveal-d3">
+        <div class="s0-meta reveal reveal-d3" style="font-size:clamp(1rem, 1.4vw, 1.2rem); line-height:1.5;">
+            Ali Atiia<br>
             Private Reads<br>
             Ethereum Foundation
+            <div style="margin-top: clamp(1.5rem, 4vh, 3rem);">
+                <span style="font-family:var(--font-display); font-size:clamp(1.3rem, 1.8vw, 1.6rem); font-weight:600; color:var(--accent);">Stateless Summit &middot; EthCC 2026</span>
+            </div>
         </div>
+    </div>
+    <!-- QR code bottom-right -->
+    <div class="reveal reveal-d4" style="position:absolute; bottom:clamp(1.5rem, 3vh, 2.5rem); right:clamp(1.5rem, 4vw, 3rem); text-align:center; z-index:10;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://privreads.ethereum.foundation&color=7C3AED&bgcolor=ffffff" alt="QR: privreads.ethereum.foundation" style="width:clamp(80px, 10vw, 120px); height:auto; border-radius:6px; border:1px solid var(--border);">
+        <div style="font-family:var(--font-body); font-size:clamp(1rem, 1.4vw, 1.2rem); color:var(--text-muted); margin-top:4px;">privreads.ethereum.foundation</div>
     </div>
 </section>
 
@@ -571,10 +580,13 @@
      ============================================================ -->
 <section class="slide" data-slide="1">
     <div class="slide-content" style="gap: clamp(0.6rem, 1.5vh, 1rem);">
-        <h1 class="slide-title reveal">
-            The <span class="accent">IP Address</span> Problem
+        <h1 class="slide-title reveal" style="margin-top: clamp(3rem, 7vh, 6rem);">
+            Linkable <span class="accent">Onchain &harr; Offchain</span>
         </h1>
-        <div class="reveal reveal-d1" style="flex:1; display:flex; align-items:center; justify-content:center; width:100%; min-height:0;">
+        <p class="body-text reveal reveal-d1">
+            We assume users' regular traffic is unprotected vis-&agrave;-vis ISPs+. We want to break the link between on-chain and web2 identity.
+        </p>
+        <div class="reveal reveal-d2" style="flex:1; display:flex; align-items:center; justify-content:center; width:100%; min-height:0;">
             <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:950px; height:auto; max-height:min(72vh, 540px);">
                 <!-- User -->
                 <rect x="30" y="160" width="160" height="130" rx="14" fill="#f0fdf4" stroke="#10b981" stroke-width="2"/>
@@ -613,7 +625,7 @@
                 <text x="695" y="270" text-anchor="middle" font-family="'Inter', sans-serif" font-size="12" fill="#b91c1c">What you're planning</text>
             </svg>
         </div>
-        <p class="body-text reveal reveal-d2">
+        <p class="body-text reveal reveal-d3" style="margin-top: clamp(-3rem, -6vh, -5rem);">
             Even with shielded transactions, simply <strong>reading</strong> state reveals who you are and what you care about.
         </p>
     </div>
@@ -629,8 +641,8 @@
      ============================================================ -->
 <section class="slide" data-slide="2">
     <div class="slide-content" style="gap: clamp(0.6rem, 1.5vh, 1rem);">
-        <h1 class="slide-title reveal">
-            Solution: <span class="accent">Tor in the Browser</span>
+        <h1 class="slide-title reveal" style="margin-top: clamp(2rem, 6vh, 5rem);">
+            Solution: <span class="accent">Tor <em>in</em> the Browser</span>
         </h1>
         <div class="reveal reveal-d1" style="flex:1; display:flex; align-items:center; justify-content:center; width:100%; min-height:0;">
             <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:950px; height:auto; max-height:min(72vh, 520px);">
@@ -660,7 +672,7 @@
                 <line x1="415" y1="203" x2="445" y2="228" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="4,3" class="flow-line"/>
 
                 <text x="400" y="135" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="700" fill="#7C3AED">Tor Network</text>
-                <text x="400" y="370" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#8a8a9a">G = Guard &middot; M = Middle &middot; E = Exit</text>
+                <text x="400" y="370" text-anchor="middle" font-family="'Inter', sans-serif" font-size="20" fill="#8a8a9a">G = Guard &middot; M = Middle &middot; E = Exit</text>
 
                 <!-- Arrow to infra -->
                 <line x1="525" y1="200" x2="600" y2="200" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" class="flow-line"/>
@@ -694,8 +706,8 @@
      ============================================================ -->
 <section class="slide" data-slide="3">
     <div class="slide-content" style="gap: clamp(0.8rem, 2vh, 1.5rem);">
-        <h1 class="slide-title reveal">
-            Why <span class="accent">Arti?</span>
+        <h1 class="slide-title reveal" style="margin-top: clamp(3rem, 7vh, 6rem);">
+            Starting point: <span class="accent">Arti</span>
         </h1>
         <div class="reveal reveal-d1" style="flex:1; display:flex; align-items:center; justify-content:center; width:100%; min-height:0;">
             <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:950px; height:auto; max-height:min(72vh, 520px);">
@@ -738,10 +750,10 @@
 <section class="slide" data-slide="4">
     <div class="slide-content" style="gap: clamp(0.8rem, 2vh, 1.2rem);">
         <h1 class="slide-title reveal">
-            6 Things Arti Needs That <span class="accent">Don't Exist</span> in the Browser
+            Adapting Arti for the <span class="accent">Browser</span>
         </h1>
-        <p class="body-text reveal reveal-d1">
-            Arti assumes a native OS environment. The browser has none of these.
+        <p class="reveal reveal-d1" style="font-family:var(--font-display); font-size:clamp(1.2rem, 1.8vw, 1.5rem); font-weight:600; color:var(--text); text-align:left; width:100%; max-width:850px;">
+            Arti assumes a native OS environment. The browser has none of these:
         </p>
         <ul class="blocker-list reveal reveal-d2">
             <li><strong>std::time::Instant</strong> &mdash; high-resolution monotonic clock for measuring time intervals. Used in ~28 crates.</li>
@@ -806,7 +818,7 @@
      ============================================================ -->
 <section class="slide" data-slide="6">
     <div class="slide-content" style="gap: clamp(0.5rem, 1.2vh, 0.8rem);">
-        <h1 class="slide-title reveal">
+        <h1 class="slide-title reveal" style="margin-top: clamp(3rem, 7vh, 6rem);">
             The <span class="accent">WASM Runtime</span>
         </h1>
         <p class="body-text reveal reveal-d1">
@@ -892,61 +904,61 @@
 
 
 <!-- ============================================================
-     SLIDE 7 — SNOWFLAKE TRANSPORT
+     SLIDE 7 — TOR-JS-GATEWAY
      ============================================================ -->
 <section class="slide" data-slide="7">
     <div class="slide-content" style="gap: clamp(0.5rem, 1.2vh, 0.8rem);">
-        <h1 class="slide-title reveal">
-            <span class="accent">Snowflake</span> Transport
+        <h1 class="slide-title reveal" style="margin-top: clamp(3rem, 7vh, 6rem);">
+            <span class="accent">tor-js-gateway</span>
         </h1>
         <p class="body-text reveal reveal-d1">
-            Browsers can't open raw TCP connections. Snowflake is a Tor pluggable transport &mdash; a swappable networking layer that tunnels Tor traffic over protocols the browser <em>can</em> use.
+            Browsers can't open raw TCP connections to Tor relays. The gateway bridges browser protocols to TCP &mdash; restricted to Tor destinations only.
         </p>
         <div class="stack-container reveal reveal-d2">
-            <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
-                <!-- Stack layers, bottom to top -->
-                <!-- Layer 1: WebSocket / WebRTC -->
-                <rect x="150" y="300" width="400" height="52" rx="10" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
-                <text x="350" y="322" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#1d4ed8">WebSocket / WebRTC</text>
-                <text x="350" y="342" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" fill="#60a5fa">browser-native protocols</text>
+            <svg viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg">
+                <!-- Browser side -->
+                <rect x="30" y="60" width="240" height="220" rx="14" fill="#f5f0ff" stroke="#7C3AED" stroke-width="2"/>
+                <text x="150" y="90" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="700" fill="#7C3AED">Browser</text>
 
-                <!-- Layer 2: KCP -->
-                <rect x="150" y="238" width="400" height="52" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
-                <text x="350" y="260" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#b45309">KCP</text>
-                <text x="350" y="280" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" fill="#d97706">reliable delivery over unreliable channels</text>
+                <!-- WS option -->
+                <rect x="55" y="110" width="190" height="40" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+                <text x="150" y="135" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#1d4ed8">WebSocket</text>
 
-                <!-- Layer 3: SMUX -->
-                <rect x="150" y="176" width="400" height="52" rx="10" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
-                <text x="350" y="198" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#be185d">SMUX</text>
-                <text x="350" y="218" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" fill="#db2777">multiplexing &mdash; multiple streams over one connection</text>
+                <text x="150" y="168" text-anchor="middle" font-family="'Inter', sans-serif" font-size="12" fill="#8a8a9a">or</text>
 
-                <!-- Layer 4: TLS -->
-                <rect x="150" y="114" width="400" height="52" rx="10" fill="#ede9fe" stroke="#7C3AED" stroke-width="2"/>
-                <text x="350" y="136" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#6d28d9">TLS (rustls)</text>
-                <text x="350" y="156" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" fill="#7c3aed">encryption &mdash; pure Rust, audited protocol logic</text>
+                <!-- WebRTC option -->
+                <rect x="55" y="182" width="190" height="40" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+                <text x="150" y="207" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#1d4ed8">WebRTC Data Channel</text>
 
-                <!-- Layer 5: Tor protocol -->
-                <rect x="150" y="52" width="400" height="52" rx="10" fill="#f0fdf4" stroke="#10b981" stroke-width="2"/>
-                <text x="350" y="74" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#059669">Tor Protocol</text>
-                <text x="350" y="94" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" fill="#10b981">arti-client &mdash; circuit building, relay selection, onion encryption</text>
 
-                <!-- Side labels -->
-                <text x="130" y="78" text-anchor="end" font-family="'Inter', sans-serif" font-size="11" fill="#8a8a9a">inner</text>
-                <text x="130" y="330" text-anchor="end" font-family="'Inter', sans-serif" font-size="11" fill="#8a8a9a">outer</text>
-                <line x1="140" y1="90" x2="140" y2="300" stroke="#e2e5eb" stroke-width="1" stroke-dasharray="3,3"/>
-                <polygon points="137,300 140,312 143,300" fill="#e2e5eb"/>
+                <!-- Gateway -->
+                <rect x="330" y="110" width="140" height="120" rx="12" fill="#fafafa" stroke="#e2e5eb" stroke-width="2"/>
+                <text x="400" y="145" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#1e1e2e">Gateway</text>
+                <text x="400" y="168" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#8a8a9a">Bridges one browser</text>
+                <text x="400" y="182" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#8a8a9a">connection to one</text>
+                <text x="400" y="196" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#8a8a9a">TCP socket. Tor relay</text>
+                <text x="400" y="210" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#8a8a9a">destinations only.</text>
 
-                <!-- WebRTC callout -->
-                <rect x="570" y="290" width="125" height="70" rx="8" fill="#fafafa" stroke="#3b82f6" stroke-width="1.5"/>
-                <text x="632" y="310" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#1d4ed8">WebRTC is the</text>
-                <text x="632" y="326" text-anchor="middle" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#1d4ed8">long-term default:</text>
-                <text x="632" y="346" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#8a8a9a">peer-to-peer, no</text>
-                <text x="632" y="358" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#8a8a9a">centralized bridges</text>
-                <line x1="555" y1="326" x2="568" y2="326" stroke="#3b82f6" stroke-width="1"/>
+                <!-- Arrows browser → gateway -->
+                <line x1="275" y1="130" x2="325" y2="150" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="5,4" class="flow-line"/>
+                <polygon points="325,145 333,150 325,155" fill="#7C3AED"/>
+                <line x1="275" y1="202" x2="325" y2="190" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="5,4" class="flow-line"/>
+                <polygon points="325,185 333,190 325,195" fill="#7C3AED"/>
 
-                <!-- Arrow up label -->
-                <text x="350" y="25" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="600" fill="#8a8a9a">from browser to Tor network</text>
-                <polygon points="344,32 350,40 356,32" fill="#e2e5eb"/>
+                <!-- Tor network -->
+                <ellipse cx="620" cy="170" rx="100" ry="90" fill="#f0fdf4" stroke="#10b981" stroke-width="2"/>
+                <text x="620" y="140" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#059669">Tor Network</text>
+                <circle cx="590" cy="170" r="10" fill="#10b981" opacity="0.7" class="pulse pulse-d1"/>
+                <circle cx="620" cy="195" r="10" fill="#10b981" opacity="0.8" class="pulse pulse-d2"/>
+                <circle cx="650" cy="165" r="10" fill="#10b981" opacity="0.7" class="pulse pulse-d3"/>
+
+                <!-- Arrow gateway → tor -->
+                <line x1="475" y1="170" x2="515" y2="170" stroke="#10b981" stroke-width="2" stroke-dasharray="5,4" class="flow-line"/>
+                <polygon points="515,165 525,170 515,175" fill="#10b981"/>
+                <text x="500" y="155" text-anchor="middle" font-family="'Inter', sans-serif" font-size="10" fill="#8a8a9a">TCP</text>
+
+                <!-- Bottom: WebRTC callout -->
+                <text x="400" y="310" text-anchor="middle" font-family="'Inter', sans-serif" font-size="12" fill="#1d4ed8" font-weight="600">WebRTC is the long-term default: peer-to-peer, no centralized bridges</text>
             </svg>
         </div>
     </div>
@@ -957,59 +969,6 @@
 </section>
 
 
-<!-- ============================================================
-     SLIDE 8 — TLS PIVOT
-     ============================================================ -->
-<section class="slide" data-slide="8">
-    <div class="slide-content" style="gap: clamp(0.6rem, 1.5vh, 1rem);">
-        <h1 class="slide-title reveal">
-            The <span class="accent">TLS Pivot</span>
-        </h1>
-        <div class="reveal reveal-d1" style="flex:1; display:flex; align-items:center; justify-content:center; width:100%; min-height:0;">
-            <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:950px; height:auto; max-height:min(70vh, 480px);">
-                <!-- Before -->
-                <rect x="40" y="40" width="300" height="180" rx="14" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
-                <text x="190" y="32" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="700" fill="#ef4444">Initial prototype</text>
-                <text x="190" y="80" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#b91c1c">subtle-tls</text>
-                <text x="190" y="108" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#8a8a9a">Custom TLS 1.3 from an earlier</text>
-                <text x="190" y="126" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#8a8a9a">WASM-Tor project (webtor-rs)</text>
-
-                <line x1="80" y1="150" x2="300" y2="150" stroke="#fecaca" stroke-width="1"/>
-                <text x="190" y="173" text-anchor="middle" font-family="'Inter', sans-serif" font-size="12" fill="#ef4444">Certificate verification issues</text>
-                <text x="190" y="193" text-anchor="middle" font-family="'Inter', sans-serif" font-size="12" fill="#ef4444">Blocks upstream merge into Arti</text>
-
-                <!-- Arrow -->
-                <line x1="345" y1="130" x2="450" y2="130" stroke="#7C3AED" stroke-width="2.5"/>
-                <polygon points="450,124 462,130 450,136" fill="#7C3AED"/>
-                <text x="398" y="118" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="600" fill="#7C3AED">replaced</text>
-
-                <!-- After -->
-                <rect x="460" y="40" width="300" height="180" rx="14" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
-                <text x="610" y="32" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="700" fill="#10b981">After</text>
-                <text x="610" y="80" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#059669">rustls + rustls-rustcrypto</text>
-                <text x="610" y="108" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#8a8a9a">Audited TLS protocol logic</text>
-                <text x="610" y="130" text-anchor="middle" font-family="'Inter', sans-serif" font-size="12" fill="#8a8a9a">Pure-Rust crypto backend</text>
-
-                <line x1="500" y1="155" x2="720" y2="155" stroke="#bbf7d0" stroke-width="1"/>
-                <text x="610" y="178" text-anchor="middle" font-family="'Inter', sans-serif" font-size="12" fill="#10b981">Compiles to WASM, no C code</text>
-                <text x="610" y="198" text-anchor="middle" font-family="'Inter', sans-serif" font-size="12" fill="#10b981">Mergeable to upstream Arti</text>
-
-                <!-- Stats -->
-                <rect x="250" y="250" width="300" height="55" rx="10" fill="#fafafa" stroke="#e2e5eb" stroke-width="1"/>
-                <text x="400" y="275" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="700" fill="#7C3AED">-8,434 / +307 lines</text>
-                <text x="400" y="296" text-anchor="middle" font-family="'Inter', sans-serif" font-size="12" fill="#8a8a9a">replaced custom code with a battle-tested library</text>
-            </svg>
-        </div>
-        <p class="body-text reveal reveal-d2" style="max-width: 680px;">
-            <strong>Caveat:</strong> rustls-rustcrypto is still experimental (alpha). The crypto primitives haven't had the same scrutiny as ring. We're tracking this and exploring audit options.
-        </p>
-    </div>
-    <div class="slide-footer">
-        <span class="footer-label">Network-level Privacy for Ethereum RPC Traffic</span>
-        <span class="footer-num">8</span>
-    </div>
-</section>
-
 
 <!-- ============================================================
      SLIDE 9 — FAST BOOTSTRAP
@@ -1017,25 +976,25 @@
 <section class="slide" data-slide="9">
     <div class="slide-content" style="gap: clamp(0.8rem, 2vh, 1.5rem);">
         <h1 class="slide-title reveal">
-            <span class="accent">Fast Bootstrap:</span> 3 min &rarr; seconds
+            <span class="accent">Fast Bootstrap:</span> 3 min &rarr; 3 sec
         </h1>
         <p class="body-text reveal reveal-d1">
-            First prototype took ~3 minutes to connect. Parsing 10,000 relay descriptors in single-threaded WASM is expensive. Three fixes:
+            First prototype took ~3 minutes to connect. The bottleneck is Tor's directory protocol &mdash; it incrementally fetches from multiple nodes instead of getting a single bundle.
         </p>
         <div class="timeline reveal reveal-d2">
             <div class="timeline-item">
                 <div class="timeline-dot" style="background: var(--accent);">1</div>
                 <div class="timeline-label">Pre-built Archive</div>
                 <div class="timeline-desc">
-                    Fetch a bootstrap.zip over HTTPS with pre-built consensus and relay data. Browser-native SHA-256 verifies integrity without parsing.
+                    Standard Tor bootstraps incrementally from many nodes &mdash; slow over the gateway. Instead, fetch a single brotli-compressed bundle over HTTPS. Arti verifies directory signatures internally, so the server can't lie.
                 </div>
             </div>
             <div class="timeline-arrow">&rarr;</div>
             <div class="timeline-item">
                 <div class="timeline-dot" style="background: var(--green);">2</div>
-                <div class="timeline-label">Deflate Compression</div>
+                <div class="timeline-label">Brotli Compression</div>
                 <div class="timeline-desc">
-                    Added zlib decompression for consensus documents when downloading from Tor directly. <strong>Single biggest win.</strong>
+                    Brotli compression for the bootstrap archive dramatically reduces download size and bootstrap time.
                 </div>
             </div>
             <div class="timeline-arrow">&rarr;</div>
@@ -1049,12 +1008,12 @@
         </div>
         <div class="reveal reveal-d3" style="display:flex; gap:clamp(1rem,3vw,2rem); align-items:center; margin-top:clamp(0.5rem,1.5vh,1rem);">
             <div style="text-align:center;">
-                <div style="font-family:var(--font-display); font-size:clamp(2rem,4vw,3rem); font-weight:700; color:var(--red);">~3 min</div>
+                <div style="font-family:var(--font-display); font-size:clamp(2rem,4vw,3rem); font-weight:700; color:var(--red);">3 min</div>
                 <div style="font-family:var(--font-body); font-size:clamp(0.7rem,0.9vw,0.8rem); color:var(--text-muted);">before</div>
             </div>
             <div style="font-family:var(--font-display); font-size:clamp(1.5rem,3vw,2.5rem); color:var(--text-dim);">&rarr;</div>
             <div style="text-align:center;">
-                <div style="font-family:var(--font-display); font-size:clamp(2rem,4vw,3rem); font-weight:700; color:var(--green);">seconds</div>
+                <div style="font-family:var(--font-display); font-size:clamp(2rem,4vw,3rem); font-weight:700; color:var(--green);">3 sec</div>
                 <div style="font-family:var(--font-body); font-size:clamp(0.7rem,0.9vw,0.8rem); color:var(--text-muted);">after</div>
             </div>
         </div>
@@ -1081,14 +1040,7 @@
             <span class="code-comment">// That's it. This routes through Tor.</span><br>
             <span class="code-keyword">const</span> response = <span class="code-keyword">await</span> tor.<span class="code-func">fetch</span>(<span class="code-string">'https://api.example.com/data'</span>);
         </div>
-        <div class="features-row reveal reveal-d2">
-            <div class="feature-chip">IndexedDB persistence</div>
-            <div class="feature-chip">Cross-tab locking</div>
-            <div class="feature-chip">CDN with hash verification</div>
-            <div class="feature-chip">Node.js support</div>
-            <div class="feature-chip">Local or inline WASM</div>
-        </div>
-        <p class="body-text reveal reveal-d3" style="max-width: 600px;">
+        <p class="body-text reveal reveal-d2" style="max-width: 600px;">
             A familiar <strong>fetch()</strong>-compatible API. Wallets and dApps swap one line to get Tor routing.
         </p>
     </div>
@@ -1105,7 +1057,7 @@
 <section class="slide" data-slide="11">
     <div class="slide-content" style="gap: clamp(0.8rem, 2vh, 1.2rem);">
         <h1 class="slide-title reveal">
-            Honest <span class="accent">Security</span> Accounting
+            Security <span class="accent">Caveats</span>
         </h1>
         <ul class="caveat-list reveal reveal-d1">
             <li class="caveat-item">
@@ -1179,23 +1131,36 @@
      ============================================================ -->
 <section class="slide" data-slide="13">
     <div class="slide-content learn-more-content">
-        <h1 class="slide-title reveal" style="font-size: clamp(2rem, 4.5vw, 3.5rem);">
-            <span class="accent">Learn More</span>
-        </h1>
-        <div class="reveal reveal-d1" style="text-align:center;">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://privreads.ethereum.foundation/feed/embedding-arti-in-the-browser&color=7C3AED&bgcolor=ffffff"
-                 alt="QR: Full blog post"
-                 style="width:clamp(140px, 18vw, 200px); height:auto; border-radius:10px; border:2px solid var(--border);">
-            <div style="font-family:var(--font-body); font-size:clamp(0.8rem, 1.1vw, 0.95rem); color:var(--text-muted); margin-top:0.8rem;">
-                Full technical post
+        <div class="reveal" style="font-family:var(--font-display); font-size:clamp(2.2rem, 4.5vw, 3.5rem); font-weight:700; color:var(--text-muted);">Thanks</div>
+        <h2 class="reveal reveal-d1" style="font-family:var(--font-display); font-size:clamp(1.2rem, 2vw, 1.6rem); font-weight:600; color:var(--accent); margin:0;">Learn More</h2>
+        <div class="reveal reveal-d1" style="display:flex; gap:clamp(2rem, 5vw, 4rem); justify-content:center; align-items:flex-start;">
+            <div style="text-align:center;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://privreads.ethereum.foundation/feed/embedding-arti-in-the-browser&color=7C3AED&bgcolor=ffffff"
+                     alt="QR: Full blog post"
+                     style="width:clamp(120px, 15vw, 180px); height:auto; border-radius:10px; border:2px solid var(--border);">
+                <a href="https://privreads.ethereum.foundation/feed/embedding-arti-in-the-browser" target="_blank" style="font-family:var(--font-body); font-size:clamp(1.1rem, 1.5vw, 1.3rem); color:var(--accent); text-decoration:none; display:block; margin-top:0.6rem;">Technical post</a>
+            </div>
+            <div style="text-align:center;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://github.com/voltrevo/arti&color=7C3AED&bgcolor=ffffff"
+                     alt="QR: Code repository"
+                     style="width:clamp(120px, 15vw, 180px); height:auto; border-radius:10px; border:2px solid var(--border);">
+                <a href="https://github.com/voltrevo/arti" target="_blank" style="font-family:var(--font-body); font-size:clamp(1.1rem, 1.5vw, 1.3rem); color:var(--accent); text-decoration:none; display:block; margin-top:0.6rem;">Code</a>
+            </div>
+            <div style="text-align:center;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tor-js-gateway.voltrevo.com&color=7C3AED&bgcolor=ffffff"
+                     alt="QR: Gateway"
+                     style="width:clamp(120px, 15vw, 180px); height:auto; border-radius:10px; border:2px solid var(--border);">
+                <a href="https://tor-js-gateway.voltrevo.com" target="_blank" style="font-family:var(--font-body); font-size:clamp(1.1rem, 1.5vw, 1.3rem); color:var(--accent); text-decoration:none; display:block; margin-top:0.6rem;">Test it</a>
+            </div>
+            <div style="text-align:center;">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://privreads.ethereum.foundation/docs/torjs&color=7C3AED&bgcolor=ffffff"
+                     alt="QR: Integration docs"
+                     style="width:clamp(120px, 15vw, 180px); height:auto; border-radius:10px; border:2px solid var(--border);">
+                <a href="https://privreads.ethereum.foundation/docs/torjs" target="_blank" style="font-family:var(--font-body); font-size:clamp(1.1rem, 1.5vw, 1.3rem); color:var(--accent); text-decoration:none; display:block; margin-top:0.6rem;">Integrate it</a>
             </div>
         </div>
-        <div class="learn-links reveal reveal-d2">
-            <div>Code: <a href="https://github.com/voltrevo/arti">github.com/voltrevo/arti</a> <span style="color:var(--text-dim);">(wasm-arti-client branch)</span></div>
-            <div>Team: <a href="https://privreads.ethereum.foundation">privreads.ethereum.foundation</a></div>
-        </div>
         <div class="s0-meta reveal reveal-d3">
-            Private Reads &middot; Ethereum Foundation
+            <a href="https://privreads.ethereum.foundation" style="color:var(--accent); text-decoration:none;">privreads.ethereum.foundation</a>
         </div>
     </div>
 </section>
