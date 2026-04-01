@@ -1235,6 +1235,11 @@
             (c) small in size so the performance should be ok despite query cost being linear in db size
         </p>
     </div>
+    <!-- QR code bottom-right -->
+    <div class="reveal reveal-d4" style="position:absolute; bottom:clamp(2.5rem, 5vh, 4rem); right:clamp(1.5rem, 4vw, 3rem); text-align:center; z-index:20;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://0xalizk.github.io/PIR-Eng-Notes/reported&color=4f46e5&bgcolor=ffffff" alt="QR: PIR benchmarks" style="width:clamp(90px, 12vw, 135px); height:auto; border-radius:7px; border:1px solid var(--border);">
+        <div style="font-family:var(--font-body); font-size:clamp(0.75rem, 1.05vw, 0.97rem); color:var(--text-muted); margin-top:5px;">PIR benchmarks</div>
+    </div>
     <div class="slide-footer" style="position:absolute; bottom:0; left:0; width:100%; z-index:10;">
         <span class="footer-label">Sharded PIR Design</span>
         <span class="footer-num">7</span>
