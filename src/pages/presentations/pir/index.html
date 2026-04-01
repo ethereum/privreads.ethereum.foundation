@@ -1304,8 +1304,8 @@
                 <!-- Server perspective -->
                 <rect x="485" y="80" width="205" height="130" rx="12" fill="#f0fdf4" stroke="#10b981" stroke-width="1.5"/>
                 <text x="587" y="110" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="600" fill="#10b981">Server's View</text>
-                <text x="587" y="136" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#4a4a5a">Received 4 queries.</text>
-                <text x="587" y="156" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#4a4a5a">All look identical.</text>
+                <text x="587" y="136" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#4a4a5a">Receive 4 independent</text>
+                <text x="587" y="156" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#4a4a5a">queries, processed parallely.</text>
                 <text x="587" y="180" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" fill="#4a4a5a">Cannot distinguish</text>
                 <text x="587" y="200" text-anchor="middle" font-family="'Inter', sans-serif" font-size="14" fill="#10b981" font-weight="600">real from decoy.</text>
                 <line x1="432" y1="100" x2="483" y2="125" stroke="#10b981" stroke-width="1" stroke-dasharray="3,3"/>
@@ -1446,7 +1446,7 @@
             </li>
             <li class="s10-item" data-s10-idx="1">
                 <div class="s10-item-title">Using <span class="accent">Binary Tries</span> instead of MPT</div>
-                <div class="s10-item-desc">Binary tries (UBT) reduce Merkle proof overhead under PIR to ~9&times; vs ~48&times; for the current hexary MPT. Verifiable equivalence between UBT and canonical MPT enables smaller PIR databases while maintaining compatibility.</div>
+                <div class="s10-item-desc">Binary tries (UBT) reduce Merkle proof overhead under PIR to ~9&times; vs ~48&times; for the current hexary MPT, among many other benefits. The equivalence of a UBT-based (EIP7864-enabled) shadow chain to the mainnet MPT chain is achieved by zkVM proving the execution of the former while including in that proving the <em>verifier</em> of the proof of the latter.</div>
             </li>
             <li class="s10-item" data-s10-idx="2">
                 <div class="s10-item-title"><span class="accent">SNARKifying</span> [part of] the Archival State to Drop Chunks of Merkle Paths</div>
