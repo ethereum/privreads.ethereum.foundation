@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="PIR Benchmarking" description="Comparative benchmarks of single-server PIR schemes — reported, replicated, and independently measured.">
+  <div class="embed-wrapper">
+    <iframe
+      src="https://0xalizk.github.io/PIR-Eng-Notes/"
+      title="PIR Benchmarking"
+      class="embed-frame"
+      loading="lazy"
+      allowfullscreen
+    ></iframe>
+  </div>
+</Base>
+
+<style>
+  .embed-wrapper {
+    width: 100%;
+    height: calc(100vh - var(--nav-height, 64px));
+    overflow: hidden;
+  }
+  .embed-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>

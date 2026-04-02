@@ -209,6 +209,31 @@
         @media (max-height: 600px) {
             .nav-dots { display: none; }
         }
+        .back-link {
+            position: fixed;
+            top: clamp(0.5rem, 1.2vh, 0.8rem);
+            left: clamp(0.6rem, 1.5vw, 1rem);
+            z-index: 10000;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+        .back-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -540,6 +565,9 @@
 </head>
 <body>
 
+<!-- Back to site -->
+<a href="/docs" class="back-link" title="Back to Docs">&larr;</a>
+
 <!-- Progress bar -->
 <div class="progress-bar" id="progressBar"></div>
 <!-- Nav dots -->
@@ -559,7 +587,7 @@
             Anonymized routing for wallets, frontends, dApps, and light-clients with one-line integration &mdash; no extension, user configuration, or system installations.
         </p>
         <div class="s0-meta reveal reveal-d3" style="font-size:clamp(1rem, 1.4vw, 1.2rem); line-height:1.5;">
-            Ali &amp; Andrew<br>
+            Ali Atiia<br>
             Private Reads<br>
             Ethereum Foundation
             <div style="margin-top: clamp(1.5rem, 4vh, 3rem);">
