@@ -41,7 +41,7 @@ const recentPosts = (await getCollection('feed'))
         </div>
         <div class="focus-item">
           <h3><span class="focus-icon">&#127819;</span> Anonymized Routing</h3>
-          <p><a href={`${base}/workstreams/torjs`}>TorJS</a> brings Tor to the browser for network-level unlinkability. We are also exploring Ethereum-sandboxed <a href="https://efdn.notion.site/PAP-3-Ethereum-sandboxed-Mixnet-for-RPC-traffic-e2dd989555418270bb35813ce004a645">mixnets</a> for RPC traffic.</p>
+          <p><a href={`${base}/docs/torjs`}>TorJS</a> brings onion routing into an otherwise <a href={`${base}/feed/embedding-arti-in-the-browser`}>constrained</a> browser context for network-level unlinkability. An Ethereum-sandboxed mixnet for RPC traffic is being <a href="https://efdn.notion.site/PAP-3-Ethereum-sandboxed-Mixnet-for-RPC-traffic-e2dd989555418270bb35813ce004a645">explored</a>.</p>
         </div>
         <div class="focus-item">
           <h3><span class="focus-icon">&#127815;</span> Acceleration</h3>
@@ -49,7 +49,7 @@ const recentPosts = (await getCollection('feed'))
         </div>
         <div class="focus-item">
           <h3><span class="focus-icon">&#127820;</span> Collaboration</h3>
-          <p>Working with projects inside and outside the Ethereum ecosystem — wallet teams, RPC providers, cryptography researchers — to co-develop privacy solutions.</p>
+          <p>Working with projects inside and outside the Ethereum ecosystem — wallets, sdk's, infra providers, and cryptography researchers.</p>
         </div>
       </div>
     </div>
@@ -81,7 +81,7 @@ const recentPosts = (await getCollection('feed'))
 <style>
   /* Hero */
   .hero {
-    padding: 5rem 0 1.5rem;
+    padding: 2.5rem 0 1.5rem;
     text-align: center;
   }
   .hero__label {
@@ -214,7 +214,7 @@ const recentPosts = (await getCollection('feed'))
     color: var(--link);
   }
   @media (max-width: 640px) {
-    .hero { padding: 3.5rem 0 2rem; }
+    .hero { padding: 1.5rem 0 2rem; }
     .hero__title { font-size: 2.2rem; }
     .hero__subtitle { font-size: 1rem; }
   }
