@@ -37,16 +37,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         for the analysis.
       </p>
 
-      <h3>Verifiable UBT over MPT</h3>
-      <p>
-        The <a href={`${base}/workstreams/ubt`}>binary state trie</a> can be adopted today by proving
-        equivalence to the canonical MPT. This reduces PIR database size for hosting Merkle roots and
-        simplifies optimizations like SNARKification. We are working on getting EL client(s)
-        <a href="https://eips.ethereum.org/EIPS/eip-7864">EIP-7864</a>-ready as a first step, then
-        having it shadow mainnet with real-time equivalence proving between the application of every
-        block to both chains, using a zkVM.
-      </p>
-
       <h3>SNARKifying Archival State to Reduce DB Size</h3>
       <p>
         PIR databases for archival Ethereum state can grow to terabytes. If we can replace Merkle
@@ -95,7 +85,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </li>
       </ul>
 
-      <p>
+      <p style="margin-top: 3rem;">
         <a href={`${base}/workstreams`}>&larr; Back to Workstreams</a>
       </p>
     </div>

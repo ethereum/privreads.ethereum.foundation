@@ -48,35 +48,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <li><strong>Archival / warehouse data</strong> (4–20 TB) — historical queries, high latency tolerance. Multi-GPU parallelism essential at this scale.</li>
       </ul>
 
-      <h2>Key Components</h2>
-      <div class="grid grid--3" style="margin-bottom: 2rem;">
-        <div class="card">
-          <h3>Sidecar Architecture</h3>
-          <p>
-            A lightweight process alongside any execution client that absorbs real-time state
-            updates into a small, fast PIR engine while the main engine serves stable snapshots —
-            decoupling query latency from Ethereum's 12-second block time.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Universal PIR Interface</h3>
-          <p>
-            A scheme-agnostic API that mirrors
-            <a href="https://ethereum.org/en/developers/docs/apis/json-rpc/">Ethereum JSON-RPC</a>
-            semantics, routing queries through PIR engines under the hood. Backends can be
-            swapped as the field advances — no client-side changes needed.
-          </p>
-        </div>
-        <div class="card">
-          <h3>GPU Acceleration</h3>
-          <p>
-            Custom CUDA kernels for lattice-based PIR operations, achieving sub-second
-            preprocessing and millisecond-scale query times on single GPUs, with multi-GPU
-            scaling for larger databases.
-          </p>
-        </div>
-      </div>
-
       <h2>PIR Schemes</h2>
       <p>
         We are building, benchmarking, and integrating multiple PIR schemes. The current
@@ -126,7 +97,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </li>
       </ul>
 
-      <p>
+      <p style="margin-top: 3rem;">
         <a href={`${base}/workstreams`}>&larr; Back to Workstreams</a>
       </p>
     </div>

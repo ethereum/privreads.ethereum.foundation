@@ -9,8 +9,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="container">
       <h1>Verifiable Unified Binary Trie</h1>
       <p class="hero-subtitle">
-        A binary trie running alongside Ethereum's Merkle Patricia Trie, linked by
-        zkVM recursive proof chains that guarantee state equivalence.
+        A binary trie maintained alongside Ethereum's Merkle Patricia Trie, linked by
+        zkVM recursive proof chains that guarantee the equivalence of the two.
       </p>
     </div>
   </section>
@@ -51,36 +51,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         without requiring any changes to the Ethereum protocol.
       </p>
 
-      <h2>Key Components</h2>
-      <div class="grid grid--3" style="margin-bottom: 2rem;">
-        <div class="card">
-          <h3>UBT Sidecar</h3>
-          <p>
-            Runs alongside Geth (and soon <a href="https://github.com/lambdaclass/ethrex">Ethrex</a>
-            for client diversity), converting MPT state diffs into the binary trie
-            in real time and exposing UBT-specific RPCs:
-            <code>debug_getUBTState</code>, <code>debug_executionWitnessUBT</code>,
-            <code>debug_getUBTProof</code>.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Keeper (Proof Pipeline)</h3>
-          <p>
-            A decoupled proving component that consumes witnesses from the conversion
-            layer and generates recursive proofs of UBT&thinsp;&harr;&thinsp;MPT equivalence per block.
-            Proofs compose recursively into a single succinct proof for the entire chain.
-          </p>
-        </div>
-        <div class="card">
-          <h3>OpenVM Backend</h3>
-          <p>
-            Proof generation uses
-            <a href="https://book.openvm.dev/">OpenVM</a> (Weaver), a general-purpose zkVM
-            with a GPU prover that can execute arbitrary Rust programs inside a proof circuit.
-          </p>
-        </div>
-      </div>
-
       <h2>Why It Matters</h2>
       <ul>
         <li>
@@ -117,7 +87,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </li>
       </ul>
 
-      <p>
+      <p style="margin-top: 3rem;">
         <a href={`${base}/workstreams`}>&larr; Back to Workstreams</a>
       </p>
     </div>
