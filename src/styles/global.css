@@ -14,6 +14,7 @@
   --purple: #6E529A;
   --blue: #3462B8;
   --cyan: #2E96B0;
+  --orange: #E87461;
 
   /* Light theme (default) */
   --purple-light: #F3EFF8;
@@ -34,8 +35,8 @@
   --text-muted: #5C5C78;
   --text-dim: #8C8CA6;
 
-  --link: #C4883A;
-  --link-hover: #A06E2A;
+  --link: #9A6B2A;
+  --link-hover: #7D5720;
 
   --nav-bg: rgba(250, 250, 250, 0.92);
   --nav-bg-mobile: rgba(250, 250, 250, 0.97);
@@ -77,6 +78,9 @@
   --nav-bg-mobile: rgba(14, 14, 26, 0.97);
   --hover-overlay: rgba(255, 255, 255, 0.04);
   --shadow-card: rgba(0, 0, 0, 0.2);
+
+  --pre-bg: #1E1E30;
+  --pre-text: #E8E8F0;
 }
 
 /* ---- Reset ---- */
@@ -150,8 +154,8 @@ code {
 pre {
   padding: 1.2rem 1.5rem;
   border-radius: 8px;
-  background: #1A1A2E;
-  color: #E8E8F0;
+  background: var(--pre-bg, #1A1A2E);
+  color: var(--pre-text, #E8E8F0);
   border: 1px solid var(--border);
   overflow-x: auto;
   font-size: 0.85rem;

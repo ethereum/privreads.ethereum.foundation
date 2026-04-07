@@ -25,7 +25,7 @@ tags: ["pir", "torjs", "ubt", "paps"]
 
 ## Details
 
-### [PIR for the Ethereum State](./workstreams/pir)
+### [PIR for the Ethereum State](/workstreams/pir)
 
 - RMS24 spec and reference implementation completed with keyword PIR extension
 - GPU acceleration benchmarked — DPF-based approach fits entire Ethereum state in GPU memory, though cost remains high (~$500K server for 100 TPS at current performance)
@@ -33,14 +33,14 @@ tags: ["pir", "torjs", "ubt", "paps"]
 - Data slicing strategy defined: different frontends (wallets, light clients, tax software) have different latency/data requirements aligned to different PIR schemes
 - Sharded PIR system design sketched with multi-dataset, multi-engine architecture
 
-### [TorJS / Embedded Arti](./workstreams/torjs)
+### [TorJS / Embedded Arti](/workstreams/torjs)
 
 - Weekly alignment calls with Tor Project established
 - Arti patches submitted for WebAssembly compatibility
 - WebRTC peer discovery component demonstrated
 - ethers.js and viem SDK integrations advancing
 
-### [Verifiable UBT](./workstreams/ubt)
+### [Verifiable UBT](/workstreams/ubt)
 
 - UBT conversion running on local chain; mainnet sync being set up
 - Three debug RPCs implemented: `debug_getUBTState`, `debug_executionWitnessUBT`, `debug_getUBTProof`

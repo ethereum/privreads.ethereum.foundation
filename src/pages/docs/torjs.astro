@@ -541,6 +541,9 @@ client.close();`} /></pre>
     font-weight: 500;
   }
   td code { font-size: 0.8rem; }
+  @media (max-width: 640px) {
+    table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  }
 
   /* Sections scroll margin */
   section[id] {

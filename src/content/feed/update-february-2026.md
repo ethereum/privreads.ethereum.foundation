@@ -23,7 +23,7 @@ tags: ["pir", "torjs", "ubt"]
 
 ## Details
 
-### [PIR for the Ethereum State](./workstreams/pir)
+### [PIR for the Ethereum State](/workstreams/pir)
 
 - Sharded PIR system design drafted with taxonomy of schemes by client/server statefulness
 - Four Ethereum data slices defined: hot mutable state (~2 GB), state with proofs (~100–300 GB), immutable logs/receipts (hundreds of GB), archival (4–20 TB)
@@ -32,7 +32,7 @@ tags: ["pir", "torjs", "ubt"]
 - Convergence on [ReSPIRe](https://eprint.iacr.org/2024/1605) family for minimizing preprocessing costs
 - Explored FHE-based PIR collaboration for GPU-accelerated approaches with external teams
 
-### [TorJS / Embedded Arti](./workstreams/torjs)
+### [TorJS / Embedded Arti](/workstreams/torjs)
 
 - `arti-client` compiles to WASM (Feb 2) — end-to-end functionality achieved (Feb 10)
 - TLS pivot: replaced custom `subtle-tls` with `rustls-rustcrypto` (-8,434 / +307 lines)
@@ -41,7 +41,7 @@ tags: ["pir", "torjs", "ubt"]
 - Upstream merge strategy: break work into multiple smaller PRs for Tor Project review
 - Project name consolidated under **TorJS** (replacing separate Arti/webtor-rs naming)
 
-### [Verifiable UBT](./workstreams/ubt)
+### [Verifiable UBT](/workstreams/ubt)
 
 - Mainnet conversion sync running but hit issues with ephemeral diff layers disappearing after ~3M blocks
 - Switched from PathDB diffs to queue-based approach for more reliable block-by-block conversion
