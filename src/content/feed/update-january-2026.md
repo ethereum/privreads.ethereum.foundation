@@ -25,7 +25,7 @@ tags: ["pir", "torjs", "ubt", "paps"]
 
 ## Details
 
-### [PIR for Ethereum State](./workstreams/pir)
+### [PIR for the Ethereum State](./workstreams/pir)
 
 - RMS24 spec and reference implementation completed with keyword PIR extension
 - GPU acceleration benchmarked — DPF-based approach fits entire Ethereum state in GPU memory, though cost remains high (~$500K server for 100 TPS at current performance)

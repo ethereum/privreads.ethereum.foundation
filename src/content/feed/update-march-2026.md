@@ -21,7 +21,7 @@ tags: ["pir", "torjs", "ubt"]
 
 ## Details
 
-### [PIR for Ethereum State](/workstreams/pir)
+### [PIR for the Ethereum State](/workstreams/pir)
 
 - LeanPIR scheme designed — ~30 ms for 32 GB, sub-second preprocessing, <100 KB communication
 - [Harmony](https://eprint.iacr.org/2023/1733) integrated into the PIR [benchmarks](https://0xalizk.github.io/PIR-Eng-Notes/)
