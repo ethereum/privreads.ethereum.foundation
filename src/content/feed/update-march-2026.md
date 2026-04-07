@@ -17,9 +17,9 @@ tags: ["pir", "torjs", "ubt"]
 
 - **Ethrex collaboration for UBT.** Kicked off a collaboration with [Ethrex](https://github.com/lambdaclass/ethrex) for client diversity on the UBT front, complementing ongoing work with Geth's Stateless team.
 
-- **Presenting at Stateless Summit** on PIR and TorJS.
+- **Presenting at Stateless Summit** on [PIR](/presentations/pir/) and [TorJS](/presentations/torjs/).
 
-## Progress by Workstream
+## Details
 
 ### [PIR for Ethereum State](/workstreams/pir)
 
@@ -50,4 +50,4 @@ Q2 plan is being finalized (March 31). Key themes:
 1. **PIR productionization** — sharded design with LeanPIR, VIA, and RMS/Harmony as initial engines; GPU acceleration collaboration
 2. **Arti integrations** — Ethereum-sandboxed anonymous network, WebRTC transport, wallet SDK adoption
 3. **UBT shadow chain** — running provably MPT-equivalent shadow chain
-4. **Initial sync with [Ling Ren's group](https://ece.illinois.edu/about/directory/faculty/renling)**: Ling provided valuable feedback on the sharded design and the Ethereum use case, and we discussed potential collaboration
+4. Continuing some collaborations, and pushing some new ones forward (PIR academia, GPU researchers/practitioners)

@@ -15,7 +15,6 @@ const types = [...new Set(entries.map((e) => e.data.type))].sort();
   <section class="section">
     <div class="container">
       <h1>Feed</h1>
-      <p class="subtitle">Research, engineering notes, talks, and updates from the team.</p>
 
       <!-- Filter bar -->
       <div class="filter-bar" id="filter-bar">
@@ -47,11 +46,6 @@ const types = [...new Set(entries.map((e) => e.data.type))].sort();
             </div>
             <h2 class="feed-title">{entry.data.title}</h2>
             <p class="feed-desc">{entry.data.description}</p>
-            <div class="feed-tags">
-              {entry.data.tags.map((tag) => (
-                <span class="tag">{tag}</span>
-              ))}
-            </div>
           </a>
         ))}
       </div>
@@ -155,8 +149,9 @@ const types = [...new Set(entries.map((e) => e.data.type))].sort();
     gap: 0.35rem;
     text-decoration: none;
     color: inherit;
+    border: none;
   }
-  .feed-card:hover { color: inherit; }
+  .feed-card:hover { color: inherit; border: none; }
 
   .feed-meta {
     display: flex;
@@ -189,19 +184,6 @@ const types = [...new Set(entries.map((e) => e.data.type))].sort();
     line-height: 1.6;
   }
 
-  .feed-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.15rem;
-  }
-  .tag {
-    font-size: 0.7rem;
-    color: var(--text-dim);
-    padding: 0.15em 0.5em;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-  }
 
   .empty-state {
     text-align: center;

@@ -23,7 +23,7 @@ tags: ["pir", "torjs", "ubt", "paps"]
 
 - **Spotlight video series.** Started coordination with EcoDev Digital Studio on a privacy spotlight video series.
 
-## Progress by Workstream
+## Details
 
 ### [PIR for Ethereum State](./workstreams/pir)
 

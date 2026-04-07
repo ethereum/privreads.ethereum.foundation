@@ -21,7 +21,7 @@ tags: ["pir", "torjs", "ubt"]
 
 - **Ethereum-sandboxed mixnet explored.** Began exploring an Ethereum-specific anonymized routing network where exit nodes drop non-Ethereum RPC traffic, potentially encouraging more people to run nodes by guaranteeing traffic type.
 
-## Progress by Workstream
+## Details
 
 ### [PIR for Ethereum State](./workstreams/pir)
 

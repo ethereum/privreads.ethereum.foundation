@@ -388,19 +388,16 @@
            SLIDE 3 — PARADIGMS
            ========================================= */
       .s3-cards-row {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(4, clamp(140px, 18vw, 210px));
         gap: clamp(0.6rem, 1.5vw, 1.2rem);
         justify-content: center;
-        align-items: flex-start;
-        flex-wrap: wrap;
       }
       .s3-card-column {
-        display: flex;
-        flex-direction: column;
-        gap: clamp(0.6rem, 1.5vh, 1rem);
+        display: contents;
       }
       .s3-card {
-        width: clamp(140px, 18vw, 210px);
+        grid-row: 1;
         padding: clamp(1rem, 2vw, 1.8rem);
         border-radius: 14px;
         border: 2px solid var(--border);
@@ -453,11 +450,12 @@
       }
 
       .s3-bottom {
+        grid-row: 2;
+        grid-column: 1;
         text-align: left;
         display: flex;
         flex-direction: column;
         gap: clamp(0.4rem, 1vh, 0.6rem);
-        width: clamp(140px, 18vw, 210px);
       }
       .s3-bottom-label {
         font-family: var(--font-display);
@@ -2918,26 +2916,28 @@
           z-index: 20;
         "
       >
-        <img
-          src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://0xalizk.github.io/PIR-Eng-Notes/reported&color=4f46e5&bgcolor=ffffff"
-          alt="QR: PIR benchmarks"
-          style="
-            width: clamp(90px, 12vw, 135px);
-            height: auto;
-            border-radius: 7px;
-            border: 1px solid var(--border);
-          "
-        />
-        <div
-          style="
-            font-family: var(--font-body);
-            font-size: clamp(0.75rem, 1.05vw, 0.97rem);
-            color: var(--text-muted);
-            margin-top: 5px;
-          "
-        >
-          PIR benchmarks
-        </div>
+        <a href="https://privreads.ethereum.foundation/docs/pir-benchmarks/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://privreads.ethereum.foundation/docs/pir-benchmarks/&color=4f46e5&bgcolor=ffffff"
+            alt="QR: PIR benchmarks"
+            style="
+              width: clamp(90px, 12vw, 135px);
+              height: auto;
+              border-radius: 7px;
+              border: 1px solid var(--border);
+            "
+          />
+          <div
+            style="
+              font-family: var(--font-body);
+              font-size: clamp(0.75rem, 1.05vw, 0.97rem);
+              color: var(--text-muted);
+              margin-top: 5px;
+            "
+          >
+            PIR benchmarks
+          </div>
+        </a>
       </div>
       <div
         class="slide-footer"

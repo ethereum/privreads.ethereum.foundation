@@ -35,11 +35,6 @@ const { Content } = await render(entry);
           <span>{entry.data.author}</span>
         </div>
         <h1>{entry.data.title}</h1>
-        <div class="post-tags">
-          {entry.data.tags.map((tag: string) => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
       </div>
 
       <div class="prose post-content">
@@ -90,18 +85,6 @@ const { Content } = await render(entry);
     margin-bottom: 0.75rem;
   }
 
-  .post-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-  .tag {
-    font-size: 0.7rem;
-    color: var(--text-dim);
-    padding: 0.15em 0.5em;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-  }
 
   .post-content {
     max-width: 720px;
