@@ -57,42 +57,34 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </ul>
 
       <h2>Features</h2>
-      <div class="grid grid--3" style="margin-bottom: 2rem;">
-        <div class="card">
-          <h3>Fast Bootstrap</h3>
-          <p>
-            A Brotli-compressed ~3 MB bundle replaces fetching thousands of micro-descriptors,
-            fundamentally improving cold-start times compared to the standard Tor bootstrap
-            method.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Censorship Resistance</h3>
-          <p>
-            Built-in <a href="https://snowflake.torproject.org/">Snowflake</a> pluggable
-            transport support. WebRTC-based bridges allow connectivity even under heavy
-            network filtering. Native WebRTC transport is a Q2 priority.
-          </p>
-        </div>
-        <div class="card">
-          <h3>Multi-Runtime</h3>
-          <p>
-            Works in browsers (WASM) and Node.js (with native socket access matching
-            raw Rust performance). Pluggable storage backends (IndexedDB, localStorage)
-            reduce bootstrap latency on repeat visits.
-          </p>
-        </div>
-      </div>
+      <ul>
+        <li>
+          <strong>Fast Bootstrap</strong> —
+          A Brotli-compressed ~3 MB bundle replaces fetching thousands of micro-descriptors,
+          fundamentally improving cold-start times compared to the standard Tor bootstrap method.
+        </li>
+        <li>
+          <strong>Censorship Resistance</strong> —
+          Built-in <a href="https://snowflake.torproject.org/">Snowflake</a> pluggable
+          transport support. WebRTC-based bridges allow connectivity even under heavy
+          network filtering. Native WebRTC transport is a Q2 priority.
+        </li>
+        <li>
+          <strong>Multi-Runtime</strong> —
+          Works in browsers (WASM) and Node.js (with native socket access matching
+          raw Rust performance). Pluggable storage backends (IndexedDB, localStorage)
+          reduce bootstrap latency on repeat visits.
+        </li>
+      </ul>
 
       <h2>Current Status</h2>
       <p>
-        TorJS has achieved <strong>end-to-end WASM functionality</strong> — a working
-        prototype is live at
-        <a href="https://tor-js-gateway.voltrevo.com/">tor-js-gateway.voltrevo.com</a>
-        with documentation at
-        <a href="https://voltrevo.github.io/arti/">voltrevo.github.io/arti</a>.
-        The team is working with the <a href="https://www.torproject.org/">Tor Project</a>
-        on reviewing and merging the WASM compatibility changes into upstream Arti.
+        TorJS has achieved <strong>end-to-end WASM functionality</strong>:
+        [<a href={`${base}/feed/embedding-arti-in-the-browser`}>1</a>]
+        [<a href={`${base}/docs/torjs`}>2</a>]
+        [<a href="https://github.com/voltrevo/arti" target="_blank" rel="noopener noreferrer">3</a>]
+        [<a href="https://tor-js-gateway.voltrevo.com/" target="_blank" rel="noopener noreferrer">4</a>].
+        The <a href="https://www.torproject.org/">Tor Project</a> team is currently (2Q26) reviewing and merging the WASM compatibility work we did (1Q26) into upstream Arti.
       </p>
 
       <h2>What's Next: WebRTC Transport</h2>
