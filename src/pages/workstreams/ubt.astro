@@ -4,13 +4,13 @@ import Base from '../../layouts/Base.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<Base title="Verifiable Unified Binary Trie" description="A binary trie with zk proofs of equivalence to Ethereum's MPT, enabling provable state for light clients and PIR servers.">
+<Base title="Verifiable Unified Binary Trie" description="An EIP-7864-enabled Ethereum execution client whose state is a binary trie, with zkVM proofs of equivalence to mainnet at every block.">
   <section class="section hero">
     <div class="container">
       <h1>Verifiable Unified Binary Trie</h1>
       <p class="hero-subtitle">
-        A binary trie maintained alongside Ethereum's Merkle Patricia Trie, linked by
-        zkVM recursive proof chains that guarantee the equivalence of the two.
+        A modified Ethereum execution client that stores state in a binary trie
+        and proves — inside a zkVM — that its execution matches mainnet, block by block.
       </p>
     </div>
   </section>
@@ -36,19 +36,43 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <p>
         <a href="https://eips.ethereum.org/EIPS/eip-7864">EIP-7864</a> proposes moving
         Ethereum to a binary trie, but the transition is complex and years away.
-        We need a solution that works <em>today</em>.
+        We can, however, start enjoying the benefits of binary tries <em>today</em> — thanks
+        to the increasingly affordable zkVMs.
       </p>
 
-      <h2>The Solution: Verifiable UBT</h2>
+      <h2>The Approach</h2>
       <p>
-        The Verifiable Unified Binary Trie (UBT) runs as a sidecar alongside Ethereum
-        execution clients, maintaining a binary trie that mirrors the MPT's state. A
-        recursive proof pipeline generates
-        succinct proofs that the UBT and MPT contain identical state at every block.
+        We run a modified Ethereum execution layer (EL) client whose state representation
+        is a <a href="https://eips.ethereum.org/EIPS/eip-7864">binary trie conforming to EIP-7864</a>,
+        instead of the canonical MPT. This client syncs to the Ethereum blockchain block by
+        block, applying the same transactions as mainnet — but writing state updates into the
+        binary trie.
       </p>
       <p>
-        This gives light clients and PIR servers a zk-friendly state representation
-        without requiring any changes to the Ethereum protocol.
+        The execution of this modified client happens inside a <strong>zkVM</strong>. For each
+        block, the zkVM produces a proof that establishes two things:
+      </p>
+      <ol>
+        <li>
+          <strong>Correct state transition</strong> — the binary trie was updated correctly
+          according to the block's transactions.
+        </li>
+        <li>
+          <strong>Block identity</strong> — the block that was applied is precisely the same
+          block that was applied on mainnet.
+        </li>
+      </ol>
+      <p>
+        To establish block identity, the zkVM proof takes as input a <strong>proof of the
+        corresponding mainnet transition</strong> — a proof that the canonical MPT-based client
+        executed the same block correctly. Such proofs are produced by existing L1 provers
+        (see <a href="https://ethproofs.org">ethproofs.org</a> for a list). The mainnet prover
+        may run alongside the UBT node or be a remote service.
+      </p>
+      <p>
+        These proofs chain recursively: each block's proof verifies the previous block's proof,
+        forming a proof chain back to genesis. Verifying the latest proof transitively attests
+        that the UBT state is equivalent to mainnet state across the entire chain.
       </p>
 
       <h2>Why It Matters</h2>
@@ -64,25 +88,30 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <li>
           <strong>Future-proofing</strong> — when Ethereum eventually adopts a binary
           trie (per <a href="https://eips.ethereum.org/EIPS/eip-7864">EIP-7864</a>),
-          the UBT sidecar becomes a direct migration path.
+          this work provides a tested implementation and a direct migration path.
+        </li>
+        <li>
+          <strong>Bonus: Contributing to L1 security</strong> — EIP-7864 is very close to the
+          metal, so the more its implementation is used and tested the more assurance that
+          bugs and issues are surfaced early, before it is included in the L1 protocol.
         </li>
       </ul>
 
       <h2>Resources</h2>
       <ul>
         <li>
-          <a href="https://hackmd.io/YVszdXG4QzGvihYXf_KDcw?view=">
-            UBT Design Document
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/tkmct/ubt-checker">
-            UBT State Checker UI
+          <a href="https://github.com/ethereum/go-ethereum/pull/33740">
+            Binary trie into Geth
           </a>
         </li>
         <li>
           <a href="https://eips.ethereum.org/EIPS/eip-7864">
-            EIP-7864: Verkle/Binary Trie Migration
+            EIP-7864
+          </a>
+        </li>
+        <li>
+          <a href="https://hackmd.io/YVszdXG4QzGvihYXf_KDcw?view=">
+            Early design sketches of equiv. proofs
           </a>
         </li>
       </ul>
