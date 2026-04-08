@@ -26,7 +26,7 @@ tags: ["pir", "torjs", "ubt"]
 ### [PIR for the Ethereum State](/workstreams/pir)
 
 - Sharded PIR system design drafted with taxonomy of schemes by client/server statefulness
-- Four Ethereum data slices defined: hot mutable state (~2 GB), state with proofs (~100–300 GB), immutable logs/receipts (hundreds of GB), archival (4–20 TB)
+- Four Ethereum data slices defined: hot mutable state (1–10 GB), state with proofs (~100–300 GB), immutable logs/receipts (hundreds of GB), archival (2–30 TB)
 - VIA scheme implementation started via PAP grant; Turan identified VIA as most promising for the initial slices
 - [Benchmarking](https://0xalizk.github.io/PIR-Eng-Notes/) continuing — ranking schemes by speed with focus on the top 5 most promising candidates
 - Convergence on [ReSPIRe](https://eprint.iacr.org/2024/1165) family for minimizing preprocessing costs

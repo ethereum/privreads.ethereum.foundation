@@ -27,9 +27,9 @@ Our design addresses this by **sharding** — segmenting Ethereum data into slic
 
 - **Small, hot, latency-critical** (1–10 GB): curated high-demand data — balances, recent transactions, popular contract storage. Updated every block.
 - **Small, moderate churn** (10–20 GB): all account headers + contract bytecode.
-- **Medium, high churn** (60–100 GB): account headers + internal trie nodes up to the state root, enabling client-side Merkle validation.
+- **Medium, high churn** (80–100 GB): account headers + internal trie nodes up to the state root, enabling client-side Merkle validation.
 - **Large, mixed churn** (100–300 GB): full storage including internal nodes — verifiable ERC and DeFi positions.
-- **Massive, append-only** (2–20 TB): historical state snapshots — immutable per block. Transaction history, analytics, accounting.
+- **Massive, append-only** (2–30 TB): historical state snapshots — immutable per block. Transaction history, analytics, accounting.
 
 Clients query all engines simultaneously. The key insight: _Q_ simultaneous queries to _N_ engines provide the same privacy as querying a single engine hosting the entire dataset — because the server cannot correlate queries across engines.
 

@@ -8,7 +8,7 @@ const feed = defineCollection({
     description: z.string(),
     date: z.coerce.date(),
     author: z.string().default('Private Reads'),
-    type: z.enum(['Research', 'Engineering', 'Talk', 'Announcement', 'Update', 'Monthly Update', 'Quarterly Wrap-up']).default('Update'),
+    type: z.enum(['Research', 'Engineering', 'Talk', 'Announcement', 'Update', 'Monthly Update']).default('Update'),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     // Optional talk-specific fields

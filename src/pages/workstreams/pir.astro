@@ -42,10 +42,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         into slices, each paired with a PIR engine tuned for its size and access profile:
       </p>
       <ul>
-        <li><strong>Hot mutable state</strong> (~2 GB) — balances, nonces, contract storage. Latency-critical, updates every block. Requires doubly-stateless schemes (no persistent client or server state) to avoid session linkability.</li>
+        <li><strong>Hot mutable state</strong> (1–10 GB) — balances, nonces, contract storage. Latency-critical, updates every block. Requires doubly-stateless schemes (no persistent client or server state) to avoid session linkability.</li>
         <li><strong>State with Merkle proofs</strong> (~100–300 GB) — full state for light clients. Larger databases where preprocessing tradeoffs matter.</li>
         <li><strong>Immutable logs and receipts</strong> (hundreds of GB) — append-only data that can leverage schemes with expensive one-time hint generation.</li>
-        <li><strong>Archival / warehouse data</strong> (4–20 TB) — historical queries, high latency tolerance. Multi-GPU parallelism essential at this scale.</li>
+        <li><strong>Archival / warehouse data</strong> (2–30 TB) — historical queries, high latency tolerance. Multi-GPU parallelism essential at this scale.</li>
       </ul>
 
       <h2>PIR Schemes</h2>

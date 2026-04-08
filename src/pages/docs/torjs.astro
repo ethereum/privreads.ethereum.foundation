@@ -197,10 +197,13 @@ console.log(await response.json()); // { IsTor: true, IP: "..." }`} /></pre>
             cutting first-connect time from minutes to seconds.
           </p>
           <p>
-            <strong>Trust model:</strong> The fast bootstrap bundle is fetched from the gateway, but
-            this doesn't require trusting the gateway. Arti verifies every document using cryptographic
-            signatures from Tor's directory authorities. A malicious gateway can't inject fake relays
-            or forge directory data.
+            <strong>Trust model:</strong> The fast bootstrap bundle is fetched from the gateway over
+            a plain HTTPS connection before Tor is operational, meaning the gateway sees the user's IP.
+            The data itself is verified — Arti checks every document against cryptographic signatures
+            from Tor's directory authorities, so a malicious gateway can't inject fake relays or forge
+            directory data. However, the IP exposure is a trade-off: users who need stronger anonymity
+            guarantees can skip fast bootstrap and bootstrap directly from the Tor network at the cost
+            of longer startup time.
           </p>
         </div>
       </section>
