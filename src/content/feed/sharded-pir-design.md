@@ -21,9 +21,7 @@ This [metadata leakage](https://ethereum.org/en/developers/docs/mev/) enables fr
 
 ## Our Approach: Sharded PIR
 
-[Private Information Retrieval](https://en.wikipedia.org/wiki/Private_information_retrieval) (PIR) lets a client fetch a record from a database without the server learning which record was fetched. The server processes an encrypted query and returns an encrypted response — cryptographically guaranteed to reveal nothing about the client's interest.
-
-Applying PIR to _all_ of Ethereum's state naively would be impractical. Ethereum's state is large (~100–300 GB depending on representation), heterogeneous (accounts, storage slots, contract code, receipts, logs), and constantly changing (new blocks every 12 seconds). No single PIR scheme handles all of these well.
+Ethereum's state is large (~100–300 GB depending on representation), heterogeneous (accounts, storage slots, contract code, receipts, logs), and constantly changing (new blocks every 12 seconds). No single PIR scheme handles all of these well.
 
 Our design addresses this by **sharding** — segmenting Ethereum data into slices, each served by a PIR engine tuned for that slice's size, update frequency, and access profile:
 
