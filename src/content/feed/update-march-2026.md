@@ -47,7 +47,7 @@ tags: ["pir", "torjs", "ubt"]
 
 Q2 plan is being finalized (March 31). Key themes:
 
-1. **PIR productionization** — sharded design with LeanPIR, VIA, and RMS/Harmony as initial engines; GPU acceleration collaboration
-2. **Arti integrations** — Ethereum-sandboxed anonymous network, WebRTC transport, wallet SDK adoption
+1. **PIR productionization** — sharded design with LeanPIR, VIA, Harmony, OnionV2 as potential initial engines; GPU acceleration collaborations
+2. **Arti integrations** — Ethereum-sandboxed anonymous network, WebRTC transport, wallet SDK integrations
 3. **UBT shadow chain** — running provably MPT-equivalent shadow chain
 4. Continuing some collaborations, and pushing some new ones forward (PIR academia, GPU researchers/practitioners)

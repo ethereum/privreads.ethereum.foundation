@@ -16,7 +16,7 @@ This post covers what we did, what broke, and how we fixed it.
 - We compiled the Rust Tor client (Arti) to WebAssembly
 - Any wallet or dApp can route traffic through Tor with a few lines of TypeScript
 - [Snowflake](https://snowflake.torproject.org/) pluggable transport enables connectivity even in constrained environments (no access to socket) or in censored jurisdictions that block Tor
-- Bootstrap time was reduced from ~3 minutes to seconds via fast-bootstrap and deflate support
+- Bootstrap time was reduced from ~3 minutes to seconds via fast-bootstrap and zstd decompression support
 - A TypeScript wrapper provides a `fetch()`-compatible API with IndexedDB persistence and cross-tab locking
 - The code is functional; upstream merge with the Tor Project is in progress in hands-on collab with TP team
 
@@ -98,7 +98,7 @@ We addressed this on three fronts:
 
 1. **[Fast bootstrap from archive](https://github.com/voltrevo/arti/commit/115c234c)**: A `bootstrap.zip` containing pre-built consensus, authority certs, and microdescriptors is fetched over HTTPS and pre-populated into the directory cache. For microdescriptors, we use lightweight text splitting + browser-native SHA-256 (via `crypto.subtle.digest()`) instead of full parsing — avoiding ~3 seconds of overhead for 10k entries.
 
-2. **Deflate support**: Adding zlib/deflate decompression for consensus documents [massively improved](https://github.com/voltrevo/arti/tree/wasm-arti-client) bootstrap time when downloading from the Tor network directly — this was the single biggest breakthrough.
+2. **Zstd support**: Adding zstd decompression (via pure-Rust `ruzstd`) for consensus documents [massively improved](https://github.com/voltrevo/arti/commit/e390c641) bootstrap time when downloading from the Tor network directly — this was the single biggest breakthrough.
 
 3. **[UI thread yields](https://github.com/voltrevo/arti/commit/c3223691)**: `sleep(0)` yields during document loading to prevent the browser from freezing while processing thousands of descriptors.
 
