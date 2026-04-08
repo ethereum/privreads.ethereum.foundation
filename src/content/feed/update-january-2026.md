@@ -11,7 +11,7 @@ tags: ["pir", "torjs", "ubt", "paps"]
 
 ## Highlights
 
-- **RMS24 specification and reference implementation complete.** Keewoo finished the [RMS24 spec](https://github.com/keewoolee/rms24) with keyword PIR extension and optimizations, using a unified Python specification language for defining PIR scheme primitives. The spec serves as source of truth for agent-assisted production implementations.
+- **RMS24 specification and reference implementation complete.** Keewoo finished the [RMS24 spec](https://github.com/keewoolee/rms24-plinko-spec) with keyword PIR extension and optimizations, using a unified Python specification language for defining PIR scheme primitives. The spec serves as source of truth for agent-assisted production implementations.
 
 - **Multi-engine PIR architecture defined.** Established the [sharded PIR design](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view): different PIR engines for different data slices (hot mutable state, full state with proofs, immutable logs, archival data), each tuned for size and access profile. Clients query all engines asynchronously — bottlenecked only by the slowest engine they actually need.
 

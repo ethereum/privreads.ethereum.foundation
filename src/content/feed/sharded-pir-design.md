@@ -39,8 +39,8 @@ The architecture abstracts over the underlying PIR scheme. We are actively build
 
 - **LeanPIR** (in-house, unpublished) — a doubly-stateless, GPU-optimized scheme with <100 KB communication for multi-GB databases and sub-second preprocessing. Our primary candidate for hot mutable state where both client and server must remain stateless to avoid session linkability.
 - [**VIA**](https://github.com/turanzv/via-spec) — a lattice-based scheme with reusable primitives, being specified and implemented across three variants (VIA, VIA-B, VIA-CB) via a [PAP microgrant](https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2).
-- [**OnionPIRv2**](https://eprint.iacr.org/2023/1510) — an FHE-native single-server scheme with strong performance characteristics for medium-sized databases.
-- [**Harmony**](https://eprint.iacr.org/2023/1733) / [**RMS24**](https://github.com/keewoolee/rms24) — preprocessing-based schemes well-suited to immutable or slowly-changing data slices where one-time hint generation cost is amortized over many queries.
+- [**OnionPIRv2**](https://eprint.iacr.org/2025/1142) — an FHE-native single-server scheme with strong performance characteristics for medium-sized databases.
+- [**Harmony**](https://eprint.iacr.org/2026/437) / [**RMS24**](https://github.com/keewoolee/rms24-plinko-spec) — preprocessing-based schemes well-suited to immutable or slowly-changing data slices where one-time hint generation cost is amortized over many queries.
 
 This scheme-agnostic interface means the system improves as the field advances — new PIR constructions can be swapped in without changing the client or the API surface.
 

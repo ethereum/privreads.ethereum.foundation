@@ -29,7 +29,7 @@ tags: ["pir", "torjs", "ubt"]
 - Four Ethereum data slices defined: hot mutable state (~2 GB), state with proofs (~100–300 GB), immutable logs/receipts (hundreds of GB), archival (4–20 TB)
 - VIA scheme implementation started via PAP grant; Turan identified VIA as most promising for the initial slices
 - [Benchmarking](https://0xalizk.github.io/PIR-Eng-Notes/) continuing — ranking schemes by speed with focus on the top 5 most promising candidates
-- Convergence on [ReSPIRe](https://eprint.iacr.org/2024/1605) family for minimizing preprocessing costs
+- Convergence on [ReSPIRe](https://eprint.iacr.org/2024/1165) family for minimizing preprocessing costs
 - Explored FHE-based PIR collaboration for GPU-accelerated approaches with external teams
 
 ### [TorJS / Embedded Arti](/workstreams/torjs)
