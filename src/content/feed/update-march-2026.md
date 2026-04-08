@@ -9,11 +9,11 @@ tags: ["pir", "torjs", "ubt"]
 
 ## Highlights
 
-- **New PIR scheme: LeanPIR.** Keewoo designed a new GPU-friendly scheme that outperforms [insPIRe](https://igor53627.github.io/inspire-rs/protocol-visualization.html) across all dimensions: ~30 ms server runtime for a 32 GB database, sub-second preprocessing (down from ~10 s), and <100 KB communication. It supersedes the earlier insPIRe GPU work and is being integrated into our Ethereum balance retrieval demo.
+- **New PIR scheme: LeanPIR.** Keewoo is working on a new GPU-friendly scheme that could outperform [insPIRe](https://igor53627.github.io/inspire-rs/protocol-visualization.html) across all dimensions: ~30 ms server runtime for a 32 GB database, sub-second preprocessing (down from ~10 s), and <100 KB communication. It supersedes the earlier insPIRe GPU work and is being integrated into our Ethereum balance retrieval demo.
 
 - **VIA spec approaching v1.** Turan's [VIA spec](https://github.com/turanzv/via-spec) implementation is progressing well, covering VIA, VIA-B, and VIA-CB variants with reusable lattice primitives. The `/primitives` module is designed to be shared across all [ReSPIRe](https://eprint.iacr.org/2024/1605)-esque implementations.
 
-- **Arti bootstrapping breakthrough.** A Brotli-compressed ~3 MB bundle now replaces fetching thousands of micro-descriptors — a fundamentally different and much faster approach than the standard Tor bootstrap method. Working demo at [tor-js-gateway.voltrevo.com](https://tor-js-gateway.voltrevo.com/), docs at [voltrevo.github.io/arti](https://voltrevo.github.io/arti/).
+- **Arti bootstrapping overhaul.** A Brotli-compressed ~3 MB bundle now replaces fetching thousands of micro-descriptors — a fundamentally different and much faster approach than the standard Tor bootstrap method (albeit with that one-time fetch itself not onion-routed). Working demo at [tor-js-gateway.voltrevo.com](https://tor-js-gateway.voltrevo.com/), docs at [voltrevo.github.io/arti](https://voltrevo.github.io/arti/).
 
 - **Ethrex collaboration for UBT.** Kicked off a collaboration with [Ethrex](https://github.com/lambdaclass/ethrex) for client diversity on the UBT front, complementing ongoing work with Geth's Stateless team.
 
@@ -23,7 +23,7 @@ tags: ["pir", "torjs", "ubt"]
 
 ### [PIR for the Ethereum State](/workstreams/pir)
 
-- LeanPIR scheme designed — ~30 ms for 32 GB, sub-second preprocessing, <100 KB communication
+- LeanPIR, new PIR scheme— ~30 ms for 32 GB, sub-second preprocessing, <100 KB communication
 - [Harmony](https://eprint.iacr.org/2023/1733) integrated into the PIR [benchmarks](https://0xalizk.github.io/PIR-Eng-Notes/)
 - VIA spec v1 nearing completion via [PAP-2.1](https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2) grant
 - PIR demo built: sidecar pattern with GPU-accelerated insPIRe for real-time ETH balance queries (cold start data from Google BigQuery, 100–300 account updates simulated per block)
