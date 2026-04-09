@@ -8,7 +8,9 @@ const entries = (await getCollection('feed'))
   .filter((e) => !e.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const types = [...new Set(entries.map((e) => e.data.type))].sort();
+const typeOrder = ['Research', 'Engineering', 'Monthly Update', 'Announcement', 'Talk', 'Update'];
+const presentTypes = new Set(entries.map((e) => e.data.type));
+const types = typeOrder.filter((t) => presentTypes.has(t));
 ---
 
 <Base title="Feed" description="Research, engineering notes, talks, and updates from the Private Reads team.">
