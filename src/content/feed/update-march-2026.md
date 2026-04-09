@@ -47,7 +47,7 @@ tags: ["pir", "torjs", "ubt"]
 
 ## Looking Ahead to Q2
 
-Q2 plan is being finalized (March 31). Key themes:
+[Q2 plan](https://www.notion.so/efdn/Roadmaps-ca8d989555418381ae430193d009cec0?source=copy_link#7edd98955541833b831201acc41edb79) is being finalized (March 31). Key themes:
 
 1. **PIR productionization** — sharded design with LeanPIR, VIA, Harmony, OnionV2 as potential initial engines; GPU acceleration collaborations
 2. **Arti integrations** — Ethereum-sandboxed anonymous network, WebRTC transport, wallet SDK integrations
