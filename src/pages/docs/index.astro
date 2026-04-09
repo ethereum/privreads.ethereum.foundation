@@ -10,14 +10,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <h1>Docs</h1>
       <div class="docs-grid">
         <a href={`${base}/docs/torjs`} class="doc-tile">
-          <div class="doc-tile-icon" style="font-size: 1.75rem;">&#127819;</div>
-          <h2>Onion Routing with TorJS</h2>
-          <p>Integrate onion routing in your wallet, SDK, frontend, or dApp.</p>
+          <h2><span class="doc-tile-icon">&#127819;</span> Onion Routing with TorJS</h2>
+          <p>Integrate onion routing in your wallet, SDK, frontend, or dApp; no user-side configuration or installation required.</p>
           <span class="doc-tile-link">Read docs &rarr;</span>
         </a>
         <a href={`${base}/docs/pir-benchmarks`} class="doc-tile">
-          <div class="doc-tile-icon" style="font-size: 1.75rem;">&#127822;</div>
-          <h2>PIR Benchmarking</h2>
+          <h2><span class="doc-tile-icon">&#127827;</span> PIR Benchmarking</h2>
           <p>Comparative benchmarks of PIR schemes based on data reported, replicated by us, and independently bench'd using unified test vectors.</p>
           <span class="doc-tile-link">View benchmarks &rarr;</span>
         </a>
@@ -64,8 +62,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     transform: translateY(-2px);
   }
   .doc-tile-icon {
-    color: var(--purple);
-    margin-bottom: 0.25rem;
+    font-size: 1.3rem;
   }
   .doc-tile h2 {
     font-size: 1.3rem;
