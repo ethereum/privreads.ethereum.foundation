@@ -2712,7 +2712,7 @@
           <div
             id="radar-rms24"
             class="reveal reveal-d1"
-            style="width: 100%; height: 150px"
+            style="width: 100%; height: 180px; overflow: visible"
           ></div>
         </div>
         <div style="flex: 1; min-width: 0; text-align: center">
@@ -2730,7 +2730,7 @@
           <div
             id="radar-via"
             class="reveal reveal-d1"
-            style="width: 100%; height: 150px"
+            style="width: 100%; height: 180px; overflow: visible"
           ></div>
         </div>
         <div style="flex: 1; min-width: 0; text-align: center">
@@ -2748,7 +2748,7 @@
           <div
             id="radar-harmony"
             class="reveal reveal-d1"
-            style="width: 100%; height: 150px"
+            style="width: 100%; height: 180px; overflow: visible"
           ></div>
         </div>
       </div>
@@ -4401,7 +4401,7 @@
       }
 
       function renderSlide7Radars() {
-        var theta = ["Comm", "Server", "Client", "Storage", "Preproc", "Comm"];
+        var theta = ["Comm", "Svr", "Cli", "Stor", "Prep", "Comm"];
         var schemes = [
           {
             id: "radar-rms24",
@@ -4443,13 +4443,13 @@
                 linecolor: "#edf0f4",
                 tickfont: {
                   color: "#b0b0be",
-                  size: 14,
+                  size: 8,
                   family: "Inter, sans-serif",
                 },
               },
               angularaxis: {
                 tickfont: {
-                  size: 16,
+                  size: 9,
                   color: "#4a4a5a",
                   family: "Inter, sans-serif",
                 },
@@ -4459,23 +4459,29 @@
               bgcolor: "rgba(0,0,0,0)",
             },
             paper_bgcolor: "rgba(0,0,0,0)",
-            font: { color: "#1e1e2e", family: "Inter, sans-serif", size: 14 },
+            font: { color: "#1e1e2e", family: "Inter, sans-serif", size: 9 },
             showlegend: false,
-            margin: { t: 0, r: 0, b: 0, l: 0 },
-            height: 150,
+            margin: { t: 10, r: 10, b: 10, l: 10 },
+            height: 180,
           };
           Plotly.newPlot(s.id, [trace], layout, {
             displayModeBar: false,
             staticPlot: true,
           }).then(function () {
-            // Force all Plotly-generated elements to be transparent
+            // Force all Plotly-generated elements to be transparent and unclipped
             var el = document.getElementById(s.id);
             el.querySelectorAll(".main-svg, .svg-container").forEach(
               function (node) {
                 node.style.background = "transparent";
+                node.style.overflow = "visible";
               },
             );
             el.style.background = "transparent";
+            el.style.overflow = "visible";
+            // Remove clip-path from plot area so labels aren't cut
+            el.querySelectorAll("[clip-path]").forEach(function(node) {
+              node.removeAttribute("clip-path");
+            });
           });
         });
       }

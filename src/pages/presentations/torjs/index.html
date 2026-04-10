@@ -570,12 +570,18 @@
             html { scroll-snap-type: y proximity; }
             /* Reduce title top margin */
             .slide-title { margin-top: clamp(0.5rem, 2vh, 1rem) !important; }
+            /* Slide 0: shrink QR code */
+            [data-slide="0"] > div[style*="position:absolute"] img { width: 50px !important; }
+            [data-slide="0"] > div[style*="position:absolute"] div { font-size: 0.65rem !important; }
+            /* Slide 1: remove negative margin on bottom text */
+            [data-slide="1"] .body-text[style*="margin-top"] { margin-top: 0 !important; }
             /* SVGs: edge-to-edge, remove max-height */
             .slide-content svg {
                 max-height: none !important;
                 max-width: 100vw !important;
             }
             .slide-content > div[style*="flex:1"] {
+                flex: none !important;
                 margin-left: clamp(-1.5rem, -4vw, -4rem);
                 margin-right: clamp(-1.5rem, -4vw, -4rem);
             }
