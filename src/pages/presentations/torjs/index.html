@@ -209,18 +209,6 @@
         @media (max-height: 600px) {
             .nav-dots { display: none; }
         }
-        @media (max-width: 480px) {
-            .nav-dots { display: none; }
-            .slide { overflow-y: auto; }
-            html { scroll-snap-type: y proximity; }
-            .timeline { flex-direction: column; align-items: center; }
-            .timeline-arrow { transform: rotate(90deg); }
-            .blocker-list { gap: clamp(0.5rem, 1.5vh, 0.8rem); }
-            .blocker-list li { font-size: clamp(0.85rem, 1.3vw, 1rem); }
-            .caveat-list { gap: clamp(0.4rem, 1vh, 0.6rem); }
-            .caveat-text { font-size: clamp(0.8rem, 1.1vw, 0.95rem); }
-            .fix-cards { flex-direction: column; }
-        }
         .back-link {
             position: fixed;
             top: clamp(0.5rem, 1.2vh, 0.8rem);
@@ -573,6 +561,40 @@
             text-decoration: none;
         }
 
+        /* =========================================
+           MOBILE
+           ========================================= */
+        @media (max-width: 640px) {
+            .nav-dots { display: none; }
+            .slide { overflow-y: auto; }
+            html { scroll-snap-type: y proximity; }
+            /* Reduce title top margin */
+            .slide-title { margin-top: clamp(0.5rem, 2vh, 1rem) !important; }
+            /* SVGs: edge-to-edge, remove max-height */
+            .slide-content svg {
+                max-height: none !important;
+                max-width: 100vw !important;
+            }
+            .slide-content > div[style*="flex:1"] {
+                margin-left: clamp(-1.5rem, -4vw, -4rem);
+                margin-right: clamp(-1.5rem, -4vw, -4rem);
+            }
+            .stack-container {
+                margin-left: clamp(-1.5rem, -4vw, -4rem);
+                margin-right: clamp(-1.5rem, -4vw, -4rem);
+            }
+            /* Timeline */
+            .timeline { flex-direction: column; align-items: center; }
+            .timeline-arrow { transform: rotate(90deg); }
+            /* Lists */
+            .blocker-list { gap: clamp(0.5rem, 1.5vh, 0.8rem); }
+            .blocker-list li { font-size: clamp(0.85rem, 1.3vw, 1rem); }
+            .caveat-list { gap: clamp(0.4rem, 1vh, 0.6rem); }
+            .caveat-text { font-size: clamp(0.8rem, 1.1vw, 0.95rem); }
+            /* Cards */
+            .fix-cards { flex-direction: column; }
+            .status-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
