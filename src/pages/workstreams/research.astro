@@ -8,14 +8,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <section class="section hero">
     <div class="container">
       <h1>Research</h1>
-      <p class="hero-subtitle">
-        Problems we're looking into but haven't been fleshed out fully.
-      </p>
     </div>
   </section>
 
   <section class="section" style="padding-top: 0;">
     <div class="container prose">
+
+      <h2>Sharded PIR Design for the Ethereum State</h2>
+      <p>
+        The overarching research effort: a <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">design</a>
+        that segments Ethereum state into data slices, each served by a PIR engine tuned for its size and access
+        profile. See the <a href="https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552">ethresear.ch post</a>
+        for the full treatment. The current focus (2/3Q26) is on fleshing out the design and releasing it with &ge;2 inaugural schemes.
+      </p>
 
       <h2>LeanPIR: Novel Double-Stateless GPU-Optimized Scheme</h2>
       <p>
