@@ -802,7 +802,7 @@
       }
       .s0-meta {
         font-family: var(--font-body);
-        font-size: clamp(1.7rem, 2.4vw, 2.1rem);
+        font-size: clamp(1.4rem, 2vw, 1.75rem);
         color: var(--text-muted);
         margin-top: clamp(0.5rem, 1.5vh, 1rem);
         line-height: 1.3;
@@ -941,26 +941,28 @@
           z-index: 10;
         "
       >
-        <img
-          src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://privreads.ethereum.foundation&color=4f46e5&bgcolor=ffffff"
-          alt="QR: privreads.ethereum.foundation"
-          style="
-            width: clamp(80px, 10vw, 120px);
-            height: auto;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-          "
-        />
-        <div
-          style="
-            font-family: var(--font-body);
-            font-size: clamp(1rem, 1.4vw, 1.2rem);
-            color: var(--text-muted);
-            margin-top: 6px;
-          "
-        >
-          privreads.ethereum.foundation
-        </div>
+        <a href="https://privreads.ethereum.foundation" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://privreads.ethereum.foundation&color=4f46e5&bgcolor=ffffff"
+            alt="QR: privreads.ethereum.foundation"
+            style="
+              width: clamp(80px, 10vw, 120px);
+              height: auto;
+              border-radius: 6px;
+              border: 1px solid var(--border);
+            "
+          />
+          <div
+            style="
+              font-family: var(--font-body);
+              font-size: clamp(1rem, 1.4vw, 1.2rem);
+              color: var(--text-muted);
+              margin-top: 6px;
+            "
+          >
+            privreads.ethereum.foundation
+          </div>
+        </a>
       </div>
     </section>
 
@@ -4001,17 +4003,19 @@
             >
               Learn <span class="accent">More:</span>
             </h1>
-            <img
-              src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552&color=4f46e5&bgcolor=ffffff"
-              alt="QR: ethresear.ch post"
-              style="
-                height: clamp(200px, 30vh, 340px);
-                width: auto;
-                border-radius: 10px;
-                border: 2px solid var(--border);
-                object-fit: contain;
-              "
-            />
+            <a href="https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552" target="_blank" rel="noopener noreferrer">
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552&color=4f46e5&bgcolor=ffffff"
+                alt="QR: ethresear.ch post"
+                style="
+                  height: clamp(200px, 30vh, 340px);
+                  width: auto;
+                  border-radius: 10px;
+                  border: 2px solid var(--border);
+                  object-fit: contain;
+                "
+              />
+            </a>
             <a
               href="https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552"
               target="_blank"
