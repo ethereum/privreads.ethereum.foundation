@@ -209,6 +209,18 @@
         @media (max-height: 600px) {
             .nav-dots { display: none; }
         }
+        @media (max-width: 480px) {
+            .nav-dots { display: none; }
+            .slide { overflow-y: auto; }
+            html { scroll-snap-type: y proximity; }
+            .timeline { flex-direction: column; align-items: center; }
+            .timeline-arrow { transform: rotate(90deg); }
+            .blocker-list { gap: clamp(0.5rem, 1.5vh, 0.8rem); }
+            .blocker-list li { font-size: clamp(0.85rem, 1.3vw, 1rem); }
+            .caveat-list { gap: clamp(0.4rem, 1vh, 0.6rem); }
+            .caveat-text { font-size: clamp(0.8rem, 1.1vw, 0.95rem); }
+            .fix-cards { flex-direction: column; }
+        }
         .back-link {
             position: fixed;
             top: clamp(0.5rem, 1.2vh, 0.8rem);
@@ -1166,7 +1178,7 @@
     <div class="slide-content learn-more-content">
         <div class="reveal" style="font-family:var(--font-display); font-size:clamp(2.2rem, 4.5vw, 3.5rem); font-weight:700; color:var(--text-muted);">Thanks</div>
         <h2 class="reveal reveal-d1" style="font-family:var(--font-display); font-size:clamp(1.2rem, 2vw, 1.6rem); font-weight:600; color:var(--accent); margin:0;">Learn More</h2>
-        <div class="reveal reveal-d1" style="display:flex; gap:clamp(2rem, 5vw, 4rem); justify-content:center; align-items:flex-start;">
+        <div class="reveal reveal-d1" style="display:flex; gap:clamp(1rem, 5vw, 4rem); justify-content:center; align-items:flex-start; flex-wrap:wrap;">
             <div style="text-align:center;">
                 <a href="https://privreads.ethereum.foundation/feed/embedding-arti-in-the-browser" target="_blank" rel="noopener noreferrer">
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://privreads.ethereum.foundation/feed/embedding-arti-in-the-browser&color=7C3AED&bgcolor=ffffff"

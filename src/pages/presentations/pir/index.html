@@ -274,6 +274,33 @@
           display: none;
         }
       }
+      @media (max-width: 480px) {
+        .nav-dots {
+          display: none;
+        }
+        .slide {
+          overflow-y: auto;
+        }
+        html {
+          scroll-snap-type: y proximity;
+        }
+        .s3-cards-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .s10-content {
+          padding-left: clamp(1rem, 4vw, 2rem);
+          padding-right: clamp(1rem, 4vw, 2rem);
+        }
+        .s4-visual-side svg {
+          max-height: 40vh;
+        }
+        .s5-columns {
+          flex-direction: column;
+        }
+        .s7-bottom-text {
+          font-size: clamp(0.8rem, 1.1vw, 1rem);
+        }
+      }
       .back-link {
         position: fixed;
         top: clamp(0.5rem, 1.2vh, 0.8rem);
@@ -3987,6 +4014,8 @@
             display: flex;
             align-items: flex-start;
             gap: clamp(1.5rem, 4vw, 3rem);
+            flex-wrap: wrap;
+            justify-content: center;
           "
         >
           <div
@@ -4043,7 +4072,8 @@
                 src="/presentations/pir/screenshot.png"
                 alt="Sharded PIR Design for the Ethereum State"
                 style="
-                  width: clamp(300px, 42vw, 580px);
+                  width: clamp(200px, 42vw, 580px);
+                  max-width: 90vw;
                   height: auto;
                   border-radius: 10px;
                   border: 1px solid var(--border);
