@@ -274,7 +274,7 @@
           display: none;
         }
       }
-      @media (max-width: 480px) {
+      @media (max-width: 640px) {
         .nav-dots {
           display: none;
         }
@@ -284,21 +284,46 @@
         html {
           scroll-snap-type: y proximity;
         }
+        /* Slide 1: constrain SVG width */
+        .s1-visual-row {
+          flex-direction: column;
+        }
+        .s1-visual-row svg {
+          height: auto;
+          width: 100%;
+          max-height: 50vh;
+        }
+        /* Slide 3: 2-col grid, remove forced grid-row */
         .s3-cards-row {
           grid-template-columns: repeat(2, 1fr);
         }
+        .s3-card {
+          grid-row: auto;
+        }
+        .s3-bottom {
+          grid-column: 1 / -1;
+        }
+        /* Slide 4 */
+        .s4-visual-side svg {
+          max-height: 40vh;
+        }
+        /* Slide 5 */
+        .s5-columns {
+          flex-direction: column;
+        }
+        /* Slide 7 */
+        .s7-bottom-text {
+          font-size: clamp(0.8rem, 1.1vw, 1rem);
+        }
+        /* Slide 10 */
         .s10-content {
           padding-left: clamp(1rem, 4vw, 2rem);
           padding-right: clamp(1rem, 4vw, 2rem);
         }
-        .s4-visual-side svg {
-          max-height: 40vh;
-        }
-        .s5-columns {
-          flex-direction: column;
-        }
-        .s7-bottom-text {
-          font-size: clamp(0.8rem, 1.1vw, 1rem);
+        /* Slide 11: make Thanks flow instead of absolute */
+        .s11-thanks {
+          position: static !important;
+          bottom: auto !important;
         }
       }
       .back-link {
@@ -4037,7 +4062,7 @@
                 src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https://ethresear.ch/t/sharded-pir-design-for-the-ethereum-state/24552&color=4f46e5&bgcolor=ffffff"
                 alt="QR: ethresear.ch post"
                 style="
-                  height: clamp(200px, 30vh, 340px);
+                  height: clamp(120px, 25vh, 340px);
                   width: auto;
                   border-radius: 10px;
                   border: 2px solid var(--border);
@@ -4062,7 +4087,7 @@
             style="
               display: flex;
               align-items: center;
-              height: clamp(250px, 35vh, 400px);
+              height: clamp(150px, 30vh, 400px);
             "
           >
             <a
@@ -4084,7 +4109,7 @@
         </div>
 
         <div
-          class="reveal reveal-d2"
+          class="reveal reveal-d2 s11-thanks"
           style="
             position: absolute;
             bottom: clamp(8rem, 16vh, 12rem);
