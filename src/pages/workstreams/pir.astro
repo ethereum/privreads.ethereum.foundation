@@ -9,8 +9,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="container">
       <h1>Private Information Retrieval for Ethereum State</h1>
       <p class="hero-subtitle">
-        Cryptographic protocols that let clients query Ethereum data without revealing
-        what they are reading.
+        Cryptographic protocols that let users query Ethereum data from remote servers without revealing
+        what it is they are reading.
       </p>
     </div>
   </section>
@@ -21,25 +21,24 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <p>
         Every time a wallet checks a balance, verifies a transaction receipt, or reads
         contract storage from a remote server, the server learns exactly which records
-        were accessed. This <strong>metadata leakage</strong> from read patterns enables
+        were accessed. This <strong>leakage</strong> from read patterns enables
         <a href="https://ethereum.org/en/developers/docs/mev/">MEV extraction</a>,
         frontrunning, identity correlation, and surveillance. Even with encrypted
-        connections, the <em>pattern</em> of accesses reveals user intent.
+        connections, the <em>pattern</em> of accesses reveals a lot about the user.
       </p>
 
-      <h2>The Solution: Sharded PIR</h2>
+      <h2>Approach: Sharded PIR</h2>
       <p>
         The <a href="https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view">sharded PIR design</a>
-        segments Ethereum state into data slices — accounts, storage slots, contract code,
-        transaction receipts — and serves each slice through a cryptographic PIR engine
+        segments Ethereum state into data slices and serves each slice through a PIR engine
         tuned for its size and access profile. The server processes encrypted queries and
         returns encrypted responses, never learning which record was requested.
       </p>
 
       <h2>Data Slices</h2>
       <p>
-        No single PIR scheme handles all of Ethereum's data well. The design segments the state
-        into slices, each paired with a PIR engine tuned for its size and access profile:
+        No single PIR scheme can handle all of Ethereum's data while meeting the latency and client/server overhead requirements in different contexts. The design segments the state
+        into slices, each paired with a PIR engine tuned for its size, access profile, and likely context of consumption:
       </p>
       <ul>
         <li><strong>Hot mutable state</strong> (1–10 GB) — balances, nonces, contract storage. Latency-critical, updates every block. Requires doubly-stateless schemes (no persistent client or server state) to avoid session linkability.</li>
@@ -61,14 +60,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           The primary engine candidate for hot mutable state.
         </li>
         <li>
-          <a href="https://github.com/turanzv/via-spec">VIA</a> —
-          A lattice-based scheme being <a href="https://efdn.notion.site/PAPs-0cbd98955541825296e201936c5361f2">specified and implemented</a>
-          with reusable primitives across VIA, VIA-B, and VIA-CB variants.
+          <a href="https://eprint.iacr.org/2025/2074">VIA</a> —
+          A lattice-based scheme being <a href="https://efdn.notion.site/PAP-2-Oblivious-Schemes-for-Ethereum-Data-515d98955541823e932081e21671e172">specified and implemented</a>
+          with <a href="https://github.com/turanzv/via-spec">reusable primitives</a> across VIA, VIA-B, and VIA-CB variants.
         </li>
         <li>
           <a href="https://eprint.iacr.org/2025/1142">OnionPIRv2</a> —
           An FHE-native single-server scheme with strong performance characteristics
           for medium-sized databases.
+        </li>
+        <li>
+          <a href="https://eprint.iacr.org/2025/1352">insPIRe</a> —
+          A preprocessing-based single-server scheme with GPU acceleration support (that we are exploring with a potential collaborator).
+          Well-suited for moderately sized databases where preprocessing can be amortized;
+          requires reprocessing on each database update.
         </li>
         <li>
           <a href="https://eprint.iacr.org/2026/437">Harmony</a> /

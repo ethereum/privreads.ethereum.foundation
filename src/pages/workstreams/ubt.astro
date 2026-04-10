@@ -42,7 +42,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
       <h2>The Approach</h2>
       <p>
-        We run a modified Ethereum execution layer (EL) client whose state representation
+        We want to run a modified Ethereum execution layer (EL) client whose state representation
         is a <a href="https://eips.ethereum.org/EIPS/eip-7864">binary trie conforming to EIP-7864</a>,
         instead of the canonical MPT. This client syncs to the Ethereum blockchain block by
         block, applying the same transactions as mainnet — but writing state updates into the
