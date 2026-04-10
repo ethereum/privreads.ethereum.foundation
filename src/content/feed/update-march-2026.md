@@ -51,5 +51,5 @@ tags: ["pir", "torjs", "ubt"]
 
 1. **PIR productionization** — sharded design with LeanPIR, VIA, Harmony, OnionV2 as potential initial engines; GPU acceleration collaborations
 2. **Arti integrations** — Ethereum-sandboxed anonymous network, WebRTC transport, wallet SDK integrations
-3. **UBT shadow chain** — running provably MPT-equivalent shadow chain
+3. **UBT shadow chain** — running provably MPT-equivalent shadow chain, overcoming ubt-mpt [conversion](https://github.com/ethereum/go-ethereum/commit/58557cb4635d4e6f3e49fcdc82a6469554e929a6) performance blocker in Geth and accelerating [Ethrex route](https://github.com/lambdaclass/ethrex/pull/6380)
 4. Continuing some collaborations, and pushing some new ones forward (PIR academia, GPU researchers/practitioners)
