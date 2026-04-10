@@ -13,7 +13,7 @@ tags: ["pir", "torjs", "ubt"]
 
 - **New PIR scheme: LeanPIR.** Keewoo is working on a new GPU-friendly scheme that could outperform [insPIRe](https://igor53627.github.io/inspire-rs/protocol-visualization.html) across all dimensions: ~30 ms server runtime for a 32 GB database, sub-second preprocessing (down from ~10 s), and <100 KB communication. It supersedes the earlier insPIRe GPU work and is being integrated into our Ethereum balance retrieval demo.
 
-- **VIA spec approaching v1.** Turan's [VIA spec](https://github.com/turanzv/via-spec) implementation is progressing well, covering VIA, VIA-B, and VIA-CB variants with reusable lattice primitives. The `/primitives` module is designed to be shared across all [ReSPIRe](https://eprint.iacr.org/2024/1165)-esque implementations.
+- **VIA spec approaching v1.** Turan's [VIA spec](https://github.com/turanzv/via-spec) implementation is progressing, covering VIA, VIA-B, and VIA-CB variants with reusable lattice primitives. The `/primitives` module is designed to be shared across all [ReSPIRe](https://eprint.iacr.org/2024/1165)-esque implementations.
 
 - **Arti bootstrapping overhaul.** A Brotli-compressed ~3 MB bundle now replaces fetching thousands of micro-descriptors — a fundamentally different and much faster approach than the standard Tor bootstrap method (albeit with that one-time fetch itself not onion-routed). Working demo at [tor-js-gateway.voltrevo.com](https://tor-js-gateway.voltrevo.com/), docs at [voltrevo.github.io/arti](https://voltrevo.github.io/arti/).
 
@@ -27,9 +27,9 @@ tags: ["pir", "torjs", "ubt"]
 
 - [Design post](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view) receiving feedback, targeting publication before April 1
 - LeanPIR, new PIR scheme— ~30 ms for 32 GB, sub-second preprocessing, <100 KB communication
-- [Harmony](https://eprint.iacr.org/2026/437) integrated into the PIR [benchmarks](https://0xalizk.github.io/PIR-Eng-Notes/)
+- [Harmony](https://eprint.iacr.org/2026/437) integrated into the PIR [benchmarks](https://0xalizk.github.io/PIR-Eng-Notes/), h/t [Ling Ren](https://sites.google.com/view/renling) for sharing it
 - VIA spec v1 nearing completion
-- PIR demo built: sidecar pattern with GPU-accelerated insPIRe for real-time ETH balance queries (cold start data from Google BigQuery, 100–300 account updates simulated per block)
+- Internal PIR demo: sidecar pattern with GPU-accelerated insPIRe for real-time ETH balance queries (cold start data from Google BigQuery, 100–300 account updates simulated per block)
 - Sync with [Ling Ren](https://ece.illinois.edu/about/directory/faculty/renling) and group: agreement that doubly-stateless PIR is the right priority and that pre-processed schemes best reserved for immutable archival data, we sniped them into VIA they sniped us into HarmonyPIR
 
 ### [TorJS / Embedded Arti](/workstreams/torjs)
