@@ -274,58 +274,6 @@
           display: none;
         }
       }
-      @media (max-width: 640px) {
-        .nav-dots {
-          display: none;
-        }
-        .slide {
-          overflow-y: auto;
-        }
-        html {
-          scroll-snap-type: y proximity;
-        }
-        /* Slide 1: constrain SVG width */
-        .s1-visual-row {
-          flex-direction: column;
-        }
-        .s1-visual-row svg {
-          height: auto;
-          width: 100%;
-          max-height: 50vh;
-        }
-        /* Slide 3: 2-col grid, remove forced grid-row */
-        .s3-cards-row {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .s3-card {
-          grid-row: auto;
-        }
-        .s3-bottom {
-          grid-column: 1 / -1;
-        }
-        /* Slide 4 */
-        .s4-visual-side svg {
-          max-height: 40vh;
-        }
-        /* Slide 5 */
-        .s5-columns {
-          flex-direction: column;
-        }
-        /* Slide 7 */
-        .s7-bottom-text {
-          font-size: clamp(0.8rem, 1.1vw, 1rem);
-        }
-        /* Slide 10 */
-        .s10-content {
-          padding-left: clamp(1rem, 4vw, 2rem);
-          padding-right: clamp(1rem, 4vw, 2rem);
-        }
-        /* Slide 11: make Thanks flow instead of absolute */
-        .s11-thanks {
-          position: static !important;
-          bottom: auto !important;
-        }
-      }
       .back-link {
         position: fixed;
         top: clamp(0.5rem, 1.2vh, 0.8rem);
@@ -946,6 +894,63 @@
         max-width: 950px;
         height: auto;
         max-height: min(62vh, 480px);
+      }
+      /* =========================================
+           MOBILE
+           ========================================= */
+      @media (max-width: 640px) {
+        .nav-dots {
+          display: none;
+        }
+        .slide {
+          overflow-y: auto;
+        }
+        html {
+          scroll-snap-type: y proximity;
+        }
+        /* Slide 1 */
+        .s1-visual-row {
+          margin-left: clamp(-1.5rem, -4vw, -4rem);
+          margin-right: clamp(-1.5rem, -4vw, -4rem);
+        }
+        .s1-visual-row svg {
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          flex: none;
+        }
+        /* Slide 3 */
+        .s3-cards-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .s3-card {
+          grid-row: auto;
+        }
+        .s3-bottom {
+          grid-column: 1 / -1;
+        }
+        /* Slide 4 */
+        .s4-visual-side svg {
+          max-height: 40vh;
+        }
+        /* Slide 5 */
+        .s5-columns {
+          flex-direction: column;
+        }
+        /* Slide 7 */
+        .s7-bottom-text {
+          font-size: clamp(0.8rem, 1.1vw, 1rem);
+        }
+        /* Slide 10 */
+        .s10-content {
+          padding-left: clamp(1rem, 4vw, 2rem);
+          padding-right: clamp(1rem, 4vw, 2rem);
+        }
+        /* Slide 11 */
+        .s11-thanks {
+          position: static !important;
+          bottom: auto !important;
+        }
       }
     </style>
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
@@ -1618,7 +1623,7 @@
               Light Clients
             </text>
             <!-- LEGEND -->
-            <g transform="translate(-200, 420)">
+            <g transform="translate(-70, 420)">
               <circle cx="10" cy="0" r="8" fill="#4f46e5" opacity="0.8" />
               <text
                 x="28"
