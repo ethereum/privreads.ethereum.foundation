@@ -107,8 +107,8 @@ console.log(await response.json()); // { IsTor: true, IP: "..." }`} /></pre>
           <div class="arch-arrow">&darr;</div>
           <div class="arch-layer">
             <span class="arch-label">ArtiSocketProvider</span>
-            <strong>Browser:</strong> WebRTC &rarr; Gateway &rarr; Guard &nbsp;&nbsp;
-            <strong>Node.js:</strong> TCP &rarr; Guard
+            <span class="arch-env"><strong>Browser:</strong> WebRTC &rarr; Gateway &rarr; Guard</span>
+            <span class="arch-env"><strong>Node.js:</strong> TCP &rarr; Guard</span>
           </div>
           <div class="arch-arrow">&darr;</div>
           <div class="arch-layer arch-layer--highlight">
@@ -456,6 +456,9 @@ client.close();`} /></pre>
   .doc-content {
     padding: 2rem 2.5rem 4rem;
     max-width: 780px;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
   .doc-content section {
     margin-bottom: 2.5rem;
@@ -498,7 +501,8 @@ client.close();`} /></pre>
     font-size: 0.82rem;
     margin-bottom: 0.15rem;
   }
-  .arch-layer code { font-size: 0.8rem; }
+  .arch-layer code { font-size: 0.8rem; word-break: break-all; }
+  .arch-env { display: inline-block; margin-right: 0.5rem; }
   .arch-layer small { color: var(--text-dim); font-style: italic; }
   .arch-arrow {
     color: var(--text-dim);
@@ -545,7 +549,7 @@ client.close();`} /></pre>
   }
   td code { font-size: 0.8rem; }
   @media (max-width: 640px) {
-    table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
   }
 
   /* Sections scroll margin */
@@ -577,7 +581,14 @@ client.close();`} /></pre>
       display: flex;
     }
     .doc-content {
-      padding: 1.5rem;
+      padding: 1.5rem 1rem;
+    }
+    .arch-layer {
+      font-size: 0.8rem;
+      padding: 0.7rem 0.8rem;
+    }
+    .callout {
+      padding: 0.75rem 1rem;
     }
   }
 </style>
