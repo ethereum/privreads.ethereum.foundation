@@ -44,12 +44,12 @@ The architecture abstracts over the underlying PIR scheme. We are actively build
 
 This scheme-agnostic interface means the system improves as the field advances — new PIR constructions can be swapped in without changing the client or the API surface.
 
-## What's Next
+## What's Next Q2/3
 
 We are now moving from design to implementation. In the near term:
 
 - Flesh out the sharded design architecture — the software engineering side of things
 - Finish our in-house scheme and decide on which 2+ schemes to choose for the first iteration of the sharded design
-- Hopefully we can make it in Q2: end-to-end testing of the sharded design with at least one integration (most likely an Ethereum SDK such as [ethers.js](https://docs.ethers.org/) or [viem](https://viem.sh/), and one select wallet like [Kohaku](https://github.com/ethereum/kohaku) that integrates with it — if it proves easier we may also go with a light client as the first integration)
+- End-to-end testing of the sharded design with at least one integration (most likely an Ethereum SDK such as [ethers.js](https://docs.ethers.org/) or [viem](https://viem.sh/), and one select wallet like [Kohaku](https://github.com/ethereum/kohaku) that integrates with it — if it proves easier we may also go with a light client as the first integration)
 
 Read the [full design note here](https://notes.ethereum.org/U9xM4VOPR9isPK7lOZJUQg?view).
